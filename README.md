@@ -1,8 +1,9 @@
 Angular Strap Select add-on
 =================
 
-This strap select add-on uses as the name implies the strap select plugin to provide a select dropdown interface. 
-[angular-strap](https://github.com/mgcrea/angular-strap) is used.
+This strap select add-on uses, as the name implies, the strap select plugin to provide a select dropdown interface. 
+
+Specifically [angular-strap](https://github.com/mgcrea/angular-strap) is used.
 
 Features:
 
