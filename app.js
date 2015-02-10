@@ -38,18 +38,16 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
     type: 'object',
     title: 'Select',
     properties: {
-      select: {
-        title: 'Single Select Static',
-        type: 'string',
-        description: 'Only single item is allowed'
-
-      },
-      multiselect: {
-        title: 'Multi Select Static',
-        type: 'array',
-        description: 'Multi single items are allowed(select third for error)'
-
-      },
+        select: {
+            title: 'Single Select Static',
+            type: 'string',
+            description: 'Only single item is allowed'
+        },
+        multiselect: {
+            title: 'Multi Select Static',
+            type: 'array',
+            description: 'Multi single items are allowed(select third for error)'
+        },
         selectdynamic: {
             title: 'Single Select Dynamic',
             type: 'string',
@@ -101,7 +99,7 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "key": "selectdynamic",
        "type": 'strapselectdynamic',
        "options": {
-         "callback": $scope.callBackSD
+            "callback": $scope.callBackSD
        }
      },
      {
