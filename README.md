@@ -64,7 +64,7 @@ The add-on contributes the following new form types, `strapselect`, `strapmultis
 | strapselectdynamic   |strap select dynamically loaded content|
 | strapmultiselectdynamic   |strap multi select dynamically loaded content|
 
-Built-in select-controls gets the bootstrap look but retains their functionality.
+Built-in select-controls gets the bootstrap look but retain their functionality.
 
 
 ## Form Definition
