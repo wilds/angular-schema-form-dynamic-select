@@ -54,13 +54,17 @@ Usage is straight forward, simply include and reference.
 
 ## Form types
 
-The add-on contributes the following new form types, `strapselect`, `strapmultiselect`,`strapselectdynamic`, `strapmultiselectdynamic` and sets a new default
-mapping for select-controls:
+The add-on contributes the following new form types, `strapselect`, `strapmultiselect`,`strapselectdynamic`, `strapmultiselectdynamic`.
 
-| Schema             |   Default Form type  |
+
+| Form type             |   Control  |
 |:-------------------|:------------:|
-| "type": "string" and "format": "strapselect"   |   strapselect   |
-| "type": "array" and "format": "strapselect"   |   strapmultiselect   |
+| strapselect   |strap select static content|
+| strapmultiselect   |strap multi select static content|
+| strapselectdynamic   |strap select dynamically loaded content|
+| strapmultiselectdynamic   |strap multi select dynamically loaded content|
+
+Built-in select-controls gets the bootstrap look but retains their functionality.
 
 
 ## Form Definition
