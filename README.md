@@ -20,7 +20,7 @@ The editor is an add-on to the Bootstrap decorator. To use it, just include
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
-$ bower install nicklasb/schema-form-strapselect
+$ bower install optimalbpm/schema-form-strapselect
 ```
 
 You'll need to load a few additional files to use the editor:
