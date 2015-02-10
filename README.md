@@ -15,8 +15,8 @@ Features:
 
 #Installation
 
-The editor is an add-on to the Bootstrap decorator. To use it, just include
-`schema-form-strapselect.min.js`.
+The editor is an add-on to the Bootstrap decorator. To use it (in production), just include
+`angular-schema-form-strapselect.min.js`.
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
@@ -39,7 +39,7 @@ Example
 <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
 <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-<script src="schema-form-strapselect.js"></script>
+<script src="angular-schema-form-strapselect.js"></script>
 ```
 
 When you create your module, be sure to depend on this project's module as well.

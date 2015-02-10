@@ -27,7 +27,7 @@ gulp.task('minify', function() {
   stream.queue(gulp.src('./src/*.js'));
 
   stream.done()
-        .pipe(concat('bootstrap-strapselect.min.js'))
+        .pipe(concat('angular-schema-form-strapselect.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('.'));
 
@@ -45,7 +45,7 @@ gulp.task('non-minified-dist', function() {
   stream.queue(gulp.src('./src/*.js'));
 
   stream.done()
-        .pipe(concat('bootstrap-strapselect.js'))
+        .pipe(concat('angular-schema-form-strapselect.js'))
         .pipe(gulp.dest('.'));
 
 });
