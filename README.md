@@ -45,7 +45,7 @@ Example
 When you create your module, be sure to depend on this project's module as well.
 
 ```javascript
-angular.module('yourModule', ['schemaForm', 'schemaForm-strapselect']);
+angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
 ```
 
 #Usage
