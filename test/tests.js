@@ -8,13 +8,14 @@ describe('Schema form', function () {
         beforeEach(module('schemaForm'));
         beforeEach(module('mgcrea.ngStrap'));
         beforeEach(
-            //We don't need no sanitation. We don't need no thought control.
+            // We don't need no sanitation. We don't need no thought control.
+            // (nicklasb: I don't totally understand this Floyd reference, so I better leave it in there :-)
             module(function ($sceProvider) {
                 $sceProvider.enabled(false);
             })
         );
 
-
+        // Populate a given scope with test data.
         var assignToScope = function (scope, http) {
 
             scope.callBackSD = function (options) {
@@ -85,10 +86,10 @@ describe('Schema form', function () {
             };
 
             scope.test_response = [
-                          {value: "json-value1", name: "json-name1"},
-                          {value: "json-value2", name: "json-name2"},
-                          {value: "json-value3", name: "json-name3"}
-                ];
+                {value: "json-value1", name: "json-name1"},
+                {value: "json-value2", name: "json-name2"},
+                {value: "json-value3", name: "json-name3"}
+            ];
 
             scope.form = [
                 {
@@ -160,36 +161,54 @@ describe('Schema form', function () {
         it('should load the correct items into each type of select', function () {
             inject(function ($compile, $rootScope, schemaForm, $http, $httpBackend, $timeout, $document) {
                 var scope = $rootScope.$new();
-
+                // Load example data
                 assignToScope(scope, $http);
+
+                // Create a template
                 var tmpl = angular.element('<form sf-schema="schema" sf-form="form" sf-model="model"></form>');
+
+                // Add http mocks
                 $httpBackend.whenGET("test/testdata.json").respond(200, scope.test_response);
                 $httpBackend.whenPOST("test/testdata.json", {"myparam": "Hello"}).respond(200, scope.test_response);
+
+                // Compile the template
                 $compile(tmpl)(scope);
+
+                // Do an update, this triggers all items to be loaded
                 $rootScope.$apply();
+
+                // Attempt to click one of the selects, doesn't work as Karma seem to not work that way
                 tmpl.children().eq(6).children().eq(0).children().eq(1).click();
-                $timeout(function() {
+
+                // Tell the mock to respond to requests
+                $httpBackend.flush();
+
+                // Wait for all getting done before checking.
+                $timeout(function () {
                         // Single Select Dynamic
-                        expect(angular.element(tmpl.children().eq(2).children().eq(0).children().eq(1)).scope().items).to.deep.equal(scope.callBackSD());
+                        expect(angular.element(tmpl.children().eq(2).children().eq(0).children().eq(1)).scope().items).
+                            to.deep.equal(scope.callBackSD());
                         // Multi Select Dynamic
-                        expect(angular.element(tmpl.children().eq(3).children().eq(0).children().eq(1)).scope().items).to.deep.equal(scope.callBackMSD());
+                        expect(angular.element(tmpl.children().eq(3).children().eq(0).children().eq(1)).scope().items).
+                            to.deep.equal(scope.callBackMSD());
                         // Multi Select Dynamic HTTP Post
-                        expect(angular.element(tmpl.children().eq(4).children().eq(0).children().eq(1)).scope().items).to.deep.equal(scope.test_response);
+                        expect(angular.element(tmpl.children().eq(4).children().eq(0).children().eq(1)).scope().items).
+                            to.deep.equal(scope.test_response);
                         // Multi Select Dynamic HTTP Get
-                        expect(angular.element(tmpl.children().eq(5).children().eq(0).children().eq(1)).scope().items).to.deep.equal(scope.test_response);
+                        expect(angular.element(tmpl.children().eq(5).children().eq(0).children().eq(1)).scope().items).
+                            to.deep.equal(scope.test_response);
                         // Multi Select Dynamic Async
-                        expect(angular.element(tmpl.children().eq(6).children().eq(0).children().eq(1)).scope().items).to.deep.equal(scope.test_response);
+                        expect(angular.element(tmpl.children().eq(6).children().eq(0).children().eq(1)).scope().items).
+                            to.deep.equal(scope.test_response);
 
                     }
                 );
-                $httpBackend.flush()
+
+                // Angular doesn't like async unit tests, tell it to call the checks above
                 $timeout.flush()
 
             });
         });
-
-
-
 
     });
 });
