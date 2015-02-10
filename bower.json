@@ -1,7 +1,8 @@
 {
   "name": "angular-schema-form-strapselect",
   "main": [
-    "schema-form-strapselect.min.js"
+    "angular-schema-form-strapselect.min.js",
+    "angular-schema-form-strapselect.js"
   ],
   "version": "0.2.0",
   "authors": [
