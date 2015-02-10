@@ -114,7 +114,7 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_post": {
-               "url" : "/angular-schema-form-strapselect/test/testdata.json",
+               "url" : "test/testdata.json",
                "parameter": { "myparam" : "Hello"}
            }
        }
@@ -124,7 +124,7 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_get": {
-               "url" : "/angular-schema-form-strapselect/test/testdata.json"
+               "url" : "test/testdata.json"
            }
        }
      },
@@ -134,7 +134,7 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "options": {
            "async": {
                "call": $scope.callBackMSDAsync,
-               "url" : "/angular-schema-form-strapselect/test/testdata.json"
+               "url" : "test/testdata.json"
            }
        }
      },
