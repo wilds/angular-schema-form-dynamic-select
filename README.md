@@ -39,7 +39,7 @@ Example
 <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
 <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-<script src="angular-schema-form-strapselect.js"></script>
+<script src="bower_components/angular-schema-form-strapselect/angular-schema-form-strapselect.js"></script>
 ```
 
 When you create your module, be sure to depend on this project's module as well.
