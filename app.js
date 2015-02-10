@@ -81,8 +81,8 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "key": 'select',
        "type": 'strapselect',
        "items": [
-          {"value": 'value1', "name": 'label1'},
-          {"value": 'value2', "name": 'label2'},
+          {"value": 'value1', "name": 'name1'},
+          {"value": 'value2', "name": 'name2'},
           {"value": 'value3', "name": 'label3'}
         ]
      },
@@ -90,8 +90,8 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "key": 'multiselect',
        "type": 'strapmultiselect',
         "items": [
-          {"value": 'value1', "name": 'label1'},
-          {"value": 'value2', "name": 'label2'},
+          {"value": 'value1', "name": 'name1'},
+          {"value": 'value2', "name": 'name2'},
           {"value": 'value3', "name": 'long very very long label3'}
         ]
      },
@@ -152,8 +152,8 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
 
 
     $scope.submitted = function(form){
-    $scope.$broadcast('schemaFormValidate')
-    console.log($scope.model);
+        $scope.$broadcast('schemaFormValidate');
+        console.log($scope.model);
     };
 }]);
 

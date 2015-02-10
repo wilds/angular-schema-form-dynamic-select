@@ -1,5 +1,5 @@
 [
-          {"value": "json-value1", "name": "json-label1"},
-          {"value": "json-value2", "name": "json-label2"},
-          {"value": "json-value3", "name": "json-label3"}
+          {"value": "json-value1", "name": "json-name1"},
+          {"value": "json-value2", "name": "json-name2"},
+          {"value": "json-value3", "name": "json-name3"}
 ]
