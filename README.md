@@ -64,7 +64,7 @@ mapping for select-controls:
 
 
 ## Form Definition
-All settings are made in the form definition. See the app.js file for this example in use.
+All settings are made in the form definition. Sehttp://gulpjs.com/e the app.js file for this example in use.
 
     $scope.form = [
 
@@ -188,7 +188,7 @@ Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-
 
 # Building
 
-Building and minifying is done using [gulp]() 
+Building and minifying is done using [gulp](http://gulpjs.com/) 
 
 ### Installing gulp
 To install gulp, you need npm
