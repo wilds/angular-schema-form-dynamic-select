@@ -20,7 +20,7 @@ The editor is an add-on to the Bootstrap decorator. To use it, just include
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
-$ bower install optimalbpm/schema-form-strapselect
+$ bower install optimalbpm/angular-schema-form-strapselect
 ```
 
 You'll need to load a few additional files to use the editor:
@@ -210,7 +210,9 @@ Pull requests are always very welcome.
 
 # Testing
 
-Test are under development.
+Unit testing is done using [Karma and Jasmine](http://karma-runner.github.io/0.12/intro/installation.html).
+
+
 
 # History
 
