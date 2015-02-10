@@ -1,16 +1,25 @@
-angular strap select add-on
+Angular Strap Select add-on
 =================
 
-This strap select add-on uses as the name implies the strap select plugin to provide a select dropdown interface. [angular-strap](https://github.com/mgcrea/angular-strap) is used.
+This strap select add-on uses as the name implies the strap select plugin to provide a select dropdown interface. 
+[angular-strap](https://github.com/mgcrea/angular-strap) is used.
 
-Installation
-------------
+Features:
+
+* Single and multiple select
+* Static and dynamic lists
+* Sync and Async callbacks
+* HTTP GET/POST convenience functions
+
+
+#Installation
+
 The editor is an add-on to the Bootstrap decorator. To use it, just include
 `schema-form-strapselect.min.js`.
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
-$ bower install chengz/schema-form-strapselect
+$ bower install nicklasb/schema-form-strapselect
 ```
 
 You'll need to load a few additional files to use the editor:
@@ -38,10 +47,14 @@ When you create your module, be sure to depend on this project's module as well.
 angular.module('yourModule', ['schemaForm', 'schemaForm-strapselect']);
 ```
 
-Usage
------
-The add-on adds the following new form types, `strapselect`, `strapmultiselect`,`strapselectdynamic`, `strapmultiselectdynamic` and a new default
-mapping.
+#Usage
+
+Usage is straight forward, simply include and reference.
+
+## Form types
+
+The add-on contributes the following new form types, `strapselect`, `strapmultiselect`,`strapselectdynamic`, `strapmultiselectdynamic` and sets a new default
+mapping for select-controls:
 
 | Schema             |   Default Form type  |
 |:-------------------|:------------:|
@@ -157,5 +170,56 @@ Not needed, of course, but is commonly used.
        style: "btn-info",
        title: "OK"
      }
+     
+And ending the form element array:
 
     ];
+
+# Example
+
+See the index.html file.<br />
+That together with the bootstrap-strapselect.js file and the test/testdata.json file is a working example.
+
+
+# Issues
+
+Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-strapselect/issues)
+
+# Building
+
+Building and minifying is done using [gulp]() 
+
+### Installing gulp
+To install gulp, you need npm
+
+    npm install gulp -g
+
+### Running the build
+
+In the project root folder, run:
+
+    gulp default
+
+
+
+# Contributing
+
+Pull requests are always very welcome.
+
+
+# Testing
+
+As of 
+
+
+# History
+
+1. This component was originally created by [chengz](https://github.com/chengz/). 
+
+2. [stevehu](https://github.com/stevehu) then added functionality to connect to his light(https://github.com/networknt/light) 
+framework.
+
+3. This inspired [nicklasb](https://github.com/nicklasb) to rewrite the component, this in order to harmonize it <br/>
+with the current lookup handling in angular-schema-form and generalize it for it to be able to connect to any backend. 
+
+The rest is extremely recent history.
