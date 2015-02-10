@@ -83,7 +83,7 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "items": [
           {"value": 'value1', "name": 'name1'},
           {"value": 'value2', "name": 'name2'},
-          {"value": 'value3', "name": 'label3'}
+          {"value": 'value3', "name": 'name3'}
         ]
      },
      {
