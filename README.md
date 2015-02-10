@@ -202,16 +202,15 @@ In the project root folder, run:
     gulp default
 
 
-
 # Contributing
 
-Pull requests are always very welcome.
+Pull requests are always very welcome. Try to make one for each thing you add, don't do [like this author(me) did](https://github.com/chengz/schema-form-strapselect/pull/2).
 
 
 # Testing
 
 Unit testing is done using [Karma and Jasmine](http://karma-runner.github.io/0.12/intro/installation.html).
-
+The main configuration file for running tests is karma.conf.js, and test/tests.js holds the tests.
 
 
 # History
