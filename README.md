@@ -210,8 +210,7 @@ Pull requests are always very welcome.
 
 # Testing
 
-As of 
-
+Test are under development.
 
 # History
 
