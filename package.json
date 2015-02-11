@@ -18,8 +18,7 @@
     {
       "name": "Nicklas Börjesson",
       "email": "nicklas@optimalbpm.se"
-    },
-
+    }
   ],
   "license": "MIT",
   "devDependencies": {
