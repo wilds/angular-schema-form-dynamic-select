@@ -1,7 +1,7 @@
 {
   "name": "angular-schema-form-dynamic-select",
   "version": "0.3.0",
-  "description": "bootstrap strap select add-on for schema form",
+  "description": "Bootstrap dynamic strap select add-on for angular schema form",
   "scripts": {
     "test": "rm -fr coverage && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS karma.conf.js"
   },
