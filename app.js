@@ -138,7 +138,6 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
            }
        }
      },
-
      {
        type: "submit",
        style: "btn-info",

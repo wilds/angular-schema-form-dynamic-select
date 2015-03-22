@@ -1,5 +1,5 @@
 {
-  "name": "angular-schema-form-strapselect",
+  "name": "angular-schema-form-dynamic-select",
   "version": "0.2.0",
   "description": "bootstrap strap select add-on for schema form",
   "scripts": {

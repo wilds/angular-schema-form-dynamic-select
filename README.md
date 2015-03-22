@@ -16,11 +16,11 @@ Features:
 #Installation
 
 The editor is an add-on to the Bootstrap decorator. To use it (in production), just include
-`angular-schema-form-strapselect.min.js`.
+`angular-schema-form-dynamic-select.min.js`.
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
-$ bower install optimalbpm/angular-schema-form-strapselect
+$ bower install optimalbpm/angular-schema-form-dynamic-select
 ```
 
 You'll need to load a few additional files to use the editor:
@@ -38,7 +38,7 @@ Example
 <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
 <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-<script src="bower_components/angular-schema-form-strapselect/angular-schema-form-strapselect.js"></script>
+<script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
 ```
 
 When you create your module, be sure to depend on this project's module as well.
@@ -129,7 +129,7 @@ Expects the server to return a JSON array of value/name objects.
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_post": {
-               "url" : "/angular-schema-form-strapselect/test/testdata.json",
+               "url" : "/angular-schema-form-dynamic-select/test/testdata.json",
                "parameter": { "myparam" : "Hello"}
            }
        }
@@ -144,7 +144,7 @@ Expects the server to return a JSON array of value/name objects.
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_get": {
-               "url" : "/angular-schema-form-strapselect/test/testdata.json"
+               "url" : "/angular-schema-form-dynamic-select/test/testdata.json"
            }
        }
      },
@@ -161,7 +161,7 @@ The callback shall return a http-style promise and the data must be a JSON array
        "options": {
            "async": {
                "call": $scope.callBackMSDAsync,
-               "url" : "/angular-schema-form-strapselect/test/testdata.json"
+               "url" : "/angular-schema-form-dynamic-select/test/testdata.json"
            }
        }
      },
