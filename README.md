@@ -181,13 +181,13 @@ And ending the form element array:
 
 # Example
 
-See the index.html file.<br />
-That together with the bootstrap-strapselect.js file and the test/testdata.json file is a working example.
+See the index.html file, together with the bootstrap-strapselect.js file and the test/testdata.json file it
+constitutes a working example.
 
 
 # Issues
 
-Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-strapselect/issues)
+Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)
 
 # Building
 
