@@ -1,5 +1,6 @@
 {
   "name": "angular-schema-form-dynamic-select",
+  "description": "Dynamic Select populates drop downs in runtime from any back end.",
   "main": [
     "angular-schema-form-dynamic-select.min.js",
     "angular-schema-form-dynamic-select.js"
