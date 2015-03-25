@@ -220,10 +220,11 @@ The main configuration file for running tests is karma.conf.js, and test/tests.j
 
 1. This component was originally created by [chengz](https://github.com/chengz/). 
 
-2. [stevehu](https://github.com/stevehu) then added functionality to connect to his light(https://github.com/networknt/light) 
+2. [stevehu](https://github.com/stevehu) then added functionality to his project to connect to his light(https://github.com/networknt/light) 
 framework.
 
-3. This inspired [nicklasb](https://github.com/nicklasb) to rewrite the component, this in order to harmonize it <br/>
-with the current lookup handling in angular-schema-form and generalize it for it to be able to connect to any backend. 
+3. This inspired [nicklasb](https://github.com/nicklasb) to merge stevehu:s code and rewrite the plugin in order to:
+* harmonize it with the current lookup handling in angular-schema-form
+* generalize it for it to be able to connect to any backend. 
 
 The rest is extremely recent history.
