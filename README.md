@@ -224,6 +224,7 @@ The main configuration file for running tests is karma.conf.js, and test/tests.j
 framework.
 
 3. This inspired [nicklasb](https://github.com/nicklasb) to merge stevehu:s code and rewrite the plugin in order to:
+
 * harmonize it with the current lookup handling in angular-schema-form
 * generalize it for it to be able to connect to any backend. 
 
