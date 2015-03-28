@@ -85,9 +85,9 @@ The selection is an array of value/text objects
        "key": 'select',
        "type": 'strapselect',
        "items": [
-          {"value": 'value1', "text": 'label1'},
-          {"value": 'value2', "text": 'label2'},
-          {"value": 'value3', "text": 'label3'}
+          {"value": 'value1', "text": 'text1'},
+          {"value": 'value2', "text": 'text2'},
+          {"value": 'value3', "text": 'text3'}
         ]
      },
      
@@ -98,8 +98,8 @@ The selection is an array of value/text objects
        "key": 'multiselect',
        "type": 'strapmultiselect',
         "items": [
-          {"value": 'value1', "text": 'label1'},
-          {"value": 'value2', "text": 'label2'},
+          {"value": 'value1', "text": 'text1'},
+          {"value": 'value2', "text": 'text2'},
           {"value": 'value3', "text": 'long very very long label3'}
         ]
      },
