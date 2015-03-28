@@ -20,7 +20,7 @@ The editor is an add-on to the Bootstrap decorator. To use it (in production), j
 
 Easiest way is to install is with bower, this will also include dependencies:
 ```bash
-$ bower install optimalbpm/angular-schema-form-dynamic-select
+$ bower install angular-schema-form-dynamic-select
 ```
 
 You'll need to load a few additional files to use the editor:
