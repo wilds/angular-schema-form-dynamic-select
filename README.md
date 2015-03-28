@@ -12,6 +12,12 @@ Features:
 * Sync and Async callbacks
 * HTTP GET/POST convenience functions
 
+<b>Note:<br />
+Since 0.3.3 value/name-pairs for drop down data is deprecated.<br />
+The correct way, and how the HTML select element actually works, is value/text.<br />
+The the add-on still supports both variants, but value/name will either be removed or<br /> 
+replaced by a mapping in a later major version.
+<b />
 
 #Installation
 
@@ -73,33 +79,33 @@ All settings are made in the form definition. Sehttp://gulpjs.com/e the app.js f
 
 
 ### Single select from static list
-The selection is an array of value/name objects 
+The selection is an array of value/text objects 
 
      {
        "key": 'select',
        "type": 'strapselect',
        "items": [
-          {"value": 'value1', "name": 'label1'},
-          {"value": 'value2', "name": 'label2'},
-          {"value": 'value3', "name": 'label3'}
+          {"value": 'value1', "text": 'label1'},
+          {"value": 'value2', "text": 'label2'},
+          {"value": 'value3', "text": 'label3'}
         ]
      },
      
 ### Single select from static list
-The selection is an array of value/name objects 
+The selection is an array of value/text objects 
 
      {
        "key": 'multiselect',
        "type": 'strapmultiselect',
         "items": [
-          {"value": 'value1', "name": 'label1'},
-          {"value": 'value2', "name": 'label2'},
-          {"value": 'value3', "name": 'long very very long label3'}
+          {"value": 'value1', "text": 'label1'},
+          {"value": 'value2', "text": 'label2'},
+          {"value": 'value3', "text": 'long very very long label3'}
         ]
      },
      
 ### Single select from dynamically loaded list via synchronous callback function
-Callback must return an array of value/name objects (see static list above)
+Callback must return an array of value/text objects (see static list above)
 
      {
        "key": "selectdynamic",
@@ -110,7 +116,7 @@ Callback must return an array of value/name objects (see static list above)
      },
      
 ### Multiple select from dynamically loaded list via synchronous callback function
-Callback must return an array of value/name objects.
+Callback must return an array of value/text objects.
      
      {
        "key": "multiselectdynamic",
@@ -122,7 +128,7 @@ Callback must return an array of value/name objects.
      
 ### Multiple select from dynamically loaded list via http post
 Convenience function, makes a JSON post request passing the "parameter" as is, no need for callback.
-Expects the server to return a JSON array of value/name objects.
+Expects the server to return a JSON array of value/text objects.
      
      {
        "key": "multiselectdynamic_http_post",
@@ -137,7 +143,7 @@ Expects the server to return a JSON array of value/name objects.
      
 ### Multiple select from dynamically loaded list via http get
 Convenience function, makes a get request, no need for callback.
-Expects the server to return a JSON array of value/name objects.
+Expects the server to return a JSON array of value/text objects.
      
      {
        "key": "multiselectdynamic_http_get",
@@ -153,7 +159,7 @@ Expects the server to return a JSON array of value/name objects.
 Note that the "call" parameter is the only mandatory parameter, the "url" is for convenience. 
 The point is that the "options" structure is passed to all callbacks, making it possible to use fever callback function,
 allowing for cleaner(or not) code. 
-The callback shall return a http-style promise and the data must be a JSON array of value/name objects. 
+The callback shall return a http-style promise and the data must be a JSON array of value/text objects. 
      
      {
        "key": "multiselectdynamic_async",
