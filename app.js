@@ -13,17 +13,17 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
 
     $scope.callBackSD = function (options) {
       return [
-          {value: 'value1', name: 'label1'},
-          {value: 'value2', name: 'label2'},
-          {value: 'value3', name: 'Select dynamic!'}
+          {value: 'value1', text: 'text1'},
+          {value: 'value2', text: 'text2'},
+          {value: 'value3', text: 'Select dynamic!'}
         ]
     };
 
     $scope.callBackMSD = function (options) {
       return [
-          {value: 'value1', name: 'label1'},
-          {value: 'value2', name: 'label2'},
-          {value: 'value3', name: 'Multiple select dynamic!'}
+          {value: 'value1', text: 'text1'},
+          {value: 'value2', text: 'text2'},
+          {value: 'value3', text: 'Multiple select dynamic!'}
         ]
     };
 
@@ -81,18 +81,18 @@ testApp.controller('SelectController',[ '$scope','$http', function($scope, $http
        "key": 'select',
        "type": 'strapselect',
        "items": [
-          {"value": 'value1', "name": 'name1'},
-          {"value": 'value2', "name": 'name2'},
-          {"value": 'value3', "name": 'name3'}
+          {"value": 'value1', "text": 'text1'},
+          {"value": 'value2', "text": 'text2'},
+          {"value": 'value3', "text": 'text3'}
         ]
      },
      {
        "key": 'multiselect',
        "type": 'strapmultiselect',
         "items": [
-          {"value": 'value1', "name": 'name1'},
-          {"value": 'value2', "name": 'name2'},
-          {"value": 'value3', "name": 'long very very long label3'}
+          {"value": 'value1', "text": 'text1'},
+          {"value": 'value2', "text": 'text2'},
+          {"value": 'value3', "text": 'long very very long label3'}
         ]
      },
      {
