@@ -192,6 +192,13 @@ And ending the form element array:
 See the index.html file, together with the bootstrap-strapselect.js file and the test/testdata.json file it
 constitutes a working example.
 
+To run it, simply clone the repository 
+    
+    git clone https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git
+    cd angular-schema-form-dynamic-select
+    bower update
+
+..and open index.html in a browser.
 
 # Issues
 
