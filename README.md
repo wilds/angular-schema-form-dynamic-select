@@ -200,9 +200,16 @@ To run it, simply clone the repository
 
 ..and open index.html in a browser.
 
-# Issues
+# Bugs, omissions, feature requests 
 
 Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)
+
+If you suspect that there is a bug in angular-schema-form-dynamic-select that isn't reproducible in any of the examples,
+please make a small example in plunkr or similar where you recreate the problem, it will make it easier to help you.
+
+If something is difficult to understand, that is also an issue, please ask for clarification if the documentation is insufficient.
+
+Any ideas on new features are always welcome.
 
 # Building
 
