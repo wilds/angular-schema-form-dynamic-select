@@ -86,9 +86,9 @@ describe('Schema form', function () {
             };
 
             scope.test_response = [
-                {value: "json-value1", name: "json-name1"},
-                {value: "json-value2", name: "json-name2"},
-                {value: "json-value3", name: "json-name3"}
+                {value: "json-value1", text: "json-name1"},
+                {value: "json-value2", text: "json-name2"},
+                {value: "json-value3", text: "json-name3"}
             ];
 
             scope.form = [
@@ -96,18 +96,18 @@ describe('Schema form', function () {
                     "key": 'select',
                     "type": 'strapselect',
                     "items": [
-                        {"value": 'value1', "name": 'name1'},
-                        {"value": 'value2', "name": 'name2'},
-                        {"value": 'value3', "name": 'name3'}
+                        {"value": 'value1', "text": 'name1'},
+                        {"value": 'value2', "text": 'name2'},
+                        {"value": 'value3', "text": 'name3'}
                     ]
                 },
                 {
                     "key": 'multiselect',
                     "type": 'strapmultiselect',
                     "items": [
-                        {"value": 'value1', "name": 'name1'},
-                        {"value": 'value2', "name": 'name2'},
-                        {"value": 'value3', "name": 'long very very long name3'}
+                        {"value": 'value1', "text": 'name1'},
+                        {"value": 'value2', "text": 'name2'},
+                        {"value": 'value3', "text": 'long very very long name3'}
                     ]
                 },
                 {
