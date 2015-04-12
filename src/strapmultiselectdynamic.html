@@ -1,6 +1,6 @@
-<div class="form-group" ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
-    <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
-    <div class="form-group" ng-controller="StrapSelectController" ng-init="fetchResult(form.options)">
+<div class="form-group {{form.htmlClass}}" ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
+    <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+    <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController" ng-init="fetchResult(form.options)">
         <button type="button" class="btn btn-default" sf-changed="form" ng-model="$$value$$" schema-validate="form"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}"
                 data-multiple="1" data-html="1" ng-options="item.value as (item.text == null ? item.name : item.text) for item in items" bs-select>
