@@ -3,84 +3,103 @@ $templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynami
 $templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" ng-model=\"$$value$$\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder ||(\'placeholders.select\')}}\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
 $templateCache.put("directives/decorators/bootstrap/strap/strapselectdynamic.html","<div class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" ng-model=\"$$value$$\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder ||(\'placeholders.select\')}}\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in items\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
 angular.module('schemaForm').config(
-['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
-  function(schemaFormProvider,  schemaFormDecoratorsProvider, sfPathProvider) {
+    ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
+        function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
 
-    var select = function(name, schema, options) {
-      if (schema.type === 'string') {
-        var f = schemaFormProvider.stdFormObj(name, schema, options);
-        f.key  = options.path;
-        f.type = 'strapselect';
-        options.lookup[sfPathProvider.stringify(options.path)] = f;
-        return f;
-      }
-    };
+            var select = function (name, schema, options) {
+                if (schema.type === 'string') {
+                    var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
+                    f.type = 'strapselect';
+                    options.lookup[sfPathProvider.stringify(options.path)] = f;
+                    return f;
+                }
+            };
 
-    schemaFormProvider.defaults.string.unshift(select);
+            schemaFormProvider.defaults.string.unshift(select);
 
-    var multiselect = function(name, schema, options) {
-      if (schema.type === 'array') {
-        var f = schemaFormProvider.stdFormObj(name, schema, options);
-        f.key  = options.path;
-        f.type = 'strapmultiselect';
-        options.lookup[sfPathProvider.stringify(options.path)] = f;
-        return f;
-      }
-    };
+            var multiselect = function (name, schema, options) {
+                if (schema.type === 'array') {
+                    var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
+                    f.type = 'strapmultiselect';
+                    options.lookup[sfPathProvider.stringify(options.path)] = f;
+                    return f;
+                }
+            };
 
-    schemaFormProvider.defaults.array.unshift(multiselect);
+            schemaFormProvider.defaults.array.unshift(multiselect);
 
-    var selectdynamic = function(name, schema, options) {
-      if (schema.type === 'string') {
-        var f = schemaFormProvider.stdFormObj(name, schema, options);
-        f.key  = options.path;
-        f.type = 'strapselectdynamic';
-        options.lookup[sfPathProvider.stringify(options.path)] = f;
-        return f;
-      }
-    };
+            var selectdynamic = function (name, schema, options) {
+                if (schema.type === 'string') {
+                    var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
+                    f.type = 'strapselectdynamic';
+                    options.lookup[sfPathProvider.stringify(options.path)] = f;
+                    return f;
+                }
+            };
 
-    schemaFormProvider.defaults.string.unshift(selectdynamic);
+            schemaFormProvider.defaults.string.unshift(selectdynamic);
 
-    var multiselectdynamic = function(name, schema, options) {
-      if (schema.type === 'array') {
-        var f = schemaFormProvider.stdFormObj(name, schema, options);
-        f.key  = options.path;
-        f.type = 'strapmultiselectdynamic';
-        options.lookup[sfPathProvider.stringify(options.path)] = f;
-        return f;
-      }
-    };
+            var multiselectdynamic = function (name, schema, options) {
+                if (schema.type === 'array') {
+                    var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
+                    f.type = 'strapmultiselectdynamic';
+                    options.lookup[sfPathProvider.stringify(options.path)] = f;
+                    return f;
+                }
+            };
 
-    schemaFormProvider.defaults.array.unshift(multiselectdynamic);
+            schemaFormProvider.defaults.array.unshift(multiselectdynamic);
 
-    //Add to the bootstrap directive
-    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
-    'directives/decorators/bootstrap/strap/strapselect.html');
-    schemaFormDecoratorsProvider.createDirective('strapselect',
-    'directives/decorators/bootstrap/strap/strapselect.html');
+            //Add to the bootstrap directive
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
+                'directives/decorators/bootstrap/strap/strapselect.html');
+            schemaFormDecoratorsProvider.createDirective('strapselect',
+                'directives/decorators/bootstrap/strap/strapselect.html');
 
-    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselect',
-    'directives/decorators/bootstrap/strap/strapmultiselect.html');
-    schemaFormDecoratorsProvider.createDirective('strapmultiselect',
-    'directives/decorators/bootstrap/strap/strapmultiselect.html');
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselect',
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
+            schemaFormDecoratorsProvider.createDirective('strapmultiselect',
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
-    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
-        'directives/decorators/bootstrap/strap/strapselectdynamic.html');
-    schemaFormDecoratorsProvider.createDirective('strapselectdynamic',
-        'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
+                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+            schemaFormDecoratorsProvider.createDirective('strapselectdynamic',
+                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
 
-    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
-        'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
-    schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
-        'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
+                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+            schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
+                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
 
-  }]);
+        }]);
 
 angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', function ($scope, $http) {
 
 
     $scope.items = [];
+
+    $scope.remap = function (_options, _data) {
+        if (_options && "map" in _options && _options.map) {
+            var _current_row = null;
+            var _result = [];
+            _data.forEach(function (_current_row) {
+                _result.push({
+                    value: _current_row[_options.map.valueProperty],
+                    text: _current_row[_options.map.textProperty]
+                });
+            });
+            return _result
+
+        }
+        else {
+            return _data
+        }
+
+    };
 
     $scope.fetchResult = function (options) {
         if (!options) {
@@ -93,34 +112,36 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
         else if (options.http_post) {
             return $http.post(options.http_post.url, options.http_post.parameter).then(
                 function (_data) {
-                    $scope.items = _data.data;
+
+                    $scope.items = $scope.remap(options, _data.data);
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(options.http_post.url) +
-                        "' Parameter: " + String(options.http_post.parameter) + "\nError: "  + status);
+                    "' Parameter: " + String(options.http_post.parameter) + "\nError: " + status);
                 });
         }
         else if (options.http_get) {
             return $http.get(options.http_get.url, options.http_get.parameter).then(
                 function (_data) {
-                    $scope.items = _data.data;
+                    $scope.items = $scope.remap(options, _data.data);
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(options.http_get.url) +
-                        "\nError: "  + status);
+                    "\nError: " + status);
                 });
         }
         else if (options.async) {
             return options.async.call(options).then(
                 function (_data) {
-                    $scope.items = _data.data;
+                    $scope.items = $scope.remap(options, _data.data);
+                    ;
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed(Options: '" + String(options) +
-                        "\nError: "  + status);
+                    "\nError: " + status);
                 });
         }
     };

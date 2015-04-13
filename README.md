@@ -13,7 +13,8 @@ Features:
 * Static and dynamic lists
 * Sync and Async callbacks
 * HTTP GET/POST convenience functions
-* Angular schema form options
+* Field map
+* [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
   * Supported :
     * key, type, title, description, placeholder
     * notitle, onChange, condition
@@ -27,9 +28,10 @@ Features:
 <b>Note:<br />
 Since 0.3.3 value/name-pairs for drop down data is deprecated.<br />
 The correct way, and how the HTML select element actually works, is value/text.<br />
-The the add-on still supports both variants, but value/name will either be removed or<br /> 
-replaced by a mapping in a later major version.
+The the add-on still supports both variants, but value/name will be removed.<br /> 
+Since 0.4.0, use the options.map functionality instead.
 <b />
+
 
 #Installation
 
@@ -157,7 +159,7 @@ Expects the server to return a JSON array of value/text objects.
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_post": {
-               "url" : "/angular-schema-form-dynamic-select/test/testdata.json",
+               "url" : "test/testdata.json",
                "parameter": { "myparam" : "Hello"}
            }
        }
@@ -172,7 +174,7 @@ Expects the server to return a JSON array of value/text objects.
        "type": 'strapmultiselectdynamic',
        "options": {
            "http_get": {
-               "url" : "/angular-schema-form-dynamic-select/test/testdata.json"
+               "url" : "test/testdata.json"
            }
        }
      },
@@ -189,10 +191,25 @@ The callback shall return a http-style promise and the data must be a JSON array
        "options": {
            "async": {
                "call": $scope.callBackMSDAsync,
-               "url" : "/angular-schema-form-dynamic-select/test/testdata.json"
+               "url" : "test/testdata.json"
            }
        }
      },
+     
+### Map fields
+The HTML select standard naming is value/text, but that is sometimes difficult to get from a server.
+Therefore, a "map"-property is provided. 
+The property in valueProperty says where to find the value, and textProperty the text:
+     {
+       "key": "multiselectdynamic_http_get",
+       "type": 'strapmultiselectdynamic',
+       "options": {
+            "http_get": {
+                "url": "test/testdata_mapped.json"
+            },
+            "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
+       }
+     },    
      
 ### And then a submit button. 
 Not needed, of course, but is commonly used.

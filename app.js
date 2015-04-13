@@ -46,12 +46,13 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             multiselect: {
                 title: 'Multi Select Static',
                 type: 'array',
-                description: 'Multi single items are allowed(select third for error)'
+                maxItems: 2,
+                description: 'Multi single items are allowed. (select three for maxItems error)'
             },
             selectdynamic: {
                 title: 'Single Select Dynamic',
                 type: 'string',
-                description: 'This data is loaded from the $scope.callBackSD function(and laid out using css-options).'
+                description: 'This data is loaded from the $scope.callBackSD function. (and laid out using css-options)'
             },
             multiselectdynamic: {
                 title: 'Multi Select Dynamic',
@@ -61,17 +62,26 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             multiselectdynamic_http_post: {
                 title: 'Multi Select Dynamic HTTP Post',
                 type: 'array',
-                description: 'This data is asynchrously loaded using a HTTP post(specify options.url and options.parameter)'
+                description: 'This data is asynchrously loaded using a HTTP post. ' +
+                'specify options.url and options.parameter)'
             },
             multiselectdynamic_http_get: {
                 title: 'Multi Select Dynamic HTTP Get',
                 type: 'array',
-                description: 'This data is asynchrously loaded using a HTTP get(specify options.url)'
+                description: 'This data is asynchrously loaded using a HTTP get. ' +
+                '(Set the URL at options.url)'
+            },
+            multiselectdynamic_http_get_mapped: {
+                title: 'Multi Select Dynamic HTTP Get Mapped data',
+                type: 'array',
+                description: 'This data is as above, but remapped from a nodeId/nodeName array of objects. ' +
+                '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
             },
             multiselectdynamic_async: {
                 title: 'Multi Select Dynamic Async',
                 type: 'array',
-                description: 'This data is asynchrously loaded using a async call(specify options.async.call)'
+                description: 'This data is asynchrously loaded using a async call. ' +
+                '(specify options.async.call)'
             }
 
         },
@@ -100,7 +110,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": "selectdynamic",
             "type": 'strapselectdynamic',
-            "htmlClass": "col-lg-6 col-md-6",
+            "htmlClass": "col-lg-3 col-md-3",
             "labelHtmlClass": "bigger",
             "fieldHtmlClass": "tilted",
             "options": {
@@ -133,6 +143,16 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 "http_get": {
                     "url": "test/testdata.json"
                 }
+            }
+        },
+        {
+            "key": "multiselectdynamic_http_get_mapped",
+            "type": 'strapmultiselectdynamic',
+            "options": {
+                "http_get": {
+                    "url": "test/testdata_mapped.json"
+                },
+                "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
             }
         },
         {
