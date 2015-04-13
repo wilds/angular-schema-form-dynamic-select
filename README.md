@@ -22,6 +22,8 @@ Features:
     *  readonly, copyValueTo, 
   * Not applicable(will not be added due to the nature of drop downs, [disagree?](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)):
     * validationMessage, feedback
+    
+   
 <b>Note:<br />
 Since 0.3.3 value/name-pairs for drop down data is deprecated.<br />
 The correct way, and how the HTML select element actually works, is value/text.<br />
