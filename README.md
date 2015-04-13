@@ -200,6 +200,7 @@ The callback shall return a http-style promise and the data must be a JSON array
 The HTML select standard naming is value/text, but that is sometimes difficult to get from a server.
 Therefore, a "map"-property is provided. 
 The property in valueProperty says where to find the value, and textProperty the text:
+
      {
        "key": "multiselectdynamic_http_get",
        "type": 'strapmultiselectdynamic',
