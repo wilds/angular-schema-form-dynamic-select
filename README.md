@@ -13,7 +13,15 @@ Features:
 * Static and dynamic lists
 * Sync and Async callbacks
 * HTTP GET/POST convenience functions
-
+* Angular schema form options
+  * Supported :
+    * key, type, title, description, placeholder
+    * notitle, onChange, condition
+    * htmlClass, labelHtmlClass and fieldHtmlClass
+  * Not supported(will be added):  
+    *  readonly, copyValueTo, 
+  * Not applicable(will not be added due to the nature of drop downs, [disagree?](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)):
+    * validationMessage, feedback
 <b>Note:<br />
 Since 0.3.3 value/name-pairs for drop down data is deprecated.<br />
 The correct way, and how the HTML select element actually works, is value/text.<br />
@@ -27,9 +35,19 @@ The editor is an add-on to the Bootstrap decorator. To use it (in production), j
 `angular-schema-form-dynamic-select.min.js`.
 
 Easiest way is to install is with bower, this will also include dependencies:
+
 ```bash
 $ bower install angular-schema-form-dynamic-select
 ```
+
+If you want to use the develop branch:
+
+```bash
+$ bower install angular-schema-form-dynamic-select#develop
+```
+
+\#develop is not recommended for production, but perhaps you want to use stuff from the next version in development.
+
 
 You'll need to load a few additional files to use the editor:
 
@@ -204,7 +222,7 @@ To run it, simply clone the repository
 
 Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)
 
-If you suspect that there is a bug in angular-schema-form-dynamic-select that isn't reproducible in any of the examples,
+If you suspect that there is a bug in angular-schema-form-dynamic-select that isn't reproducible in any of the examples,<br />
 please make a small example in plunkr or similar where you recreate the problem, it will make it easier to help you.
 
 If something is difficult to understand, that is also an issue, please ask for clarification if the documentation is insufficient.
@@ -231,6 +249,8 @@ In the project root folder, run:
 
 Pull requests are always very welcome. Try to make one for each thing you add, don't do [like this author(me) did](https://github.com/chengz/schema-form-strapselect/pull/2).
 
+Remember that the next version is in the develop branch, so if you want to add new features, do that there.<br />
+If you want to fix a bug, do that against the master branch.
 
 # Testing
 
