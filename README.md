@@ -1,11 +1,10 @@
 [![Bower version](https://badge.fury.io/bo/angular-schema-form-dynamic-select.svg)](http://badge.fury.io/bo/angular-schema-form-dynamic-select)
 
 Angular Strap Dynamic Select add-on
-=================
+===================================
 
-This dynamic select add-on uses the strap select plugin to provide a dynamic select drop down interface. 
-
-Specifically [angular-strap](https://github.com/mgcrea/angular-strap) is used.
+The dynamic select add-on uses [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select)
+ to provide a dynamic drop down interface to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
 
 Features:
 
@@ -16,7 +15,7 @@ Features:
 * All callbacks referenced either by name (string) or reference 
 * Field map
 * [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
-  * Supported :
+  * Supported:
     * key, type, title, description, placeholder
     * notitle, onChange, condition
     * htmlClass, labelHtmlClass and fieldHtmlClass
@@ -26,21 +25,26 @@ Features:
     * validationMessage, feedback
     
    
-<b>Note:<br />
-Since 0.3.3 value/name-pairs for drop down data is deprecated.<br />
+<b>Important: Over the early minor versions, there has been considerable architectural changes:
+
+* 0.3.0 all dynamic-select-related settings moved to the form.
+* 0.3.3 value/name-pairs for drop down data is deprecated.<br />
 The correct way, and how the HTML select element actually works, is value/text.<br />
 The the add-on still supports both variants, but value/name will be removed.<br /> 
-Since 0.4.0, use the options.map functionality instead.
-<b />
+* 0.4.0 use the options.map functionality instead.<br /> 
+* 0.5.0 Breaking changes:
+  * http_post and http_get are renamed to httpPost and httpGet.
+  * async.callback is removed and asyncCallback is used instead.
+
 
 # Glossary
 
 * List items: the items that make up the selection list, for example the items in a drop down.
 
-#Installation
+# Installation
 
-The editor is an add-on to the Bootstrap decorator. To use it (in production), just include
-`angular-schema-form-dynamic-select.min.js`.
+This is an add-on to the angular-schema-form. To use it (in production), just include
+`angular-schema-form-dynamic-select.min.js` and satisfy its dependency.
 
 Easiest way is to install is with bower, this will also include dependencies:
 
@@ -59,7 +63,7 @@ $ bower install angular-schema-form-dynamic-select#develop
 
 You'll need to load a few additional files to use the editor:
 
-**Be sure to load this projects files after you load angular schema form**
+**Be sure to all the files of this project *after* you load angular schema form**
 
 Example
 
@@ -98,6 +102,8 @@ The add-on contributes the following new form types, `strapselect`, `strapmultis
 | strapmultiselectdynamic   |strap multi select dynamically loaded content|
 
 Built-in select-controls gets the bootstrap look but retain their functionality.
+
+
 
 
 ## Form Definition
@@ -288,12 +294,13 @@ The two methods of callback mechanisms are:
 * Choose httpGet and httpPost over the callback and asyncCallback methods if your don't specifically need the full freedom
 of callback and asyncCallback. There is no reason clutter client code with http-request handling unless you have to.
 * Given the asynchronous nature of javascript development, try use asynchronous alternatives before synchronous that block the UI.
-
+* The way the plug-ins works, they register themselves as defaults for all matching types. <br />
+As long this is the case, all relevant fields must specify the "type"-property. <br />
+If not, they will get the wrong editor. Either way, it is recommended to define the type.
 
 # Example
 
-See the index.html file, together with the bootstrap-strapselect.js file and the test/testdata.json file it
-constitutes a working example.
+In the repository, the index.html file, together with the bootstrap-strapselect.js file and the test/testdata.json file constitutes a working example.
 
 To run it, simply clone the repository 
     
@@ -301,14 +308,14 @@ To run it, simply clone the repository
     cd angular-schema-form-dynamic-select
     bower update
 
-..and open index.html in a browser.
+..and open index.html in a browser or serve using your favorite IDE.
 
 # Bugs, omissions, feature requests 
 
 Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)
 
 If you suspect that there is a bug in angular-schema-form-dynamic-select that isn't reproducible in any of the examples,<br />
-please make a small example in plunkr or similar where you recreate the problem, it will make it easier to help you.
+please make a small example in plunkr or similar where you recreate the problem, it will make it easier to help you.<br />
 
 If something is difficult to understand, that is also an issue, please ask for clarification if the documentation is insufficient.
 
@@ -335,7 +342,7 @@ In the project root folder, run:
 Pull requests are always very welcome. Try to make one for each thing you add, don't do [like this author(me) did](https://github.com/chengz/schema-form-strapselect/pull/2).
 
 Remember that the next version is in the develop branch, so if you want to add new features, do that there.<br />
-If you want to fix a bug, do that against the master branch.
+If you want to fix a bug, do that against the master branch and it will be merged into the develop branch later.
 
 # Testing
 
@@ -355,4 +362,4 @@ framework.
 * harmonize it with the current lookup handling in angular-schema-form
 * generalize it for it to be able to connect to any backend. 
 
-The rest is extremely recent history.
+The rest is extremely recent history(i.e. > 0.3.0).
