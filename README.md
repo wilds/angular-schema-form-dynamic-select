@@ -13,6 +13,7 @@ Features:
 * Static and dynamic lists
 * Sync and Async callbacks
 * HTTP GET/POST convenience functions
+* All callbacks referenced either by name (string) or reference 
 * Field map
 * [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
   * Supported :
@@ -32,6 +33,9 @@ The the add-on still supports both variants, but value/name will be removed.<br 
 Since 0.4.0, use the options.map functionality instead.
 <b />
 
+# Glossary
+
+* List items: the items that make up the selection list, for example the items in a drop down.
 
 #Installation
 
@@ -97,13 +101,13 @@ Built-in select-controls gets the bootstrap look but retain their functionality.
 
 
 ## Form Definition
-All settings are made in the form definition. Sehttp://gulpjs.com/e the app.js file for this example in use.
+All settings reside in the form definition. See the [app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js) file for this example in use.
 
     $scope.form = [
 
 
 ### Single select from static list
-The selection is an array of value/text objects 
+The drop down items are defined by and array of value/text objects residing in the form
 
      {
        "key": 'select',
@@ -115,8 +119,8 @@ The selection is an array of value/text objects
         ]
      },
      
-### Single select from static list
-The selection is an array of value/text objects 
+### Multiple select from static list
+Like the above, but allowes multiple items to be selected.
 
      {
        "key": 'multiselect',
@@ -130,9 +134,10 @@ The selection is an array of value/text objects
      
 ### Single select from dynamically loaded list via synchronous callback function
 Callback must return an array of value/text objects (see static list above)
+The "options" structure is passed to it as a parameter.
 
      {
-       "key": "selectdynamic",
+       "key": "selectDynamic",
        "type": 'strapselectdynamic',
        "options": {
             "callback": $scope.callBackSD
@@ -140,78 +145,94 @@ Callback must return an array of value/text objects (see static list above)
      },
      
 ### Multiple select from dynamically loaded list via synchronous callback function
-Callback must return an array of value/text objects.
+Like strapselectdynamic above, but allowed multiple items to be selected.
+
      
      {
-       "key": "multiselectdynamic",
+       "key": "multiselectDynamic",
        "type": 'strapmultiselectdynamic',
        "options": {
            "callback": $scope.callBackMSD
        }
      },
      
-### Multiple select from dynamically loaded list via http post
-Convenience function, makes a JSON post request passing the "parameter" as is, no need for callback.
-Expects the server to return a JSON array of value/text objects.
+### Multiple select from asynchronous callback
+
+The asyncCallback must return a http-style promise and the data must be a JSON array of value/text objects.
+Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
      
      {
-       "key": "multiselectdynamic_http_post",
+       "key": "multiselectDynamicAsync",
        "type": 'strapmultiselectdynamic',
        "options": {
-           "http_post": {
-               "url" : "test/testdata.json",
-               "parameter": { "myparam" : "Hello"}
+           "asyncCallback": "callBackMSDAsync"
            }
        }
      },
-     
 ### Multiple select from dynamically loaded list via http get
 Convenience function, makes a get request, no need for callback.
 Expects the server to return a JSON array of value/text objects.
      
      {
-       "key": "multiselectdynamic_http_get",
+       "key": "multiselectDynamicHttpGet",
        "type": 'strapmultiselectdynamic',
        "options": {
-           "http_get": {
+           "httpGet": {
                "url" : "test/testdata.json"
            }
        }
      },
-     
-### Multiple select from asynchronous callback
-Note that the "call" parameter is the only mandatory parameter, the "url" is for convenience. 
-The point is that the "options" structure is passed to all callbacks, making it possible to use fever callback function,
-allowing for cleaner(or not) code. 
-The callback shall return a http-style promise and the data must be a JSON array of value/text objects. 
+               
+### Multiple select from dynamically loaded list via http post with an options callback
+Like the get variant above function, but makes a JSON POST request passing the "parameter" as JSON.<br />
+This example makes use of the optionsCallback property. 
+It is a callback that like the others, gets the options structure
+as a parameter, but allows its content to be modified and returned for use in the call. 
+Here, the otherwise mandatory httpPost.url is not set in the options but in the callback.
+
+See the stringOptionsCallback function in [app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js) for an example. 
+The options-instance that is passed to the parameter is a *copy* of the instance in the form, 
+so the form instance is not affected by any modifications by the callback.
      
      {
-       "key": "multiselectdynamic_async",
+       "key": "multiselectDynamicHttpPost",
        "type": 'strapmultiselectdynamic',
        "options": {
-           "async": {
-               "call": $scope.callBackMSDAsync,
-               "url" : "test/testdata.json"
+           "httpPost": {
+               "optionsCallback" : "stringOptionsCallback",
+               "parameter": { "myparam" : "Hello"}
            }
        }
      },
-     
-### Map fields
-The HTML select standard naming is value/text, but that is sometimes difficult to get from a server.
-Therefore, a "map"-property is provided. 
-The property in valueProperty says where to find the value, and textProperty the text:
+
+
+### Property mapping
+The HTML select standard naming is value/text, but that is sometimes difficult to get from a server, 
+it might not support it.
+Therefore, a "map"-property is provided. <br />
+The property in valueProperty says in what property to look for the value, and textProperty the text.
+In this case:
+
+    {nodeId : 1, nodeName: "Test"}
+which cannot be used, is converted into:
+
+    {value : 1, text: "Test"}
+which is the native format, the options for that mapping look like this:
 
      {
        "key": "multiselectdynamic_http_get",
        "type": 'strapmultiselectdynamic',
        "options": {
-            "http_get": {
+            "httpGet": {
                 "url": "test/testdata_mapped.json"
             },
             "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
        }
      },    
      
+This is convenience functionality, for more complicated mappings, and situations where the source data is<br /> 
+in a completely different format, the callback and asyncCallback options should be used instead.
+
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
 
@@ -224,6 +245,50 @@ Not needed, of course, but is commonly used.
 And ending the form element array:
 
     ];
+    
+
+# Feature summary
+The functionality in the different types can be summarized like this, by type:
+
+## strapselect and strapmultiselect
+These types are static, which means that the list of items is statically defined in the form:
+
+* list items items property in form holds the list items
+* property mapping 
+
+## strapselectdynamic and strapmultiselectdynamic
+These types are dynamic and fetches their data from different back ends.
+Callbacks can be defined either by name(`"loadGroups"`) or absolute reference (`$scope.loadGroups`). 
+
+The name is actually is an expression evaluated in the user scope that must return a function reference.
+This means that it *can* be `"getLoadFunctions('Groups')"`, as long as that returns a function reference.
+
+But the main reason for supporting referring to functions both by name and reference is that forms 
+often is stored in a database and passed from the server to the client in [pure JSON format](http://stackoverflow.com/questions/2904131/what-is-the-difference-between-json-and-object-literal-notation),
+and there, `callback: $scope.loadGroups` is not allowed.
+
+The result of all callbacks can be remapped using the "map" property described above.
+
+The two methods of callback mechanisms are:
+
+### callback and asyncCallback
+
+* list items are fetched by a user-specified callback. User implements the calling mechanism.
+* the callback receive the form options as a parameter and returns an array of list items(see the static strapselect)
+
+### httpGet and httpPost
+
+* list items are fetched using a built in async http mechanism, so that the user doesn't have to implement that.
+* the url property defines the URL to use.
+* the optional optionsCallback can be used to add to or change the options with information known in runtime. 
+* httpPost-options has a "parameter"-property, that contains the JSON that will be POST:ed to the server.
+
+# Recommendations
+
+* Choose httpGet and httpPost over the callback and asyncCallback methods if your don't specifically need the full freedom
+of callback and asyncCallback. There is no reason clutter client code with http-request handling unless you have to.
+* Given the asynchronous nature of javascript development, try use asynchronous alternatives before synchronous that block the UI.
+
 
 # Example
 
