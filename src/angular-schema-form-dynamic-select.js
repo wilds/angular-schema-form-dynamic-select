@@ -78,21 +78,21 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
     $scope.items = [];
 
-    $scope.remap = function (_options, _data) {
-        if (_options && "map" in _options && _options.map) {
-            var _current_row = null;
-            var _result = [];
-            _data.forEach(function (_current_row) {
-                _result.push({
-                    value: _current_row[_options.map.valueProperty],
-                    text: _current_row[_options.map.textProperty]
+    $scope.remap = function (options, data) {
+        if (options && "map" in options && options.map) {
+            var current_row = null;
+            var result = [];
+            data.forEach(function (current_row) {
+                result.push({
+                    value: current_row[options.map.valueProperty],
+                    text: current_row[options.map.textProperty]
                 });
             });
-            return _result
+            return result
 
         }
         else {
-            return _data
+            return data
         }
     };
 
@@ -103,7 +103,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
         }
         return copy;
-    }
+    };
 
 
     $scope.getCallback = function (callback, name) {
@@ -129,17 +129,17 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
     };
     $scope.getOptions = function(options) {
         // If defined, let the a callback function manipulate the options
-        if (options.http_post && options.http_post.optionsCallback) {
-            new_option_instance = $scope.clone(options);
-            return $scope.getCallback(options.http_post.optionsCallback)(new_option_instance);
+        if (options.httpPost && options.httpPost.optionsCallback) {
+            newOptionInstance = $scope.clone(options);
+            return $scope.getCallback(options.httpPost.optionsCallback)(newOptionInstance);
         }
-        if (options.http_get && options.http_get.optionsCallback) {
-            new_option_instance = $scope.clone(options);
-            return $scope.getCallback(options.http_get.optionsCallback)(new_option_instance);
+        if (options.httpGet && options.httpGet.optionsCallback) {
+            newOptionInstance = $scope.clone(options);
+            return $scope.getCallback(options.httpGet.optionsCallback)(newOptionInstance);
         }
         else
         {
-            return options
+            return options;
         }
     };
 
@@ -163,29 +163,29 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
                     "\nError: " + status);
                 });
         }
-        else if (options.http_post) {
-            var final_options = $scope.getOptions(options);
+        else if (options.httpPost) {
+            var finalOptions = $scope.getOptions(options);
 
-            return $http.post(final_options.http_post.url, final_options.http_post.parameter).then(
+            return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.items = $scope.remap(final_options, _data.data);
+                    $scope.items = $scope.remap(finalOptions, _data.data);
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(final_options.http_post.url) +
-                    "' Parameter: " + String(final_options.http_post.parameter) + "\nError: " + status);
+                    alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
+                    "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nError: " + status);
                 });
         }
-        else if (options.http_get) {
-            var final_options = $scope.getOptions(options);
-            return $http.get(final_options.http_get.url, final_options.http_get.parameter).then(
-                function (_data) {
-                    $scope.items = $scope.remap(final_options, _data.data);
+        else if (options.httpGet) {
+            var finalOptions = $scope.getOptions(options);
+            return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
+                function (data) {
+                    $scope.items = $scope.remap(finalOptions, data.data);
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(final_options.http_get.url) +
+                    alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
                     "\nError: " + status);
                 });
         }

@@ -40,9 +40,9 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.stringOptionsCallback = function (options) {
         // Here you can manipulate the form options used in a http_post or http_get
         // For example, you can use variables to build the URL or set the parameters, here we just set the url.
-        options.http_post.url = "test/testdata.json";
+        options.httpPost.url = "test/testdata.json";
         // Note: This is a copy of the form options, edits here will not persist but are only used in this request.
-        return options
+        return options;
     };
 
     $scope.schema = {
@@ -60,35 +60,35 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 maxItems: 2,
                 description: 'Multi single items are allowed. (select three for maxItems error)'
             },
-            selectdynamic: {
+            selectDynamic: {
                 title: 'Single Select Dynamic',
                 type: 'string',
                 description: 'This data is loaded from the $scope.callBackSD function. (and laid out using css-options)'
             },
-            multiselectdynamic: {
+            multiselectDynamic: {
                 title: 'Multi Select Dynamic',
                 type: 'array',
                 description: 'This data is loaded from the $scope.callBackMSD function. (referenced by name)'
             },
-            multiselectdynamic_http_post: {
+            multiselectDynamicHttpPost: {
                 title: 'Multi Select Dynamic HTTP Post',
                 type: 'array',
                 description: 'This data is asynchronously loaded using a HTTP post. ' +
                 '(specifies parameter in form, options.url in a named callback)'
             },
-            multiselectdynamic_http_get: {
+            multiselectDynamicHttpGet: {
                 title: 'Multi Select Dynamic HTTP Get',
                 type: 'array',
                 description: 'This data is asynchronously loaded using a HTTP get. ' +
                 '(Set the URL at options.url)'
             },
-            multiselectdynamic_http_get_mapped: {
+            multiselectDynamicHttpGetMapped: {
                 title: 'Multi Select Dynamic HTTP Get Mapped data',
                 type: 'array',
                 description: 'This data is as above, but remapped from a nodeId/nodeName array of objects. ' +
                 '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
             },
-            multiselectdynamic_async: {
+            multiselectDynamicAsync: {
                 title: 'Multi Select Dynamic Async',
                 type: 'array',
                 description: 'This data is asynchrously loaded using a async call. ' +
@@ -119,7 +119,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             ]
         },
         {
-            "key": "selectdynamic",
+            "key": "selectDynamic",
             "type": 'strapselectdynamic',
             "htmlClass": "col-lg-3 col-md-3",
             "labelHtmlClass": "bigger",
@@ -129,7 +129,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             }
         },
         {
-            "key": "multiselectdynamic",
+            "key": "multiselectDynamic",
             "type": 'strapmultiselectdynamic',
             placeholder: "not set yet(this text is defined using the placeholder option)",
             "options": {
@@ -137,37 +137,37 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             }
         },
         {
-            "key": "multiselectdynamic_http_post",
+            "key": "multiselectDynamicHttpPost",
             "type": 'strapmultiselectdynamic',
             "title":'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
             "options": {
-                "http_post": {
+                "httpPost": {
                     "optionsCallback": "stringOptionsCallback",
                     "parameter": {"myparam": "Hello"}
                 }
             }
         },
         {
-            "key": "multiselectdynamic_http_get",
+            "key": "multiselectDynamicHttpGet",
             "type": 'strapmultiselectdynamic',
             "options": {
-                "http_get": {
+                "httpGet": {
                     "url": "test/testdata.json"
                 }
             }
         },
         {
-            "key": "multiselectdynamic_http_get_mapped",
+            "key": "multiselectDynamicHttpGetMapped",
             "type": 'strapmultiselectdynamic',
             "options": {
-                "http_get": {
+                "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
                 "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
             }
         },
         {
-            "key": "multiselectdynamic_async",
+            "key": "multiselectDynamicAsync",
             "type": 'strapmultiselectdynamic',
             "onChange": function () {
                 alert("You changed this value! (this was the onChange event in action)");
