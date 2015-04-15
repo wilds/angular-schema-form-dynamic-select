@@ -4,16 +4,15 @@ Angular Strap Dynamic Select add-on
 ===================================
 
 The dynamic select add-on uses [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select)
- to provide a dynamic drop down interface to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
+ to provide a drop down interface to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
 
 Features:
 
-* Single and multiple select
 * Static and dynamic lists
+* Single and multiple select
+* Convenient HTTP GET/POST and property mapping functionality
 * Sync and Async callbacks
-* HTTP GET/POST convenience functions
-* All callbacks referenced either by name (string) or reference 
-* Field map
+* All callbacks referenced either by name (string) or reference
 * [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
   * Supported:
     * key, type, title, description, placeholder
@@ -87,7 +86,7 @@ angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
 
 #Usage
 
-Usage is straight forward, simply include and reference.
+Usage is straightforward, simply include and reference.
 
 ## Form types
 
