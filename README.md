@@ -24,7 +24,7 @@ Features:
     * validationMessage, feedback
     
    
-<b>Important: Over the early minor versions, there has been considerable architectural changes:
+<b>Important: Over the early minor versions, there has been considerable architectural changes:</b>
 
 * 0.3.0 all dynamic-select-related settings moved to the form.
 * 0.3.3 value/name-pairs for drop down data is deprecated.<br />
