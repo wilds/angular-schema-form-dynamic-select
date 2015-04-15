@@ -92,7 +92,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
         }
         else {
-            return data
+            return data;
         }
     };
 
