@@ -16,7 +16,9 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             {value: 'value1', text: 'text1'},
             {value: 'value2', text: 'text2'},
             {value: 'value3', text: 'Select dynamic!'}
-        ]
+        ];
+        // Note: Options is a reference to the original instance, if you change a value,
+        // that change will persist when you use this form instance again.
     };
 
     $scope.callBackMSD = function (options) {
@@ -24,14 +26,23 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             {value: 'value1', text: 'text1'},
             {value: 'value2', text: 'text2'},
             {value: 'value3', text: 'Multiple select dynamic!'}
-        ]
+        ];
+        // Note: Options is a reference to the original instance, if you change a value,
+        // that change will persist when you use this form instance again.
     };
-
 
     $scope.callBackMSDAsync = function (options) {
         // Node that we got the url from the options. Not necessary, but then the same callback function can be used
         // by different selects with different parameters.
-        return $http.get(options.async.url);
+        return $http.get(options.urlOrWhateverOptionIWant);
+    };
+
+    $scope.stringOptionsCallback = function (options) {
+        // Here you can manipulate the form options used in a http_post or http_get
+        // For example, you can use variables to build the URL or set the parameters, here we just set the url.
+        options.http_post.url = "test/testdata.json";
+        // Note: This is a copy of the form options, edits here will not persist but are only used in this request.
+        return options
     };
 
     $scope.schema = {
@@ -57,18 +68,18 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             multiselectdynamic: {
                 title: 'Multi Select Dynamic',
                 type: 'array',
-                description: 'This data is loaded from the $scope.callBackMSD function.'
+                description: 'This data is loaded from the $scope.callBackMSD function. (referenced by name)'
             },
             multiselectdynamic_http_post: {
                 title: 'Multi Select Dynamic HTTP Post',
                 type: 'array',
-                description: 'This data is asynchrously loaded using a HTTP post. ' +
-                'specify options.url and options.parameter)'
+                description: 'This data is asynchronously loaded using a HTTP post. ' +
+                '(specifies parameter in form, options.url in a named callback)'
             },
             multiselectdynamic_http_get: {
                 title: 'Multi Select Dynamic HTTP Get',
                 type: 'array',
-                description: 'This data is asynchrously loaded using a HTTP get. ' +
+                description: 'This data is asynchronously loaded using a HTTP get. ' +
                 '(Set the URL at options.url)'
             },
             multiselectdynamic_http_get_mapped: {
@@ -122,16 +133,16 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "type": 'strapmultiselectdynamic',
             placeholder: "not set yet(this text is defined using the placeholder option)",
             "options": {
-                "callback": $scope.callBackMSD
+                "callback": "callBackMSD"
             }
         },
         {
             "key": "multiselectdynamic_http_post",
             "type": 'strapmultiselectdynamic',
-            "title":'Multi Select Dynamic HTTP Post (this title is from form.options, overriding the schema.title)',
+            "title":'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
             "options": {
                 "http_post": {
-                    "url": "test/testdata.json",
+                    "optionsCallback": "stringOptionsCallback",
                     "parameter": {"myparam": "Hello"}
                 }
             }
@@ -162,11 +173,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 alert("You changed this value! (this was the onChange event in action)");
             },
             "options": {
-                "async": {
-                    "call": $scope.callBackMSDAsync,
-                    "url": "test/testdata.json"
-                }
-
+                "asyncCallback": $scope.callBackMSDAsync,
+                "urlOrWhateverOptionIWant": "test/testdata.json"
             }
         },
         {
@@ -179,6 +187,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.model = {};
     $scope.model.select = 'value3';
     $scope.model.multiselect = ['value2', 'value1'];
+
+
 
     $scope.submitted = function (form) {
         $scope.$broadcast('schemaFormValidate');

@@ -93,7 +93,6 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
                 });
             });
             return _result
-
         }
         else {
             return _data
@@ -101,42 +100,67 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
     };
 
+    $scope.clone = function (obj) {
+        if (null == obj || "object" != typeof obj) return obj;
+        var copy = obj.constructor();
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
+        }
+        return copy;
+    }
+
+
+    $scope.getCallback = function (callback, name) {
+        if (typeof(callback) == "string") {
+            var _result = $scope.$parent.evalExpr(callback);
+            if (typeof(_result) == "function") {
+                return _result;
+            }
+            else
+            {
+                throw("A callback string must match name of a function in the parent scope")
+            }
+
+        }
+        else if (typeof(callback) == "function") {
+            return callback;
+        }
+        else {
+            throw("A callback must either be a string matching the name of a function in the parent scope or a " +
+            "direct function reference")
+
+        }
+    };
+    $scope.getOptions = function(options) {
+        // If defined, let the a callback function manipulate the options
+        if (options.http_post && options.http_post.optionsCallback) {
+            new_option_instance = $scope.clone(options);
+            return $scope.getCallback(options.http_post.optionsCallback)(new_option_instance);
+        }
+        if (options.http_get && options.http_get.optionsCallback) {
+            new_option_instance = $scope.clone(options);
+            return $scope.getCallback(options.http_get.optionsCallback)(new_option_instance);
+        }
+        else
+        {
+            return options
+        }
+    };
+
     $scope.fetchResult = function (options) {
         if (!options) {
             console.log("StrapSelectController.fetchResult : No options set");
         }
         else if (options.callback) {
-            $scope.items = options.callback(options);
+
+            $scope.items = $scope.getCallback(options.callback)(options);
             console.log('items', $scope.items);
         }
-        else if (options.http_post) {
-            return $http.post(options.http_post.url, options.http_post.parameter).then(
+        else if (options.asyncCallback) {
+            return $scope.getCallback(options.asyncCallback)(options).then(
                 function (_data) {
+                    $scope.items = $scope.remap(options, _data.data);
 
-                    $scope.items = $scope.remap(options, _data.data);
-                    console.log('items', $scope.items);
-                },
-                function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(options.http_post.url) +
-                    "' Parameter: " + String(options.http_post.parameter) + "\nError: " + status);
-                });
-        }
-        else if (options.http_get) {
-            return $http.get(options.http_get.url, options.http_get.parameter).then(
-                function (_data) {
-                    $scope.items = $scope.remap(options, _data.data);
-                    console.log('items', $scope.items);
-                },
-                function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(options.http_get.url) +
-                    "\nError: " + status);
-                });
-        }
-        else if (options.async) {
-            return options.async.call(options).then(
-                function (_data) {
-                    $scope.items = $scope.remap(options, _data.data);
-                    ;
                     console.log('items', $scope.items);
                 },
                 function (data, status) {
@@ -144,6 +168,33 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
                     "\nError: " + status);
                 });
         }
+        else if (options.http_post) {
+            var final_options = $scope.getOptions(options);
+
+            return $http.post(final_options.http_post.url, final_options.http_post.parameter).then(
+                function (_data) {
+
+                    $scope.items = $scope.remap(final_options, _data.data);
+                    console.log('items', $scope.items);
+                },
+                function (data, status) {
+                    alert("Loading select items failed (URL: '" + String(final_options.http_post.url) +
+                    "' Parameter: " + String(final_options.http_post.parameter) + "\nError: " + status);
+                });
+        }
+        else if (options.http_get) {
+            var final_options = $scope.getOptions(options);
+            return $http.get(final_options.http_get.url, final_options.http_get.parameter).then(
+                function (_data) {
+                    $scope.items = $scope.remap(final_options, _data.data);
+                    console.log('items', $scope.items);
+                },
+                function (data, status) {
+                    alert("Loading select items failed (URL: '" + String(final_options.http_get.url) +
+                    "\nError: " + status);
+                });
+        }
+
     };
 
 }]);
