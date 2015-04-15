@@ -24,7 +24,7 @@ Features:
     * validationMessage, feedback
     
    
-<b>Important: Over the early minor versions, there has been considerable architectural changes:
+<b>Important: Over the early minor versions, there has been considerable architectural changes:</b>
 
 * 0.3.0 all dynamic-select-related settings moved to the form.
 * 0.3.3 value/name-pairs for drop down data is deprecated.<br />
@@ -35,6 +35,7 @@ The the add-on still supports both variants, but value/name will be removed.<br 
   * http_post and http_get are renamed to httpPost and httpGet.
   * async.callback is removed and asyncCallback is used instead.
 
+Note: no further API changes are planned.
 
 # Glossary
 
