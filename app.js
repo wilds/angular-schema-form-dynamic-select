@@ -116,7 +116,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "type": 'strapmultiselect',
             options: {
                 "filterTriggers": ["model.select"],
-                "filter" : "model.select==item.category"
+                "filter": "model.select==item.category"
             },
             "items": [
                 {"value": 'value1', "text": 'text1', "category": "value1"},
@@ -145,7 +145,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": "multiselectDynamicHttpPost",
             "type": 'strapmultiselectdynamic',
-            "title":'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
+            "title": 'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
             "options": {
                 "httpPost": {
                     "optionsCallback": "stringOptionsCallback",
@@ -167,11 +167,11 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "type": 'strapmultiselectdynamic',
             "options": {
                 "filterTriggers": ["model.select"],
-                "filter" : "model.select==item.category",
+                "filter": "model.select==item.category",
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
-                "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
+                "map": {valueProperty: "nodeId", textProperty: "nodeName"}
             }
         },
         {
@@ -195,7 +195,6 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.model = {};
     $scope.model.select = 'value1';
     $scope.model.multiselect = ['value2', 'value1'];
-
 
 
     $scope.submitted = function (form) {

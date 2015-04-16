@@ -11,6 +11,7 @@ Features:
 * Static and dynamic lists
 * Single and multiple select
 * Convenient HTTP GET/POST and property mapping functionality
+* Filters
 * Sync and Async callbacks
 * All callbacks referenced either by name (string) or reference
 * [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
