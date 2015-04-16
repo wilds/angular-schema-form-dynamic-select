@@ -32,8 +32,10 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     };
 
     $scope.callBackMSDAsync = function (options) {
-        // Node that we got the url from the options. Not necessary, but then the same callback function can be used
+        // Note that we got the url from the options. Not necessary, but then the same callback function can be used
         // by different selects with different parameters.
+
+        // The asynchronous function must always return a httpPromise
         return $http.get(options.urlOrWhateverOptionIWant);
     };
 
@@ -112,8 +114,10 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": 'multiselect',
             "type": 'strapmultiselect',
-            filterTriggers: ['model.select'],
-            filter : "model.select==item.category",
+            options: {
+                filterTriggers: ['model.select'],
+                filter : "model.select==item.category"
+            },
             "items": [
                 {"value": 'value1', "text": 'text1', "category": "value1"},
                 {"value": 'value2', "text": 'text2', "category": "value1"},

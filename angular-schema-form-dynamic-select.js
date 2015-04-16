@@ -88,8 +88,8 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
     };
 
     $scope.initListeners = function () {
-        if ($scope.form.filterTriggers) {
-            $scope.form.filterTriggers.forEach(function (trigger) {
+        if ($scope.form.options.filterTriggers) {
+            $scope.form.options.filterTriggers.forEach(function (trigger) {
                 $scope.$parent.$parent.$watch(trigger, $scope.listener)
 
             });
@@ -215,16 +215,16 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
     return function (inputArray, form , scope, controller) {
-        if (!angular.isDefined(form.filter) || form.filter == '') {
+        if (!angular.isDefined(form.options.filter) || form.options.filter == '') {
             return inputArray;
         }
         var data = [];
         angular.forEach(inputArray, function (curr_item) {
-            if (scope.$eval(form.filter,{item: curr_item})){
+            if (scope.$eval(form.options.filter,{item:curr_item})) {
                 data.push(curr_item);
             }
         });
-        console.log("Filter for " +form.title +"run");
+        console.log("Filter for " +form.title +" run");
         if (!controller.listenerInitialized) {
             controller.initListeners(scope);
         }
