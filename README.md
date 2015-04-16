@@ -220,11 +220,13 @@ Therefore, a "map"-property is provided. <br />
 The property in valueProperty says in what property to look for the value, and textProperty the text.
 In this case:
 
-    {nodeId : 1, nodeName: "Test"}
+    {nodeId : 1, nodeName: "Test", "nodeType": "99"}
 which cannot be used, is converted into:
 
-    {value : 1, text: "Test"}
-which is the native format, the options for that mapping look like this:
+    {value : 1, text: "Test", nodeId : 1, nodeName: "Test", "nodeType": "99"}
+which is the native format with the old options retained to not destroy auxiliary information.
+For example, a field like "nodeType" might be used for filtering(see Filters section, below). 
+The options for that mapping look like this:
 
      {
        "key": "multiselectdynamic_http_get",
