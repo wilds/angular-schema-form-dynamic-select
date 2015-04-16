@@ -114,6 +114,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": 'multiselect',
             "type": 'strapmultiselect',
+            "placeholder": "My items feel unselected. Or you selected text3 in the selector above me.",
             options: {
                 "filterTriggers": ["model.select"],
                 "filter": "model.select==item.category"
@@ -157,6 +158,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": "multiselectDynamicHttpGet",
             "type": 'strapmultiselectdynamic',
+            "placeholder": "None selected here neither.",
             "options": {
                 "httpGet": {
                     "url": "test/testdata.json"
