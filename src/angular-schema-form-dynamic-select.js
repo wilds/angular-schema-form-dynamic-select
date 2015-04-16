@@ -73,10 +73,29 @@ angular.module('schemaForm').config(
 
         }]);
 
-angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', function ($scope, $http) {
-
+angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
     $scope.items = [];
+
+    $scope.listener = function () {
+        console.log("listener triggered");
+
+        $scope.form.items.push({value: "huhs", text: "sdfsdf"});
+    };
+
+    $scope.initListeners = function () {
+        if ($scope.form.filterTriggers) {
+            $scope.form.filterTriggers.forEach(function (trigger) {
+                $scope.$parent.$parent.$watch(trigger, $scope.listener)
+
+            });
+        }
+        $scope.listenerInitialized = true;
+    };
+
+
+
+
 
     $scope.remap = function (options, data) {
         if (options && "map" in options && options.map) {
@@ -112,8 +131,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             if (typeof(_result) == "function") {
                 return _result;
             }
-            else
-            {
+            else {
                 throw("A callback string must match name of a function in the parent scope")
             }
 
@@ -127,7 +145,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
         }
     };
-    $scope.getOptions = function(options) {
+    $scope.getOptions = function (options) {
         // If defined, let the a callback function manipulate the options
         if (options.httpPost && options.httpPost.optionsCallback) {
             newOptionInstance = $scope.clone(options);
@@ -137,12 +155,10 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             newOptionInstance = $scope.clone(options);
             return $scope.getCallback(options.httpGet.optionsCallback)(newOptionInstance);
         }
-        else
-        {
+        else {
             return options;
         }
     };
-
     $scope.fetchResult = function (options) {
         if (!options) {
             console.log("StrapSelectController.fetchResult : No options set");
@@ -193,4 +209,23 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 
 }]);
 
+angular.module('schemaForm').filter('selectFilter', [function ($filter) {
+    return function (inputArray, form , scope, controller) {
+        if (!angular.isDefined(form.filter) || form.filter == '') {
+            return inputArray;
+        }
+        var data = [];
+        angular.forEach(inputArray, function (item) {
+            if (scope.$eval(form.filter,[{item:item}])) {
+                data.push(item);
+            }
+        });
+        console.log("Filter for " +form.title +"run");
+        if (!controller.listenerInitialized) {
+            controller.initListeners(scope);
+        }
+
+        return data;
+    };
+}]);
 

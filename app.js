@@ -112,9 +112,11 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": 'multiselect',
             "type": 'strapmultiselect',
+            filterTriggers: ['model.select'],
+            filter : "model.select==item.category",
             "items": [
-                {"value": 'value1', "text": 'text1'},
-                {"value": 'value2', "text": 'text2'},
+                {"value": 'value1', "text": 'text1', "category": "value1"},
+                {"value": 'value2', "text": 'text2', "category": "value1"},
                 {"value": 'value3', "text": 'long very very long label3'}
             ]
         },
@@ -185,7 +187,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
 
     ];
     $scope.model = {};
-    $scope.model.select = 'value3';
+    $scope.model.select = 'value1';
     $scope.model.multiselect = ['value2', 'value1'];
 
 
