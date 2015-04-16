@@ -264,6 +264,7 @@ These types are static, which means that the list of items is statically defined
 
 ## strapselectdynamic and strapmultiselectdynamic
 These types are dynamic and fetches their data from different back ends.
+#### Callbacks in general
 Callbacks can be defined either by name(`"loadGroups"`) or absolute reference (`$scope.loadGroups`). 
 
 The name is actually is an expression evaluated in the user scope that must return a function reference.
@@ -273,7 +274,8 @@ But the main reason for supporting referring to functions both by name and refer
 often is stored in a database and passed from the server to the client in [pure JSON format](http://stackoverflow.com/questions/2904131/what-is-the-difference-between-json-and-object-literal-notation),
 and there, `callback: $scope.loadGroups` is not allowed.
 
-The result of all callbacks can be remapped using the "map" property described above.
+#### Callback results
+The results of all callbacks can be remapped using the "map" property described above.
 
 The two methods of callback mechanisms are:
 
