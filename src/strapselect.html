@@ -5,7 +5,7 @@
     <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController">
         <button type="button" class="btn btn-default" ng-model="$$value$$" sf-changed="form" schema-validate="form"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}" data-html="1"
-                ng-options="item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this"
+                ng-options="item.value as item.text for item in form.items | selectFilter:form:mainScope:this"
                 bs-select>
         </button>
         <span class="help-block">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>
