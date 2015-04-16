@@ -112,93 +112,93 @@ describe('Schema form', function () {
                 {value: "json-value3", text: "json-name3"}
             ];
             scope.testResponseMapped = [
-              {"nodeId": "1", "nodeName": "Node 1"},
-              {"nodeId": "2", "nodeName": "Node 2"},
-              {"nodeId": "3", "nodeName": "Node 3"}
+                {"nodeId": "1", "nodeName": "Node 1"},
+                {"nodeId": "2", "nodeName": "Node 2"},
+                {"nodeId": "3", "nodeName": "Node 3"}
             ];
             scope.testResponseMappedCmp = [
-              {"value": "1", "text": "Node 1"},
-              {"value": "2", "text": "Node 2"},
-              {"value": "3", "text": "Node 3"}
+                {"nodeId": "1", "nodeName": "Node 1", "value": "1", "text": "Node 1"},
+                {"nodeId": "2", "nodeName": "Node 2", "value": "2", "text": "Node 2"},
+                {"nodeId": "3", "nodeName": "Node 3", "value": "3", "text": "Node 3"}
             ];
             scope.form = [
-            {
-                "key": 'select',
-                "type": 'strapselect',
-                "items": [
-                    {"value": 'value1', "text": 'text1'},
-                    {"value": 'value2', "text": 'text2'},
-                    {"value": 'value3', "text": 'text3'}
-                ]
-            },
-            {
-                "key": 'multiselect',
-                "type": 'strapmultiselect',
-                "items": [
-                    {"value": 'value1', "text": 'text1'},
-                    {"value": 'value2', "text": 'text2'},
-                    {"value": 'value3', "text": 'long very very long label3'}
-                ]
-            },
-            {
-                "key": "selectDynamic",
-                "type": 'strapselectdynamic',
-                "htmlClass": "col-lg-3 col-md-3",
-                "labelHtmlClass": "bigger",
-                "fieldHtmlClass": "tilted",
-                "options": {
-                    "callback": scope.callBackSD
-                }
-            },
-            {
-                "key": "multiselectDynamic",
-                "type": 'strapmultiselectdynamic',
-                placeholder: "not set yet(this text is defined using the placeholder option)",
-                "options": {
-                    "callback": "callBackMSD"
-                }
-            },
-            {
-                "key": "multiselectDynamicHttpPost",
-                "type": 'strapmultiselectdynamic',
-                "title":'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
-                "options": {
-                    "httpPost": {
-                        "optionsCallback": "stringOptionsCallback",
-                        "parameter": {"myparam": "Hello"}
-                    }
-                }
-            },
-            {
-                "key": "multiselectDynamicHttpGet",
-                "type": 'strapmultiselectdynamic',
-                "options": {
-                    "httpGet": {
-                        "url": "test/testdata.json"
-                    }
-                }
-            },
-            {
-                "key": "multiselectDynamicHttpGetMapped",
-                "type": 'strapmultiselectdynamic',
-                "options": {
-                    "httpGet": {
-                        "url": "test/testdata_mapped.json"
-                    },
-                    "map" : {valueProperty: "nodeId", textProperty: "nodeName"}
-                }
-            },
-            {
-                "key": "multiselectDynamicAsync",
-                "type": 'strapmultiselectdynamic',
-                "onChange": function () {
-                    alert("You changed this value! (this was the onChange event in action)");
+                {
+                    "key": 'select',
+                    "type": 'strapselect',
+                    "items": [
+                        {"value": 'value1', "text": 'text1'},
+                        {"value": 'value2', "text": 'text2'},
+                        {"value": 'value3', "text": 'text3'}
+                    ]
                 },
-                "options": {
-                    "asyncCallback": scope.callBackMSDAsync,
-                    "urlOrWhateverOptionIWant": "test/testdata.json"
+                {
+                    "key": 'multiselect',
+                    "type": 'strapmultiselect',
+                    "items": [
+                        {"value": 'value1', "text": 'text1'},
+                        {"value": 'value2', "text": 'text2'},
+                        {"value": 'value3', "text": 'long very very long label3'}
+                    ]
+                },
+                {
+                    "key": "selectDynamic",
+                    "type": 'strapselectdynamic',
+                    "htmlClass": "col-lg-3 col-md-3",
+                    "labelHtmlClass": "bigger",
+                    "fieldHtmlClass": "tilted",
+                    "options": {
+                        "callback": scope.callBackSD
+                    }
+                },
+                {
+                    "key": "multiselectDynamic",
+                    "type": 'strapmultiselectdynamic',
+                    placeholder: "not set yet(this text is defined using the placeholder option)",
+                    "options": {
+                        "callback": "callBackMSD"
+                    }
+                },
+                {
+                    "key": "multiselectDynamicHttpPost",
+                    "type": 'strapmultiselectdynamic',
+                    "title": 'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
+                    "options": {
+                        "httpPost": {
+                            "optionsCallback": "stringOptionsCallback",
+                            "parameter": {"myparam": "Hello"}
+                        }
+                    }
+                },
+                {
+                    "key": "multiselectDynamicHttpGet",
+                    "type": 'strapmultiselectdynamic',
+                    "options": {
+                        "httpGet": {
+                            "url": "test/testdata.json"
+                        }
+                    }
+                },
+                {
+                    "key": "multiselectDynamicHttpGetMapped",
+                    "type": 'strapmultiselectdynamic',
+                    "options": {
+                        "httpGet": {
+                            "url": "test/testdata_mapped.json"
+                        },
+                        "map": {valueProperty: "nodeId", textProperty: "nodeName"}
+                    }
+                },
+                {
+                    "key": "multiselectDynamicAsync",
+                    "type": 'strapmultiselectdynamic',
+                    "onChange": function () {
+                        alert("You changed this value! (this was the onChange event in action)");
+                    },
+                    "options": {
+                        "asyncCallback": scope.callBackMSDAsync,
+                        "urlOrWhateverOptionIWant": "test/testdata.json"
+                    }
                 }
-            }
             ];
 
             scope.model = {};
@@ -233,26 +233,26 @@ describe('Schema form', function () {
                 // Wait for all getting done before checking.
                 $timeout(function () {
 
-                    // Find HTML elements in the response, find its scope, and then deep compare with known results.
+                        // Find HTML elements in the response, find its scope, and then deep compare with known results.
 
-                    // Single Select Dynamic
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(2).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.callBackSD()));
-                    // Multi Select Dynamic
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(3).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.callBackMSD()));
-                    // Multi Select Dynamic HTTP Post
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(4).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.testResponse));
-                    // Multi Select Dynamic HTTP Get
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(5).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.testResponse));
-                    // Multi Select Dynamic HTTP Get Mapped
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(6).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.testResponseMappedCmp));
-                    // Multi Select Dynamic Async
-                    expect(JSON.stringify(angular.element(tmpl.children().eq(7).children().eq(0).children().eq(1)).scope().items)).
-                        to.equal(JSON.stringify(scope.testResponse));
+                        // Single Select Dynamic
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(2).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.callBackSD()), "Single Select Dynamic test failed.");
+                        // Multi Select Dynamic
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(3).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.callBackMSD()), "Multi Select Dynamic test failed.");
+                        // Multi Select Dynamic HTTP Post
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(4).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.testResponse), "Multi Select Dynamic HTTP Post test failed.");
+                        // Multi Select Dynamic HTTP Get
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(5).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.testResponse), "Multi Select Dynamic HTTP Get test failed.");
+                        // Multi Select Dynamic HTTP Get Mapped
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(6).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.testResponseMappedCmp), "Multi Select Dynamic HTTP Get Mapped test failed.");
+                        // Multi Select Dynamic Async
+                        expect(JSON.stringify(angular.element(tmpl.children().eq(7).children().eq(0).children().eq(1)).scope().form.items)).
+                            to.equal(JSON.stringify(scope.testResponse), "Multi Select Dynamic Async test failed.");
 
                     }
                 );
