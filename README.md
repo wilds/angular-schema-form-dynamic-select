@@ -236,7 +236,7 @@ which is the native format, the options for that mapping look like this:
        }
      },    
      
-This is convenience functionality, for more complicated mappings, and situations where the source data is<br /> 
+This is convenience functionality, for more complicated mappings, and situations where the source data is
 in a completely different format, the callback and asyncCallback options should be used instead.
 
 ## Filters
