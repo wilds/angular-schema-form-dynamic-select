@@ -115,8 +115,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "key": 'multiselect',
             "type": 'strapmultiselect',
             options: {
-                filterTriggers: ['model.select'],
-                filter : "model.select==item.category"
+                "filterTriggers": ["model.select"],
+                "filter" : "model.select==item.category"
             },
             "items": [
                 {"value": 'value1', "text": 'text1', "category": "value1"},
@@ -166,6 +166,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "key": "multiselectDynamicHttpGetMapped",
             "type": 'strapmultiselectdynamic',
             "options": {
+                "filterTriggers": ["model.select"],
+                "filter" : "model.select==item.category",
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },

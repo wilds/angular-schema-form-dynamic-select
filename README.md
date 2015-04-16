@@ -126,15 +126,15 @@ The drop down items are defined by and array of value/text objects residing in t
      },
      
 ### Multiple select from static list
-Like the above, but allowes multiple items to be selected.
+Like the above, but allows multiple items to be selected. 
 
      {
        "key": 'multiselect',
        "type": 'strapmultiselect',
         "items": [
-          {"value": 'value1', "text": 'text1'},
-          {"value": 'value2', "text": 'text2'},
-          {"value": 'value3', "text": 'long very very long label3'}
+            {"value": 'value1', "text": 'text1'},
+            {"value": 'value2', "text": 'text2'},
+            {"value": 'value3', "text": 'long very very long label3'}
         ]
      },
      
@@ -239,6 +239,41 @@ which is the native format, the options for that mapping look like this:
 This is convenience functionality, for more complicated mappings, and situations where the source data is<br /> 
 in a completely different format, the callback and asyncCallback options should be used instead.
 
+## Filters
+
+Filters, like [conditions](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options) 
+handle visibility, but for each item in the options list.
+
+It works by evaluating the filter expression for each row, if it evaluates to true, the option remains in the list.
+One could compare it with an SQL join.
+ 
+The options are:
+
+* filter : An expression, evaluated in the user scope, with the "item" local variable injected. "item" is the current list item, `"model.select==item.category"`
+* filterTrigger : An array of expressions triggering the filtering, `"model.select"`
+
+
+    {
+        "key": 'multiselect',
+        "type": 'strapmultiselect',
+        options: {
+            "filterTriggers": ["model.select"],
+            "filter" : "model.select==item.category"
+        },
+        "items": [
+            {"value": 'value1', "text": 'text1', "category": "value1"},
+            {"value": 'value2', "text": 'text2', "category": "value1"},
+            {"value": 'value3', "text": 'long very very long label3'}
+        ]
+    },
+
+Note on filterTrigger and why not having a watch on the entire expression:
+
+* The expression is actually a one-to-many join, and mixes two scopes in the evaluation. This might not always be handled the same by $eval. 
+* Adding watches for the expression would mean having to add one watch for each list item, long lists would mean a huge overhead.
+* Also, there might be use cases where triggering should be triggered by other conditions. Or not be triggered for some other reason.
+
+
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
 
@@ -254,13 +289,16 @@ And ending the form element array:
     
 
 # Feature summary
-The functionality in the different types can be summarized like this, by type:
+
+The options.items property in form holds the list items(also in the dynamic variants).
+
+All select types can handle:
+
+* property mappings
+* filters
 
 ## strapselect and strapmultiselect
 These types are static, which means that the list of items is statically defined in the form:
-
-* list items items property in form holds the list items
-* property mapping 
 
 ## strapselectdynamic and strapmultiselectdynamic
 These types are dynamic and fetches their data from different back ends.

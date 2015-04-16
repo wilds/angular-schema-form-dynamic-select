@@ -1,7 +1,7 @@
-angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button  type=\"button\" class=\"btn btn-default\" ng-model=\"$$values$$\" schema-validate=\"form\" sf-changed=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-multiple=\"1\" data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynamic.html","<div class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-model=\"$$value$$\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" ng-model=\"form.items\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-multiple=\"1\" data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" ng-model=\"$$value$$\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder ||(\'placeholders.select\')}}\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapselectdynamic.html","<div class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" ng-model=\"$$value$$\"  sf-changed=\"form\"\n         schema-validate=\"form\"  ng-init=\"fetchResult(form.options)\"\n                ng-collection=\"form.items\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder ||(\'placeholders.select\')}}\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in items\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
+angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" ng-model=\"$$value$$\" sf-changed=\"form\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
+$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynamic.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-multiple=\"1\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
+$templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" ng-model=\"$$value$$\" sf-changed=\"form\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
+$templateCache.put("directives/decorators/bootstrap/strap/strapselectdynamic.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-html=\"1\" ng-options=\"item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this\" bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
 angular.module('schemaForm').config(
     ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
         function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
@@ -79,39 +79,37 @@ angular.module('schemaForm').config(
 
 angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-    $scope.items = [];
 
-    $scope.listener = function () {
+    $scope.triggerItems = function () {
         console.log("listener triggered");
+        $scope.$$watchers.forEach(function (watcher) {
+            if (watcher.exp == "form.items") {
+                watcher.fn($scope.form.items, $scope.form.items)
+            }
+        });
 
-        $scope.form.items.push({value: "huhs", text: "sdfsdf"});
     };
 
     $scope.initListeners = function () {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
-                $scope.$parent.$parent.$watch(trigger, $scope.listener)
+                $scope.$parent.$parent.$watch(trigger, $scope.triggerItems)
 
             });
         }
         $scope.listenerInitialized = true;
     };
 
-
-
-
-
     $scope.remap = function (options, data) {
         if (options && "map" in options && options.map) {
             var current_row = null;
             var result = [];
             data.forEach(function (current_row) {
-                result.push({
-                    value: current_row[options.map.valueProperty],
-                    text: current_row[options.map.textProperty]
-                });
+                current_row["value"] = current_row[options.map.valueProperty];
+                current_row["text"] = current_row[options.map.textProperty];
+                result.push(current_row);
             });
-            return result
+            return result;
 
         }
         else {
@@ -169,14 +167,14 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
         }
         else if (options.callback) {
 
-            $scope.items = $scope.getCallback(options.callback)(options);
-            console.log('items', $scope.items);
+            $scope.form.items = $scope.getCallback(options.callback)(options);
+            console.log('callback  items', $scope.form.items);
         }
         else if (options.asyncCallback) {
             return $scope.getCallback(options.asyncCallback)(options).then(
                 function (_data) {
-                    $scope.items = $scope.remap(options, _data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(options, _data.data);
+                    console.log('asyncCallback items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed(Options: '" + String(options) +
@@ -189,8 +187,8 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.items = $scope.remap(finalOptions, _data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(finalOptions, _data.data);
+                    console.log('httpPost items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
@@ -201,8 +199,8 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             var finalOptions = $scope.getOptions(options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    $scope.items = $scope.remap(finalOptions, data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(finalOptions, data.data);
+                    console.log('httpGet items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
@@ -214,17 +212,23 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
-    return function (inputArray, form , scope, controller) {
-        if (!angular.isDefined(form.options.filter) || form.options.filter == '') {
+    return function (inputArray, form, scope, controller) {
+        if (!angular.isDefined(inputArray) || !angular.isDefined(form.options) || !angular.isDefined(form.options.filter) || form.options.filter == '') {
             return inputArray;
         }
         var data = [];
         angular.forEach(inputArray, function (curr_item) {
-            if (scope.$eval(form.options.filter,{item:curr_item})) {
+            if (scope.$eval(form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
+            else if (controller.$parent.ngModel.$modelValue) {
+                // If not in list, also remove the set value
+                controller.$parent.ngModel.$modelValue.splice(controller.$parent.ngModel.$modelValue.indexOf(curr_item.value), 1);
+            }
         });
-        console.log("Filter for " +form.title +" run");
+        console.log("Filter for " + form.title + " filter:" + form.options.filter +
+        " input: " + JSON.stringify(inputArray) +
+        " output: " + JSON.stringify(data));
         if (!controller.listenerInitialized) {
             controller.initListeners(scope);
         }
@@ -232,4 +236,5 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
         return data;
     };
 }]);
+
 

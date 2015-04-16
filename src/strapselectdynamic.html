@@ -1,11 +1,9 @@
-<div class="form-group {{form.htmlClass}}" ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
+<div ng-init="mainScope=this.$parent.$parent;" class="form-group {{form.htmlClass}}" ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
     <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-    <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController">
-        <button type="button" class="btn btn-default" ng-model="$$value$$"  sf-changed="form"
-         schema-validate="form"  ng-init="fetchResult(form.options)"
-                ng-collection="form.items"
-                data-placeholder="{{form.placeholder || form.schema.placeholder ||('placeholders.select')}}"
-                data-html="1" ng-options="item.value as (item.text == null ? item.name : item.text) for item in items" bs-select>
+    <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController" ng-init="fetchResult(form.options)">
+        <button type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="$$value$$"
+                data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}"
+                data-html="1" ng-options="item.value as (item.text == null ? item.name : item.text) for item in form.items | selectFilter:form:mainScope:this" bs-select>
         </button>
         <span class="help-block">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>
     </div>

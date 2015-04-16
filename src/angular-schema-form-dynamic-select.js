@@ -75,39 +75,37 @@ angular.module('schemaForm').config(
 
 angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-    $scope.items = [];
 
-    $scope.listener = function () {
+    $scope.triggerItems = function () {
         console.log("listener triggered");
+        $scope.$$watchers.forEach(function (watcher) {
+            if (watcher.exp == "form.items") {
+                watcher.fn($scope.form.items, $scope.form.items)
+            }
+        });
 
-        $scope.form.items.push({value: "huhs", text: "sdfsdf"});
     };
 
     $scope.initListeners = function () {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
-                $scope.$parent.$parent.$watch(trigger, $scope.listener)
+                $scope.$parent.$parent.$watch(trigger, $scope.triggerItems)
 
             });
         }
         $scope.listenerInitialized = true;
     };
 
-
-
-
-
     $scope.remap = function (options, data) {
         if (options && "map" in options && options.map) {
             var current_row = null;
             var result = [];
             data.forEach(function (current_row) {
-                result.push({
-                    value: current_row[options.map.valueProperty],
-                    text: current_row[options.map.textProperty]
-                });
+                current_row["value"] = current_row[options.map.valueProperty];
+                current_row["text"] = current_row[options.map.textProperty];
+                result.push(current_row);
             });
-            return result
+            return result;
 
         }
         else {
@@ -165,14 +163,14 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
         }
         else if (options.callback) {
 
-            $scope.items = $scope.getCallback(options.callback)(options);
-            console.log('items', $scope.items);
+            $scope.form.items = $scope.getCallback(options.callback)(options);
+            console.log('callback  items', $scope.form.items);
         }
         else if (options.asyncCallback) {
             return $scope.getCallback(options.asyncCallback)(options).then(
                 function (_data) {
-                    $scope.items = $scope.remap(options, _data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(options, _data.data);
+                    console.log('asyncCallback items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed(Options: '" + String(options) +
@@ -185,8 +183,8 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.items = $scope.remap(finalOptions, _data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(finalOptions, _data.data);
+                    console.log('httpPost items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
@@ -197,8 +195,8 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
             var finalOptions = $scope.getOptions(options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    $scope.items = $scope.remap(finalOptions, data.data);
-                    console.log('items', $scope.items);
+                    $scope.form.items = $scope.remap(finalOptions, data.data);
+                    console.log('httpGet items', $scope.form.items);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
@@ -210,17 +208,23 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
-    return function (inputArray, form , scope, controller) {
-        if (!angular.isDefined(form.options.filter) || form.options.filter == '') {
+    return function (inputArray, form, scope, controller) {
+        if (!angular.isDefined(inputArray) || !angular.isDefined(form.options) || !angular.isDefined(form.options.filter) || form.options.filter == '') {
             return inputArray;
         }
         var data = [];
         angular.forEach(inputArray, function (curr_item) {
-            if (scope.$eval(form.options.filter,{item:curr_item})) {
+            if (scope.$eval(form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
+            else if (controller.$parent.ngModel.$modelValue) {
+                // If not in list, also remove the set value
+                controller.$parent.ngModel.$modelValue.splice(controller.$parent.ngModel.$modelValue.indexOf(curr_item.value), 1);
+            }
         });
-        console.log("Filter for " +form.title +" run");
+        console.log("Filter for " + form.title + " filter:" + form.options.filter +
+        " input: " + JSON.stringify(inputArray) +
+        " output: " + JSON.stringify(data));
         if (!controller.listenerInitialized) {
             controller.initListeners(scope);
         }
@@ -228,4 +232,5 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
         return data;
     };
 }]);
+
 
