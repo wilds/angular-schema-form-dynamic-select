@@ -54,13 +54,13 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             select: {
                 title: 'Single Select Static',
                 type: 'string',
-                description: 'Only single item is allowed'
+                description: 'Only single item is allowed. (change here and observe how the select list below is filtered)'
             },
             multiselect: {
                 title: 'Multi Select Static',
                 type: 'array',
                 maxItems: 2,
-                description: 'Multi single items are allowed. (select three for maxItems error)'
+                description: 'Multi single items are allowed. (select three for maxItems validation error)'
             },
             selectDynamic: {
                 title: 'Single Select Dynamic',
@@ -121,7 +121,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "items": [
                 {"value": 'value1', "text": 'text1', "category": "value1"},
                 {"value": 'value2', "text": 'text2', "category": "value1"},
-                {"value": 'value3', "text": 'long very very long label3'}
+                {"value": 'value3', "text": 'long very very long label3', "category": "value2"},
+                {"value": 'value4', "text": 'Select three and get a validation error!', "category": "value1"}
             ]
         },
         {
@@ -166,8 +167,6 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             "key": "multiselectDynamicHttpGetMapped",
             "type": 'strapmultiselectdynamic',
             "options": {
-                "filterTriggers": ["model.select"],
-                "filter": "model.select==item.category",
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
