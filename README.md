@@ -35,6 +35,8 @@ The the add-on still supports both variants, but value/name will be removed.<br 
 * 0.5.0 Breaking changes:
   * http_post and http_get are renamed to httpPost and httpGet.
   * async.callback is removed and asyncCallback is used instead.
+* 0.6.0 earlier deprecated support for value/name-pairs is now removed 
+
 
 Note: no further API changes are planned.
 
