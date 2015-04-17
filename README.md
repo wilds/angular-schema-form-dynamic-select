@@ -258,6 +258,7 @@ The options are:
 * filterTrigger : An array of expressions triggering the filtering, `"model.select"`
 
 
+
     {
         "key": 'multiselect',
         "type": 'strapmultiselect',
