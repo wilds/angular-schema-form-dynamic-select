@@ -3,7 +3,7 @@
     <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController">
-        <button type="button" class="btn btn-default" ng-model="$$value$$" sf-changed="form" schema-validate="form"
+        <button type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="$$value$$"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}" data-html="1" data-multiple="1"
                 bs-options="item.value as item.text for item in form.items | selectFilter:form:mainScope:this"
                 bs-select>
