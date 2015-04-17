@@ -1,5 +1,6 @@
 [![Bower version](https://badge.fury.io/bo/angular-schema-form-dynamic-select.svg)](http://badge.fury.io/bo/angular-schema-form-dynamic-select)
-
+[![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)]
+(https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Angular Strap Dynamic Select add-on
 ===================================
 
