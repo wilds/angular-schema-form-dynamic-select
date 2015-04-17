@@ -217,9 +217,9 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             if (scope.$eval(form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
-            else if (controller.$parent.ngModel.$modelValue) {
+            else if (controller.ngModel.$modelValue) {
                 // If not in list, also remove the set value
-                controller.$parent.ngModel.$modelValue.splice(controller.$parent.ngModel.$modelValue.indexOf(curr_item.value), 1);
+                controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
             }
         });
         console.log("Filter for " + form.title + " filter:" + form.options.filter +
