@@ -217,19 +217,26 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
         var data = [];
+        if (controller.ngModel.$modelValue) {
+            var modelType = Object.prototype.toString.call(controller.ngModel.$modelValue);
+        }
+        else {
+            var modelType = null;
+        }
+
         angular.forEach(inputArray, function (curr_item) {
             if (scope.$eval(form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
-            else if (controller.ngModel.$modelValue) {
+            else if (modelType) {
                 // If not in list, also remove the set value
-                if (typeof(controller.ngModel.$modelValue) == "array") {
+
+                if (modelType == "[object Array]") {
                     controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
                 }
                 else if (controller.ngModel.$modelValue == curr_item.value) {
                     controller.ngModel.$modelValue = null;
                 }
-
             }
         });
         console.log("Filter for " + form.title + " filter:" + form.options.filter +

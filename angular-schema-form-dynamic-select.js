@@ -1,5 +1,5 @@
 angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.text for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynamic.html","<div ng-init=\"mainScope=this.$parent.$parent;model=$$value$$\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"model\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.text for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n\n");
+$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynamic.html","<div ng-init=\"mainScope=this.$parent.$parent;model=$$value$$\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"model\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.text for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
 $templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div ng-init=\"mainScope=this.$parent.$parent;\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\">\n        <button type=\"button\" class=\"btn btn-default\" ng-model=\"$$value$$\" sf-changed=\"form\" schema-validate=\"form\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                bs-options=\"item.value as item.text for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
 $templateCache.put("directives/decorators/bootstrap/strap/strapselectdynamic.html","<div ng-init=\"mainScope=this.$parent.$parent;model=$$value$$\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-controller=\"StrapSelectController\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"model\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                bs-options=\"item.value as item.text for item in form.items | selectFilter:form:mainScope:this\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
 angular.module('schemaForm').config(
@@ -221,19 +221,26 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
         var data = [];
+        if (controller.ngModel.$modelValue) {
+            var modelType = Object.prototype.toString.call(controller.ngModel.$modelValue);
+        }
+        else {
+            var modelType = null;
+        }
+
         angular.forEach(inputArray, function (curr_item) {
             if (scope.$eval(form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
-            else if (controller.ngModel.$modelValue) {
+            else if (modelType) {
                 // If not in list, also remove the set value
-                if (typeof(controller.ngModel.$modelValue) == "array") {
+
+                if (modelType == "[object Array]") {
                     controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
                 }
                 else if (controller.ngModel.$modelValue == curr_item.value) {
                     controller.ngModel.$modelValue = null;
                 }
-
             }
         });
         console.log("Filter for " + form.title + " filter:" + form.options.filter +
