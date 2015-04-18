@@ -114,7 +114,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
     };
 
     $scope.clone = function (obj) {
-        if (null == obj || "object" != typeof obj) return obj;
+        if (null == obj || "object" != typeof(obj)) return obj;
         var copy = obj.constructor();
         for (var attr in obj) {
             if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
@@ -205,6 +205,10 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
         }
     };
 
+    if (!$scope.model) {
+        $scope.model = [];
+    }
+
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
@@ -219,7 +223,13 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             }
             else if (controller.ngModel.$modelValue) {
                 // If not in list, also remove the set value
-                controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
+                if (typeof(controller.ngModel.$modelValue) == "array") {
+                    controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
+                }
+                else if (controller.ngModel.$modelValue == curr_item.value) {
+                    controller.ngModel.$modelValue = null;
+                }
+
             }
         });
         console.log("Filter for " + form.title + " filter:" + form.options.filter +

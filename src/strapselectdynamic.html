@@ -1,9 +1,9 @@
-<div ng-init="mainScope=this.$parent.$parent;" class="form-group {{form.htmlClass}}"
+<div ng-init="mainScope=this.$parent.$parent;model=$$value$$" class="form-group {{form.htmlClass}}"
      ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
     <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group {{form.fieldHtmlClass}}" ng-controller="StrapSelectController" ng-init="fetchResult(form.options)">
-        <button type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="$$value$$"
+        <button type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="model"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}" data-html="1"
                 bs-options="item.value as item.text for item in form.items | selectFilter:form:mainScope:this"
                 bs-select>
