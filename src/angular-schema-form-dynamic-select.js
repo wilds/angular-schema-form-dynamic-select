@@ -73,7 +73,7 @@ angular.module('schemaForm').config(
 
         }]);
 
-angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+angular.module('schemaForm').controller('strapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
 
     $scope.triggerItems = function () {
@@ -89,7 +89,7 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
     $scope.initListeners = function () {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
-                $scope.$parent.$parent.$watch(trigger, $scope.triggerItems)
+                $scope.mainScope.$watch(trigger, $scope.triggerItems)
 
             });
         }
@@ -205,41 +205,43 @@ angular.module('schemaForm').controller('StrapSelectController', ['$scope', '$ht
         }
     };
 
-    if (!$scope.model) {
-        $scope.model = [];
-    }
+
 
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
-    return function (inputArray, form, scope, controller) {
-        if (!angular.isDefined(inputArray) || !angular.isDefined(form.options) || !angular.isDefined(form.options.filter) || form.options.filter == '') {
+    return function (inputArray, controller, localModel) {
+        // As the controllers' .model is the global and its form is the local, we need to get the local model as well
+
+        if (!angular.isDefined(inputArray) || !angular.isDefined(controller.form.options) ||
+            !angular.isDefined(controller.form.options.filter) || controller.form.options.filter == '') {
             return inputArray;
         }
         var data = [];
-        if (controller.ngModel.$modelValue) {
-            var modelType = Object.prototype.toString.call(controller.ngModel.$modelValue);
+        if (localModel) {
+            var modelType = Object.prototype.toString.call(localModel);
         }
         else {
             var modelType = null;
         }
 
         angular.forEach(inputArray, function (curr_item) {
-            if (scope.$eval(form.options.filter, {item: curr_item})) {
+            console.log("Compare: Filter for " + controller.form.title + " cmp: curr_item: " + JSON.stringify(curr_item));
+            if (controller.$eval(controller.form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
             else if (modelType) {
                 // If not in list, also remove the set value
 
                 if (modelType == "[object Array]") {
-                    controller.ngModel.$modelValue.splice(controller.ngModel.$modelValue.indexOf(curr_item.value), 1);
+                    localModel.splice(localModel.indexOf(curr_item.value), 1);
                 }
-                else if (controller.ngModel.$modelValue == curr_item.value) {
-                    controller.ngModel.$modelValue = null;
+                else if (localModel == curr_item.value) {
+                    localModel = null;
                 }
             }
         });
-        console.log("Filter for " + form.title + " filter:" + form.options.filter +
+        console.log("Filter for " + controller.form.title + " filter:" + controller.form.options.filter +
         " input: " + JSON.stringify(inputArray) +
         " output: " + JSON.stringify(data));
         if (!controller.listenerInitialized) {
