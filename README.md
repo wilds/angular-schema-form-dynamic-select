@@ -20,10 +20,11 @@ Features:
     * key, type, title, description, placeholder
     * notitle, onChange, condition
     * htmlClass, labelHtmlClass and fieldHtmlClass
+    * validationMessage
   * Not supported(will be added):  
     *  readonly, copyValueTo, 
   * Not applicable(will not be added due to the nature of drop downs, [disagree?](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)):
-    * validationMessage, feedback
+    * feedback
     
    
 <b>Important: Over the early minor versions, there has been considerable changes:</b>

@@ -119,6 +119,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 "filterTriggers": ["model.select"],
                 "filter": "model.select==item.category"
             },
+            "validationMessage": "Hey, you can only select three items or you'll see this!",
             "items": [
                 {"value": 'value1', "text": 'text1', "category": "value1"},
                 {"value": 'value2', "text": 'text2', "category": "value1"},
