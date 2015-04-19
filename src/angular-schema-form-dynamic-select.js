@@ -86,15 +86,18 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 
     };
 
-    $scope.initListeners = function () {
+    $scope.initFiltering = function (localModel) {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
-                $scope.mainScope.$watch(trigger, $scope.triggerItems)
+                $scope.$watch(trigger, $scope.triggerItems)
 
             });
         }
-        $scope.listenerInitialized = true;
+        // This is set here, as the model value may become unitialized and typeless if validation fails.
+        $scope.localModelType =  Object.prototype.toString.call(localModel);
+        $scope.filteringInitialized = true;
     };
+
 
     $scope.remap = function (options, data) {
         if (options && "map" in options && options.map) {
@@ -210,43 +213,58 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
-    return function (inputArray, controller, localModel) {
-        // As the controllers' .model is the global and its form is the local, we need to get the local model as well
+    return function (inputArray, controller, localModel, strLocalModel) {
+        // As the controllers' .model is the global and its form is the local, we need to get the local model as well.
+        // We also need tp be able to set it if is undefined after a validation failure,so for that we need
+        // its string representation as well as we do not know its name. A typical value if strLocalModel is model['groups']
+        // This is very ugly, though. TODO: Find out why the model is set to undefined after validation failure.
 
         if (!angular.isDefined(inputArray) || !angular.isDefined(controller.form.options) ||
             !angular.isDefined(controller.form.options.filter) || controller.form.options.filter == '') {
             return inputArray;
         }
+
+        console.log("----- In filtering for " + controller.form.title + ", model value: " + JSON.stringify( localModel) + "----");
+        console.log("Filter:" + controller.form.options.filter);
+        if (!controller.filteringInitialized) {
+            console.log("Initialize filter")
+            controller.initFiltering(localModel);
+        }
         var data = [];
-        if (localModel) {
-            var modelType = Object.prototype.toString.call(localModel);
-        }
-        else {
-            var modelType = null;
-        }
+
 
         angular.forEach(inputArray, function (curr_item) {
-            console.log("Compare: Filter for " + controller.form.title + " cmp: curr_item: " + JSON.stringify(curr_item));
+            console.log("Compare: curr_item: " + JSON.stringify(curr_item) +
+            "with : " + JSON.stringify( controller.$eval(controller.form.options.filterTriggers[0])));
             if (controller.$eval(controller.form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
-            else if (modelType) {
+            else if (localModel) {
                 // If not in list, also remove the set value
 
-                if (modelType == "[object Array]") {
+                if (controller.localModelType == "[object Array]") {
                     localModel.splice(localModel.indexOf(curr_item.value), 1);
                 }
                 else if (localModel == curr_item.value) {
+                    console.log("Setting model of type " + controller.localModelType  + "to null.");
                     localModel = null;
                 }
             }
         });
-        console.log("Filter for " + controller.form.title + " filter:" + controller.form.options.filter +
-        " input: " + JSON.stringify(inputArray) +
-        " output: " + JSON.stringify(data));
-        if (!controller.listenerInitialized) {
-            controller.initListeners(scope);
+
+        if (controller.localModelType == "[object Array]" && !localModel) {
+            // An undefined local model seems to mess up bootstrap select's indicators
+            console.log("Resetting model of type " + controller.localModelType  + " to [].");
+
+            controller.$eval(strLocalModel + "=[]");
         }
+
+
+        console.log("Input: " + JSON.stringify(inputArray));
+        console.log("Output: " + JSON.stringify(data));
+        console.log("Model value out : " + JSON.stringify(localModel));
+        console.log("----- Exiting filter for " + controller.form.title + "-----");
+
 
         return data;
     };
