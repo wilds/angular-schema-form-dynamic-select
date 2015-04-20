@@ -77,7 +77,7 @@ angular.module('schemaForm').config(
 
         }]);
 
-angular.module('schemaForm').controller('strapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+angular.module('schemaForm').controller('strapSelectController', ['$scope', '$http', function ($scope, $http ,$element) {
 
 
     $scope.triggerItems = function () {
@@ -217,6 +217,9 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
+
+
+
     return function (inputArray, controller, localModel, strLocalModel) {
         // As the controllers' .model is the global and its form is the local, we need to get the local model as well.
         // We also need tp be able to set it if is undefined after a validation failure,so for that we need
@@ -228,10 +231,10 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
 
-        console.log("----- In filtering for " + controller.form.title + ", model value: " + JSON.stringify( localModel) + "----");
+        console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
         console.log("Filter:" + controller.form.options.filter);
         if (!controller.filteringInitialized) {
-            console.log("Initialize filter")
+            console.log("Initialize filter");
             controller.initFiltering(localModel);
         }
         var data = [];

@@ -202,6 +202,9 @@ describe('Schema form', function () {
             ];
 
             scope.model = {};
+            scope.model.select = 'value1';
+            scope.model.multiselect = ['value2', 'value1'];
+            scope.model.multiselectDynamicHttpPost = null;
         };
 
         it('should load the correct items into each type of select', function () {

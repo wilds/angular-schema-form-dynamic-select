@@ -224,10 +224,10 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
 
-        console.log("----- In filtering for " + controller.form.title + ", model value: " + JSON.stringify( localModel) + "----");
+        console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
         console.log("Filter:" + controller.form.options.filter);
         if (!controller.filteringInitialized) {
-            console.log("Initialize filter")
+            console.log("Initialize filter");
             controller.initFiltering(localModel);
         }
         var data = [];

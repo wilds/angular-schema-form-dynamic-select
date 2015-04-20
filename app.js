@@ -197,7 +197,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.model = {};
     $scope.model.select = 'value1';
     $scope.model.multiselect = ['value2', 'value1'];
-
+    $scope.model.multiselectDynamicHttpPost = null;
 
     $scope.submitted = function (form) {
         $scope.$broadcast('schemaFormValidate');
