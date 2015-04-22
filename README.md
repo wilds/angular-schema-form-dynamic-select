@@ -80,7 +80,6 @@ Example:
 
 You'll need to load a few additional files to use the editor:
 
-**Be sure to all the files of this project *after* you load angular schema form**
 
 
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
@@ -92,6 +91,8 @@ You'll need to load a few additional files to use the editor:
     <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
     <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
     <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
+
+<i>Note: Make sure you load angular-schema-form-dynamic-select.js after loading angular schema form.</i>
 
 ### Module javascript</i>
 
