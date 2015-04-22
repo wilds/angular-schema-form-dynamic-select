@@ -69,33 +69,37 @@ $ bower install angular-schema-form-dynamic-select#develop
 \#develop is not recommended for production, but perhaps you want to use stuff from the next version in development.
 
 
+#Usage
+
+Usage is straightforward, simply include and reference.
+
+
+Example:
+ 
+### HTML
+
 You'll need to load a few additional files to use the editor:
 
 **Be sure to all the files of this project *after* you load angular schema form**
 
-Example
 
-```HTML
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-<script src='bower_components/angular-strap/dist/angular-strap.min.js'></script>
-<script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
-<script src="bower_components/tv4/tv4.js"></script>
-<script src="bower_components/objectpath/lib/ObjectPath.js"></script>
-<script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
-<script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-<script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
-```
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src='bower_components/angular-strap/dist/angular-strap.min.js'></script>
+    <script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
+    <script src="bower_components/tv4/tv4.js"></script>
+    <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
+    <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
+    <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+    <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
 
-When you create your module, be sure to depend on this project's module as well.
+### Module javascript</i>
 
-```javascript
-angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
-```
+When you create your module, be sure to make it depend on mgcrea.ngStrap as well:
 
-#Usage
+    angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
 
-Usage is straightforward, simply include and reference.
+
 
 ## Form types
 
@@ -262,7 +266,7 @@ The options are:
 * filter : An expression, evaluated in the user scope, with the "item" local variable injected. "item" is the current list item, `"model.select==item.category"`
 * filterTrigger : An array of expressions triggering the filtering, `"model.select"`
 
-    
+
     {
         "key": 'multiselect',
         "type": 'strapmultiselect',
