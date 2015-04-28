@@ -45,6 +45,24 @@ The the add-on still supports both variants, but value/name will be removed.<br 
 
 Note: no further API changes are planned.
 
+# Example
+
+There is a live example at http://demo.optimalbpm.se/angular-schema-form-dynamic-select/ .
+
+The example code is in the repository, it's the index.html, bootstrap-strapselect.js file, test/testdata.json and the test/testdata_mapped.json files.
+
+To run it locally, simply clone the repository 
+    
+    git clone https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git
+    cd angular-schema-form-dynamic-select
+    bower update
+
+..and open index.html in a browser or serve using your favorite IDE.
+
+(you will need to have [bower installed](http://bower.io/#install-bower), of course)
+
+
+
 # Glossary
 
 * List items: the items that make up the selection list, for example the items in a drop down.
@@ -353,17 +371,6 @@ of callback and asyncCallback. There is no reason clutter client code with http-
 As long this is the case, all relevant fields must specify the "type"-property. <br />
 If not, they will get the wrong editor. Either way, it is recommended to define the type.
 
-# Example
-
-In the repository, the index.html file, together with the bootstrap-strapselect.js file and the test/testdata.json file constitutes a working example.
-
-To run it, simply clone the repository 
-    
-    git clone https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git
-    cd angular-schema-form-dynamic-select
-    bower update
-
-..and open index.html in a browser or serve using your favorite IDE.
 
 # Bugs, omissions, feature requests 
 
