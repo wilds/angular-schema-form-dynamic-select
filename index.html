@@ -20,6 +20,10 @@
     <script src="app.js"></script>
   </head>
   <body ng-controller='SelectController' class="container">
+    <p><h3>Note:</h3><br /> There is a <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/13">bug in angular-strap 2.2.1</a> that causes unitialized drop downs to fail, as shown by the Multi Select Dynamic HTTP Post drop down below.<br />
+         The work around until the next angular-strap release is to initialize the (see the <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/13">issue</a>) array.</p>
+
+
     <form form="selectForm" sf-schema="schema" sf-form="form" sf-model="model" ng-submit="submitted(selectForm)"></form>
   </body>
 </html>
