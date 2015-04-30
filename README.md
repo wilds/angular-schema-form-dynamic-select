@@ -27,23 +27,6 @@ Features:
     * feedback
     
    
-<b>Important: Over the early minor versions, there has been considerable changes:</b>
-
-* 0.3.0: all dynamic-select-related settings moved to the form.
-* 0.3.3: value/name-pairs for drop down data is deprecated.<br />
-The correct way, and how the HTML select element actually works, is value/text.<br />
-The the add-on still supports both variants, but value/name will be removed.<br /> 
-* 0.4.0: use the options.map functionality instead.<br /> 
-* 0.5.0: Breaking changes:
-  * http_post and http_get are renamed to httpPost and httpGet.
-  * async.callback is removed and asyncCallback is used instead.
-* 0.6.0: earlier deprecated support for value/name-pairs is now removed 
-* 0.7.0: meant a forced update of dependencies and some rewriting, since:
-  * 2.2.1 of angular-strap has breaking changes making it impossible to keep backwards compatibility.
-  * 0.8.0 of angular-schema-form, which also has breaking changes had to be updated to stay compatible with angular-straps' dependencies.
-
-
-Note: no further API changes are planned.
 
 # Example
 
@@ -410,6 +393,26 @@ If you want to fix a bug, do that against the master branch and it will be merge
 
 Unit testing is done using [Karma and Jasmine](http://karma-runner.github.io/0.12/intro/installation.html).
 The main configuration file for running tests is karma.conf.js, and test/tests.js holds the tests.
+
+# Breaking change history
+
+<b>Important: Over the early minor versions, there has been considerable changes:</b>
+
+* 0.3.0: all dynamic-select-related settings moved to the form.
+* 0.3.3: value/name-pairs for drop down data is deprecated.<br />
+The correct way, and how the HTML select element actually works, is value/text.<br />
+The the add-on still supports both variants, but value/name will be removed.<br /> 
+* 0.4.0: use the options.map functionality instead.<br /> 
+* 0.5.0: Breaking changes:
+  * http_post and http_get are renamed to httpPost and httpGet.
+  * async.callback is removed and asyncCallback is used instead.
+* 0.6.0: earlier deprecated support for value/name-pairs is now removed 
+* 0.7.0: meant a forced update of dependencies and some rewriting, since:
+  * 2.2.1 of angular-strap has breaking changes making it impossible to keep backwards compatibility.
+  * 0.8.0 of angular-schema-form, which also has breaking changes had to be updated to stay compatible with angular-straps' dependencies.
+
+
+Note: no further API changes are planned.
 
 
 # History
