@@ -162,12 +162,13 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
     };
     $scope.fetchResult = function (options) {
         if (!options) {
-            console.log("StrapSelectController.fetchResult : No options set");
+
+            console.log("StrapSelectController.fetchResult : No options set, needed for dynamic selects");
         }
         else if (options.callback) {
 
             $scope.form.items = $scope.getCallback(options.callback)(options);
-            console.log('callback  items', $scope.form.items);
+            console.log('callback items', $scope.form.items);
         }
         else if (options.asyncCallback) {
             return $scope.getCallback(options.asyncCallback)(options).then(
