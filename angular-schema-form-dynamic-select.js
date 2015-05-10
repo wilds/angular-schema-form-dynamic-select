@@ -7,8 +7,9 @@ angular.module('schemaForm').config(
         function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
 
             var select = function (name, schema, options) {
-                if (schema.type === 'string') {
+                if ((schema.type === 'string') && ("enum" in schema)) {
                     var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
                     f.key = options.path;
                     f.type = 'strapselect';
                     options.lookup[sfPathProvider.stringify(options.path)] = f;
@@ -40,7 +41,7 @@ angular.module('schemaForm').config(
                 }
             };
 
-            schemaFormProvider.defaults.string.unshift(selectdynamic);
+
 
             var multiselectdynamic = function (name, schema, options) {
                 if (schema.type === 'array') {
@@ -51,8 +52,6 @@ angular.module('schemaForm').config(
                     return f;
                 }
             };
-
-            schemaFormProvider.defaults.array.unshift(multiselectdynamic);
 
             //Add to the bootstrap directive
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',

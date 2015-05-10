@@ -104,14 +104,13 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
 
     $scope.form = [
         {
-            "key": 'select',
-            "type": 'strapselect'
+            "key": 'select'
         },
         {
             "key": 'multiselect',
             "type": 'strapmultiselect',
             "placeholder": "My items feel unselected. Or you selected text3 in the selector above me.",
-            options: {
+            "options": {
                 "filterTriggers": ["model.select"],
                 "filter": "model.select==item.category"
             },
