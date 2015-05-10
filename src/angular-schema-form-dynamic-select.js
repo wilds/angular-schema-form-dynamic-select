@@ -208,8 +208,15 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
                 });
         }
     };
-
-
+    $scope.enum_to_items = function (_enum)
+    {
+        result = [];
+        _enum.forEach(function (item) {
+            result.push({"value": item, "text": item})
+            }
+        );
+        return result;
+    }
 
 }]);
 
@@ -270,5 +277,8 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
         return data;
     };
 }]);
+
+
+
 
 

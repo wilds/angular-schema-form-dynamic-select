@@ -54,6 +54,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             select: {
                 title: 'Single Select Static',
                 type: 'string',
+                enum: ["value1", "value2", "value3"],
                 description: 'Only single item is allowed. (change here and observe how the select list below is filtered)'
             },
             multiselect: {
@@ -104,12 +105,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.form = [
         {
             "key": 'select',
-            "type": 'strapselect',
-            "items": [
-                {"value": 'value1', "text": 'text1'},
-                {"value": 'value2', "text": 'text2'},
-                {"value": 'value3', "text": 'text3'}
-            ]
+            "type": 'strapselect'
         },
         {
             "key": 'multiselect',
