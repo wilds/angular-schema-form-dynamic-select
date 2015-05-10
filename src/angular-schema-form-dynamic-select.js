@@ -78,8 +78,8 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
     $scope.triggerItems = function () {
         console.log("listener triggered");
         $scope.$$watchers.forEach(function (watcher) {
-            if (watcher.exp == "form.items") {
-                watcher.fn($scope.form.items, $scope.form.items)
+            if (watcher.exp == "form.titleMap") {
+                watcher.fn($scope.form.titleMap, $scope.form.titleMap)
             }
         });
 
@@ -104,7 +104,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
             var result = [];
             data.forEach(function (current_row) {
                 current_row["value"] = current_row[options.map.valueProperty];
-                current_row["text"] = current_row[options.map.textProperty];
+                current_row["name"] = current_row[options.map.nameProperty];
                 result.push(current_row);
             });
             return result;
@@ -166,14 +166,14 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
         }
         else if (options.callback) {
 
-            $scope.form.items = $scope.getCallback(options.callback)(options);
-            console.log('callback items', $scope.form.items);
+            $scope.form.titleMap = $scope.getCallback(options.callback)(options);
+            console.log('callback items', $scope.form.titleMap);
         }
         else if (options.asyncCallback) {
             return $scope.getCallback(options.asyncCallback)(options).then(
                 function (_data) {
-                    $scope.form.items = $scope.remap(options, _data.data);
-                    console.log('asyncCallback items', $scope.form.items);
+                    $scope.form.titleMap = $scope.remap(options, _data.data);
+                    console.log('asyncCallback items', $scope.form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed(Options: '" + String(options) +
@@ -186,8 +186,8 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.form.items = $scope.remap(finalOptions, _data.data);
-                    console.log('httpPost items', $scope.form.items);
+                    $scope.form.titleMap = $scope.remap(finalOptions, _data.data);
+                    console.log('httpPost items', $scope.form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
@@ -198,8 +198,8 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
             var finalOptions = $scope.getOptions(options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    $scope.form.items = $scope.remap(finalOptions, data.data);
-                    console.log('httpGet items', $scope.form.items);
+                    $scope.form.titleMap = $scope.remap(finalOptions, data.data);
+                    console.log('httpGet items', $scope.form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
@@ -207,14 +207,30 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
                 });
         }
     };
-    $scope.enum_to_items = function (_enum)
+    $scope.findTitles = function (_form)
     {
         result = [];
-        _enum.forEach(function (item) {
-            result.push({"value": item, "text": item})
-            }
-        );
-        return result;
+        if ("enum" in _form.schema) {
+
+            _form.schema.enum.forEach(function (item) {
+                    result.push({"value": item, "name": item})
+                }
+            );
+            return result;
+
+        } else
+        if ("titleMap" in _form) {
+            _form.titleMap.forEach(function (item) {
+                    if ("text" in item) {
+                        item.name = item.text
+                    }
+                    result.push(item)
+                }
+            );
+            console.log(result);
+            return result;
+        }
+
     }
 
 }]);

@@ -13,9 +13,9 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
 
     $scope.callBackSD = function (options) {
         return [
-            {value: 'value1', text: 'text1'},
-            {value: 'value2', text: 'text2'},
-            {value: 'value3', text: 'Select dynamic!'}
+            {value: 'value1', name: 'text1'},
+            {value: 'value2', name: 'text2'},
+            {value: 'value3', name: 'Select dynamic!'}
         ];
         // Note: Options is a reference to the original instance, if you change a value,
         // that change will persist when you use this form instance again.
@@ -23,9 +23,9 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
 
     $scope.callBackMSD = function (options) {
         return [
-            {value: 'value1', text: 'text1'},
-            {value: 'value2', text: 'text2'},
-            {value: 'value3', text: 'Multiple select dynamic!'}
+            {value: 'value1', name: 'text1'},
+            {value: 'value2', name: 'text2'},
+            {value: 'value3', name: 'Multiple select dynamic!'}
         ];
         // Note: Options is a reference to the original instance, if you change a value,
         // that change will persist when you use this form instance again.
@@ -55,13 +55,13 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 title: 'Single Select Static',
                 type: 'string',
                 enum: ["value1", "value2", "value3"],
-                description: 'Only single item is allowed. (change here and observe how the select list below is filtered)'
+                description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
             },
             multiselect: {
                 title: 'Multi Select Static',
                 type: 'array',
                 maxItems: 2,
-                description: 'Multi single items are allowed. (select three for maxItems validation error)'
+                description: 'Multiple items are allowed. (select three for maxItems validation error)'
             },
             selectDynamic: {
                 title: 'Single Select Dynamic',
@@ -115,11 +115,11 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 "filter": "model.select==item.category"
             },
             "validationMessage": "Hey, you can only select three items or you'll see this!",
-            "items": [
-                {"value": 'value1', "text": 'text1', "category": "value1"},
-                {"value": 'value2', "text": 'text2', "category": "value1"},
-                {"value": 'value3', "text": 'long very very long label3', "category": "value2"},
-                {"value": 'value4', "text": 'Select three and get a validation error!', "category": "value1"}
+            "titleMap": [
+                {"value": 'value1', "name": 'text1', "category": "value1"},
+                {"value": 'value2', "name": 'text2', "category": "value1"},
+                {"value": 'value3', "name": 'long very very long label3', "category": "value2"},
+                {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
             ]
         },
         {
@@ -168,7 +168,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
-                "map": {valueProperty: "nodeId", textProperty: "nodeName"}
+                "map": {valueProperty: "nodeId", nameProperty: "nodeName"}
             }
         },
         {
