@@ -392,7 +392,10 @@ If you want to fix a bug, do that against the master branch and it will be merge
 # Testing
 
 Unit testing is done using [Karma and Jasmine](http://karma-runner.github.io/0.12/intro/installation.html).
-The main configuration file for running tests is karma.conf.js, and test/tests.js holds the tests.
+The main configuration file for running tests is karma.conf.js, and test/tests.js holds the test code.
+To run the tests, make sure the relevant dev dependencies are installed, and run:
+
+    node_modules/karma/bin/karma start karma.conf.js
 
 # Breaking change history
 
