@@ -269,6 +269,7 @@ The options are:
 * filter : An expression, evaluated in the user scope, with the "item" local variable injected. "item" is the current list item, `"model.select==item.category"`
 * filterTrigger : An array of expressions triggering the filtering, `"model.select"`
 
+Example:
 
     {
         "key": 'multiselect',
