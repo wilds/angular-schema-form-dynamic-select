@@ -18,6 +18,7 @@ Features:
 * [Angular schema form options](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options)
   * Supported:
     * key, type, title, description, placeholder
+    * enum
     * notitle, onChange, condition
     * htmlClass, labelHtmlClass and fieldHtmlClass
     * validationMessage
@@ -289,6 +290,21 @@ Note on filterTrigger and why not having a watch on the entire expression:
 * Adding watches for the expression would mean having to add one watch for each list item, long lists would mean a huge overhead.
 * Also, there might be use cases where triggering should be triggered by other conditions. Or not be triggered for some other reason.
 
+## Defaults and enum
+If a there is a form item that only has type "string" defined, but has an enum value, then a single select will be shown for that value.
+
+    {
+        "key": 'select'
+    },
+    
+The schema declaration(the enum values will be both value and name for the options): 
+   
+    select: {
+        title: 'Single Select Static',
+        type: 'string',
+        enum: ["value1", "value2", "value3"],
+        description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
+    },
 
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
