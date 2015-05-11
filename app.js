@@ -60,6 +60,7 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             multiselect: {
                 title: 'Multi Select Static',
                 type: 'array',
+                items: { type: "string"},
                 maxItems: 2,
                 description: 'Multiple items are allowed. (select three for maxItems validation error)'
             },
@@ -71,38 +72,63 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             multiselectDynamic: {
                 title: 'Multi Select Dynamic',
                 type: 'array',
+                items: { type:"string"},
                 description: 'This data is loaded from the $scope.callBackMSD function. (referenced by name)'
             },
             multiselectDynamicHttpPost: {
                 title: 'Multi Select Dynamic HTTP Post',
                 type: 'array',
+                items: { type:"string"},
                 description: 'This data is asynchronously loaded using a HTTP post. ' +
                 '(specifies parameter in form, options.url in a named callback)'
             },
             multiselectDynamicHttpGet: {
                 title: 'Multi Select Dynamic HTTP Get',
                 type: 'array',
+                items: { type:"string"},
                 description: 'This data is asynchronously loaded using a HTTP get. ' +
                 '(Set the URL at options.url)'
             },
             multiselectDynamicHttpGetMapped: {
                 title: 'Multi Select Dynamic HTTP Get Mapped data',
                 type: 'array',
+                items: { type:"string"},
                 description: 'This data is as above, but remapped from a nodeId/nodeName array of objects. ' +
                 '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
             },
             multiselectDynamicAsync: {
                 title: 'Multi Select Dynamic Async',
                 type: 'array',
+                items: { type:"string"},
                 description: 'This data is asynchrously loaded using a async call. ' +
                 '(specify options.async.call)'
-            }
+            },
+            
+            "priorities": {
+                "type": "object",
+                "description": 'Complex array in list',
+                "properties": {
+                  "priority": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",          
+                      "properties": {       
+                        "value": {
+                          "type": "string",
+                          "enum": [ "DOG", "CAT", "FISH" ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
 
         },
         required: ['select', 'multiselect']
     };
 
     $scope.form = [
+
         {
             "key": 'select'
         },
@@ -183,6 +209,16 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
             }
         },
         {
+            "key": "priorities.priority",
+            "type" : "array",
+            "items": [
+                {
+                    "key": "priorities.priority[].value",
+                    "type": "strapselect"
+                }
+            ]
+        },
+        {
             type: "submit",
             style: "btn-info",
             title: "OK"
@@ -197,6 +233,20 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     $scope.model.multiselectDynamicAsync = [];
     $scope.model.multiselectDynamicHttpGet = [];
     $scope.model.multiselectDynamic = [];
+    
+    $scope.model.priorities = {
+      "priority": [
+        {
+          "value": "DOG"
+        },
+        {
+          "value": "DOG"
+        },
+        {
+          "value": "FISH"
+        }
+      ]
+    };
  
     $scope.submitted = function (form) {
         $scope.$broadcast('schemaFormValidate');
@@ -204,5 +254,4 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
     };
 }])
 ;
-
 

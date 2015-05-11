@@ -14,8 +14,6 @@ angular.module('schemaForm').config(
 
             schemaFormProvider.defaults.string.unshift(select);
 
-
-
             //Add to the bootstrap directive
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
                 'directives/decorators/bootstrap/strap/strapselect.html');

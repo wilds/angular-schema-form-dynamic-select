@@ -18,19 +18,6 @@ angular.module('schemaForm').config(
 
             schemaFormProvider.defaults.string.unshift(select);
 
-            var multiselect = function (name, schema, options) {
-                if (schema.type === 'array') {
-                    var f = schemaFormProvider.stdFormObj(name, schema, options);
-                    f.key = options.path;
-                    f.type = 'strapmultiselect';
-                    options.lookup[sfPathProvider.stringify(options.path)] = f;
-                    return f;
-                }
-            };
-
-            schemaFormProvider.defaults.array.unshift(multiselect);
-
-
             //Add to the bootstrap directive
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
                 'directives/decorators/bootstrap/strap/strapselect.html');

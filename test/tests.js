@@ -65,40 +65,61 @@ describe('Schema form', function () {
                     multiselect: {
                         title: 'Multi Select Static',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         maxItems: 2,
                         description: 'Multi single items are allowed. (select three for maxItems error)'
                     },
                     selectDynamic: {
                         title: 'Single Select Dynamic',
                         type: 'string',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is loaded from the $scope.callBackSD function. (and laid out using css-options)'
                     },
                     multiselectDynamic: {
                         title: 'Multi Select Dynamic',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is loaded from the $scope.callBackMSD function. (referenced by name)'
                     },
                     multiselectDynamicHttpPost: {
                         title: 'Multi Select Dynamic HTTP Post',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is asynchronously loaded using a HTTP post. ' +
                         '(specifies parameter in form, options.url in a named callback)'
                     },
                     multiselectDynamicHttpGet: {
                         title: 'Multi Select Dynamic HTTP Get',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is asynchronously loaded using a HTTP get. ' +
                         '(Set the URL at options.url)'
                     },
                     multiselectDynamicHttpGetMapped: {
                         title: 'Multi Select Dynamic HTTP Get Mapped data',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is as above, but remapped from a nodeId/nodeName array of objects. ' +
                         '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
                     },
                     multiselectDynamicAsync: {
                         title: 'Multi Select Dynamic Async',
                         type: 'array',
+                        items: {
+                            type: "string"
+                        },
                         description: 'This data is asynchrously loaded using a async call. ' +
                         '(specify options.async.call)'
                     }
