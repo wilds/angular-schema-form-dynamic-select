@@ -24,7 +24,7 @@ Features:
     * validationMessage
   * Not supported(will be added):  
     *  readonly, copyValueTo, 
-  * Not applicable(will not be added due to the nature of drop downs, [disagree?](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)):
+  * Not applicable(will not be added due to the nature of drop downs, [disagree?](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues)):
     * feedback
     
    
