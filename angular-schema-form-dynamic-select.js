@@ -10,7 +10,6 @@ angular.module('schemaForm').config(
                 if ((schema.type === 'string') && ("enum" in schema)) {
                     var f = schemaFormProvider.stdFormObj(name, schema, options);
                     f.key = options.path;
-                    f.key = options.path;
                     f.type = 'strapselect';
                     options.lookup[sfPathProvider.stringify(options.path)] = f;
                     return f;
@@ -31,27 +30,6 @@ angular.module('schemaForm').config(
 
             schemaFormProvider.defaults.array.unshift(multiselect);
 
-            var selectdynamic = function (name, schema, options) {
-                if (schema.type === 'string') {
-                    var f = schemaFormProvider.stdFormObj(name, schema, options);
-                    f.key = options.path;
-                    f.type = 'strapselectdynamic';
-                    options.lookup[sfPathProvider.stringify(options.path)] = f;
-                    return f;
-                }
-            };
-
-
-
-            var multiselectdynamic = function (name, schema, options) {
-                if (schema.type === 'array') {
-                    var f = schemaFormProvider.stdFormObj(name, schema, options);
-                    f.key = options.path;
-                    f.type = 'strapmultiselectdynamic';
-                    options.lookup[sfPathProvider.stringify(options.path)] = f;
-                    return f;
-                }
-            };
 
             //Add to the bootstrap directive
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
@@ -155,6 +133,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 
         }
     };
+
     $scope.getOptions = function (options) {
         // If defined, let the a callback function manipulate the options
         if (options.httpPost && options.httpPost.optionsCallback) {
@@ -169,6 +148,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
             return options;
         }
     };
+
     $scope.fetchResult = function (options) {
         if (!options) {
 
@@ -218,6 +198,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 
         }
     };
+
     $scope.findTitles = function (_form)
     {
         result = [];
@@ -291,12 +272,10 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             controller.$eval(strLocalModel + "=[]");
         }
 
-
         console.log("Input: " + JSON.stringify(inputArray));
         console.log("Output: " + JSON.stringify(data));
         console.log("Model value out : " + JSON.stringify(localModel));
         console.log("----- Exiting filter for " + controller.form.title + "-----");
-
 
         return data;
     };
