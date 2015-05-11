@@ -111,6 +111,12 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
 
         }
         else {
+            data.forEach(function (item) {
+                    if ("text" in item) {
+                        item.name = item.text
+                    }
+                }
+            );
             return data;
         }
     };
@@ -205,6 +211,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
                     "\nError: " + status);
                 });
+
         }
     };
     $scope.findTitles = function (_form)
@@ -224,11 +231,9 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
                     if ("text" in item) {
                         item.name = item.text
                     }
-                    result.push(item)
                 }
             );
-            console.log(result);
-            return result;
+            return _form.titleMap;
         }
 
     }
