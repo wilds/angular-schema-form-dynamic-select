@@ -35,9 +35,123 @@ angular.module('schemaForm').config(
             schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
                 'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
 
-        }]);
 
-angular.module('schemaForm').controller('strapSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+            // UI SELECT
+            //Add to the bootstrap directive
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselect',
+                'directives/decorators/bootstrap/uiselect/uiselect.html')
+
+            schemaFormDecoratorsProvider.createDirective('uiselect',
+                'directives/decorators/bootstrap/uiselect/uiselect.html');
+
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselectmultiple',
+                'directives/decorators/bootstrap/uiselect/uiselectmultiple.html')
+
+            schemaFormDecoratorsProvider.createDirective('uiselectmultiple',
+                'directives/decorators/bootstrap/uiselect/uiselectmultiple.html');
+
+        }])
+  .directive("toggleSingleModel", function() {
+    // some how we get this to work ...
+    return {
+      require: 'ngModel',
+      restrict: "A",
+      scope: {},
+      replace: true,
+      controller: ['$scope', function($scope)  {
+        $scope.$parent.$watch('select_model.selected',function(){
+          if($scope.$parent.select_model.selected != undefined) {
+            $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
+            $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected.value);
+          }
+        });
+      }]
+    };
+  })
+  .directive("toggleModel", function() {
+    // some how we get this to work ...
+    return {
+      require: 'ngModel',
+      restrict: "A",
+      scope: {},
+      controller: ['$scope','sfSelect', function($scope,  sfSelect)  {
+        var list = sfSelect($scope.$parent.form.key, $scope.$parent.model);
+        //as per base array implemenation if the array is undefined it must be set as empty for data binding to work
+        if (angular.isUndefined(list)) {
+            list = [];
+            sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
+        }
+        $scope.$parent.$watch('form.select_models',function(){
+          if($scope.$parent.form.select_models.length == 0) {
+            $scope.$parent.insideModel = $scope.$parent.$$value$$;
+            if($scope.$parent.ngModel.$viewValue != undefined) {
+              $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
+            }
+          } else {
+            $scope.$parent.insideModel = $scope.$parent.form.select_models;
+            $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
+          }
+        }, true);
+      }]
+    };
+  })
+  .filter('whereMulti', function() {
+    return function(items, key, values) {
+      var out = [];
+
+      if (angular.isArray(values)) {
+        values.forEach(function(value) {
+          for (var i = 0; i < items.length; i++) {
+            if (value == items[i][key]) {
+              out.push(items[i]);
+              break;
+            }
+          }
+        });
+      } else {
+        // Let the output be the input untouched
+        out = items;
+      }
+
+      return out;
+    };
+  })
+  .filter('propsFilter', function() {
+        return function (items, props) {
+            var out = [];
+
+            if (angular.isArray(items)) {
+                items.forEach(function (item) {
+                    var itemMatches = false;
+
+                    var keys = Object.keys(props);
+                    for (var i = 0; i < keys.length; i++) {
+                        var prop = keys[i];
+                        if (item.hasOwnProperty(prop)) {
+                            //only match if this property is actually in the item to avoid
+                            var text = props[prop].toLowerCase();
+                            //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
+                            if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
+                                itemMatches = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (itemMatches) {
+                        out.push(item);
+                    }
+                });
+            } else {
+                // Let the output be the input untouched
+                out = items;
+            }
+
+            return out;
+        };
+    });
+
+angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
 
     $scope.triggerItems = function () {
@@ -135,7 +249,7 @@ angular.module('schemaForm').controller('strapSelectController', ['$scope', '$ht
     $scope.fetchResult = function (options) {
         if (!options) {
 
-            console.log("StrapSelectController.fetchResult : No options set, needed for dynamic selects");
+            console.log("dynamicSelectController.fetchResult : No options set, needed for dynamic selects");
         }
         else if (options.callback) {
 

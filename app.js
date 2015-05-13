@@ -7,9 +7,13 @@
  * @type {angular.Module}
  */
 
-var testApp = angular.module('testApp', ['mgcrea.ngStrap', 'mgcrea.ngStrap.modal', 'schemaForm']);
+var testApp = angular.module('testApp', ['schemaForm','mgcrea.ngStrap', 'mgcrea.ngStrap.modal',
+    'pascalprecht.translate', 'ui.select',
+    'ui.highlight'
 
-testApp.controller('SelectController', ['$scope', '$http', function ($scope, $http) {
+]);
+
+testApp.controller('appController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.callBackSD = function (options) {
         return [
@@ -52,17 +56,29 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         title: 'Select',
         properties: {
             select: {
-                title: 'Single Select Static',
+                title: 'Single select strap-select',
                 type: 'string',
                 enum: ["value1", "value2", "value3"],
                 description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
             },
             multiselect: {
-                title: 'Multi Select Static',
+                title: 'Multi select strap-select',
                 type: 'array',
                 items: { type: "string"},
                 maxItems: 2,
                 description: 'Multiple items are allowed. (select three for maxItems validation error)'
+            },
+            uiselect: {
+                title: 'Single select for UI-select',
+                type: 'string',
+                format: "uiselect",
+                description: 'This one is using UI-select'
+            },
+            uiselectmultiple: {
+                title: 'Multi select for UI-select',
+                type: 'string',
+                format: "uiselect",
+                description: 'This one is using UI-select'
             },
             selectDynamic: {
                 title: 'Single Select Dynamic',
@@ -132,6 +148,8 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
         {
             "key": 'select'
         },
+
+
         {
             "key": 'multiselect',
             "type": 'strapmultiselect',
@@ -148,6 +166,25 @@ testApp.controller('SelectController', ['$scope', '$http', function ($scope, $ht
                 {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
             ]
         },
+        {
+            "key": 'uiselect',
+            "type": 'uiselect',
+            "titleMap": [
+              { value: 'one', name: 'labelx'},
+              { value: 'two', name: 'labelc'},
+              { value: 'three', name: 'label3'}
+            ]
+        },
+        {
+            "key": 'uiselectmultiple',
+            "type": 'uiselectmultiple',
+            "titleMap": [
+              { value: 'one', name: 'labelx'},
+              { value: 'two', name: 'labelc'},
+              { value: 'three', name: 'label3'}
+            ]
+        },
+
         {
             "key": "selectDynamic",
             "type": 'strapselectdynamic',

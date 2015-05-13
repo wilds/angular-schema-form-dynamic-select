@@ -36,10 +36,17 @@ gulp.task('minify', function() {
 gulp.task('non-minified-dist', function() {
   var stream = streamqueue({objectMode: true});
   stream.queue(
-              gulp.src('./src/*.html')
+              gulp.src('./src/strap*.html')
                   .pipe(templateCache({
                     module: 'schemaForm',
                     root: 'directives/decorators/bootstrap/strap/'
+                  }))
+    );
+  stream.queue(
+              gulp.src('./src/ui*.html')
+                  .pipe(templateCache({
+                    module: 'schemaForm',
+                    root: 'directives/decorators/bootstrap/uiselect/'
                   }))
     );
   stream.queue(gulp.src('./src/*.js'));
