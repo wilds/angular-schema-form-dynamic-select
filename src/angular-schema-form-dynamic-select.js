@@ -95,6 +95,27 @@ angular.module('schemaForm').config(
       }]
     };
   })
+  .directive('multipleOn', function() {
+    return {
+    link: function($scope, $element, $attrs) {
+        $scope.$watch(
+            function () { return $element.attr('multiple-on'); },
+            function (newVal) {
+
+                if(newVal == "true") {
+                    var select_scope = angular.element($element).scope().$$childTail;
+                    select_scope.$isMultiple = true;
+                    select_scope.options.multiple = true;
+                    select_scope.$select.$element.addClass('select-multiple');
+                }
+                else {
+                    angular.element($element).scope().$$childTail.$isMultiple = false;
+                }
+            }
+        );
+      }
+    };
+  })
   .filter('whereMulti', function() {
     return function(items, key, values) {
       var out = [];
@@ -305,8 +326,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                 });
 
         }
-    };
 
+    };
 
 
 }]);

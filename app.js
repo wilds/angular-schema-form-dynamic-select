@@ -9,7 +9,7 @@
 
 var testApp = angular.module('testApp', ['schemaForm','mgcrea.ngStrap', 'mgcrea.ngStrap.modal',
     'pascalprecht.translate', 'ui.select',
-    'ui.highlight'
+    'ui.highlight','mgcrea.ngStrap.select'
 
 ]);
 
@@ -71,13 +71,12 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             uiselect: {
                 title: 'Single select for UI-select',
                 type: 'string',
-                format: "uiselect",
                 description: 'This one is using UI-select'
             },
             uiselectmultiple: {
                 title: 'Multi select for UI-select',
-                type: 'string',
-                format: "uiselect",
+                type: 'array',
+                items: { type: "string"},
                 description: 'This one is using UI-select'
             },
             selectDynamic: {
@@ -148,13 +147,12 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         {
             "key": 'select'
         },
-
-
         {
             "key": 'multiselect',
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             "placeholder": "My items feel unselected. Or you selected text3 in the selector above me.",
             "options": {
+                "multiple": "true",
                 "filterTriggers": ["model.select"],
                 "filter": "model.select==item.category"
             },
@@ -187,7 +185,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
 
         {
             "key": "selectDynamic",
-            "type": 'strapselectdynamic',
+            "type": 'strapselect',
             "htmlClass": "col-lg-3 col-md-3",
             "labelHtmlClass": "bigger",
             "fieldHtmlClass": "tilted",
@@ -197,7 +195,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamic",
-            "type": 'strapmultiselectdynamic',
+            "type": 'strapmultiselect',
             placeholder: "not set yet(this text is defined using the placeholder option)",
             "options": {
                 "callback": "callBackMSD"
@@ -205,7 +203,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpPost",
-            "type": 'strapmultiselectdynamic',
+            "type": 'strapmultiselect',
             "title": 'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
             "options": {
                 "httpPost": {
@@ -216,7 +214,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGet",
-            "type": 'strapmultiselectdynamic',
+            "type": 'strapmultiselect',
             "placeholder": "None selected here neither.",
             "options": {
                 "httpGet": {
@@ -226,7 +224,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGetMapped",
-            "type": 'strapmultiselectdynamic',
+            "type": 'strapmultiselect',
             "options": {
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
@@ -236,7 +234,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicAsync",
-            "type": 'strapmultiselectdynamic',
+            "type": 'strapmultiselect',
             "onChange": function () {
                 alert("You changed this value! (this was the onChange event in action)");
             },
