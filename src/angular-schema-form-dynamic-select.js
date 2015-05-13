@@ -26,14 +26,14 @@ angular.module('schemaForm').config(
                 'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapselect.html');
             schemaFormDecoratorsProvider.createDirective('strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
             schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
 
             // UI SELECT
@@ -246,47 +246,58 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.fetchResult = function (options) {
-        if (!options) {
+    $scope.fetchResult = function (form) {
+
+        if ("enum" in form.schema) {
+            form.titleMap = [];
+            form.schema.enum.forEach(function (item) {
+                    form.titleMap.push({"value": item, "name": item})
+                }
+            );
+
+        } else if (form.titleMap) {
+            console.log("dynamicSelectController.fetchResult : There is already a titleMap");
+        }
+        else if (!form.options) {
 
             console.log("dynamicSelectController.fetchResult : No options set, needed for dynamic selects");
         }
-        else if (options.callback) {
+        else if (form.options.callback) {
 
-            $scope.form.titleMap = $scope.getCallback(options.callback)(options);
-            console.log('callback items', $scope.form.titleMap);
+            $scope.form.titleMap = $scope.getCallback(form.options.callback)(form.options);
+            console.log('callback items', form.titleMap);
         }
-        else if (options.asyncCallback) {
-            return $scope.getCallback(options.asyncCallback)(options).then(
+        else if (form.options.asyncCallback) {
+            return $scope.getCallback(form.options.asyncCallback)(form.options).then(
                 function (_data) {
-                    $scope.form.titleMap = $scope.remap(options, _data.data);
-                    console.log('asyncCallback items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(form.options, _data.data);
+                    console.log('asyncCallback items', form.titleMap);
                 },
                 function (data, status) {
-                    alert("Loading select items failed(Options: '" + String(options) +
+                    alert("Loading select items failed(Options: '" + String(form.options) +
                     "\nError: " + status);
                 });
         }
-        else if (options.httpPost) {
-            var finalOptions = $scope.getOptions(options);
+        else if (form.options.httpPost) {
+            var finalOptions = $scope.getOptions(form.options);
 
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.form.titleMap = $scope.remap(finalOptions, _data.data);
-                    console.log('httpPost items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(finalOptions, _data.data);
+                    console.log('httpPost items', form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
                     "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nError: " + status);
                 });
         }
-        else if (options.httpGet) {
-            var finalOptions = $scope.getOptions(options);
+        else if (form.options.httpGet) {
+            var finalOptions = $scope.getOptions(form.options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    $scope.form.titleMap = $scope.remap(finalOptions, data.data);
-                    console.log('httpGet items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(finalOptions, data.data);
+                    console.log('httpGet items', form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
@@ -296,29 +307,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.findTitles = function (_form)
-    {
-        result = [];
-        if ("enum" in _form.schema) {
 
-            _form.schema.enum.forEach(function (item) {
-                    result.push({"value": item, "name": item})
-                }
-            );
-            return result;
-
-        } else
-        if ("titleMap" in _form) {
-            _form.titleMap.forEach(function (item) {
-                    if ("text" in item) {
-                        item.name = item.text
-                    }
-                }
-            );
-            return _form.titleMap;
-        }
-
-    }
 
 }]);
 

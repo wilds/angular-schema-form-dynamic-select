@@ -1,9 +1,8 @@
 <div ng-controller="dynamicSelectController" class="form-group {{form.htmlClass}}"
-     ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}"
-     ng-init="form.titleMap = findTitles(form)">
+     ng-class="{'has-error': hasError(), 'has-success': hasSuccess()}">
     <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
 
-    <div class="form-group {{form.fieldHtmlClass}}">
+    <div class="form-group {{form.fieldHtmlClass}}" ng-init="fetchResult(form)">
         <button type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="$$value$$"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}" data-html="1"
                 bs-options="item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;"

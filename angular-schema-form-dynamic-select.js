@@ -1,7 +1,5 @@
-angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"form.titleMap = findTitles(form)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselectdynamic.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\"\n     ng-init=\"form.titleMap = findTitles(form)\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/strap/strapselectdynamic.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\"  ng-init=\"fetchResult(form.options)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
+angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"fetchResult(form)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\" data-multiple=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
+$templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"fetchResult(form)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\" data-html=\"1\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");}]);
 angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/uiselect/uiselect.html","<div class=\"form-group\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess(), \'has-feedback\': form.feedback !== false}\" ng-init=\"select_models=(form.titleMap | where : {value: $$value$$})\">\n  <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n  <div class=\"form-group\" ng-init=\"select_model.selected=select_models[0]\">\n    <ui-select ng-model=\"select_model.selected\" ng-controller=\"dynamicSelectController\"  ng-if=\"!(form.options.tagging||false)\" theme=\"bootstrap\" ng-disabled=\"form.disabled\" on-select=\"$$value$$=$item.value\" class=\"{{form.options.uiClass}}\">\n      <ui-select-match placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">{{select_model.selected.name}}</ui-select-match>\n      <ui-select-choices refresh=\"fetchResult(form.schema, form.options, $select.search)\"\n             refresh-delay=\"form.options.refreshDelay\" group-by=\"form.options.groupBy\"  repeat=\"item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\') }\">\n                <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n      <div ng-if=\"item.description\">\n        <span ng-bind-html=\"\'<small>\' + (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\'))+ \'</small>\'\"></span></div>\n      </ui-select-choices>\n    </ui-select>\n    <ui-select ng-controller=\"dynamicSelectController\"  ng-model=\"select_model.selected\" ng-if=\"(form.options.tagging||false) && !(form.options.groupBy || false)\" tagging=\"form.options.tagging||false\" tagging-label=\"form.options.taggingLabel\" tagging-tokens=\"form.options.taggingTokens\"\n      theme=\"bootstrap\" ng-disabled=\"form.disabled\" on-select=\"$$value$$=$item.value\" class=\"{{form.options.uiClass}}\">\n      <ui-select-match placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">{{select_model.selected.name}}&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : \'\')}}</small></ui-select-match>\n      <!--repeat code because tagging does not display properly under group by but is still useful -->\n      <ui-select-choices  refresh=\"form.options.refreshMethod(form.schema, $select.search)\"\n             refresh-delay=\"form.options.refreshDelay\" repeat=\"item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescription===true ? $select.search : \'NOTSEARCHINGFORTHIS\') }\">\n        <div ng-if=\"item.isTag\" ng-bind-html=\"\'<div>\' + (item.name   | highlight: $select.search) + \' \' + form.options.taggingLabel + \'</div><div class=&quot;divider&quot;></div>\'\"></div><div ng-if=\"!item.isTag\" ng-bind-html=\"item.name + item.isTag| highlight: $select.search\"></div>\n      <div ng-if=\"item.description\">\n        <span  ng-bind-html=\"\'<small>\' + (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) + \'</small>\'\"></span>\n      </div>\n    </ui-select-choices>\n    </ui-select>\n\n      <!--repeat code because tagging does not display properly under group by but is still useful -->\n\n    <ui-select ng-controller=\"dynamicSelectController\"  ng-model=\"select_model.selected\" ng-if=\"(form.options.tagging||false) && (form.options.groupBy || false)\"  tagging=\"form.options.tagging||false\" tagging-label=\"form.options.taggingLabel\" tagging-tokens=\"form.options.taggingTokens\"\n      theme=\"bootstrap\" ng-disabled=\"form.disabled\" on-select=\"$$value$$=$item.value\" class=\"{{form.options.uiClass}}\">\n      <ui-select-match placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">{{select_model.selected.name}}&nbsp;<small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : \'\')}}</small></ui-select-match>\n      <ui-select-choices group-by=\"form.options.groupBy\" refresh=\"form.options.refreshMethod(form.schema, $select.search)\"\n             refresh-delay=\"form.options.refreshDelay\" repeat=\"item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescription===true ? $select.search : \'NOTSEARCHINGFORTHIS\') }\">\n        <div ng-if=\"item.isTag\" ng-bind-html=\"\'<div>\' + (item.name   | highlight: $select.search) + \' \' + form.options.taggingLabel + \'</div><div class=&quot;divider&quot;></div>\'\"></div><div ng-if=\"!item.isTag\" ng-bind-html=\"item.name + item.isTag| highlight: $select.search\"></div>\n      <div ng-if=\"item.description\">\n        <span  ng-bind-html=\"\'<small>\' + (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) + \'</small>\'\"></span>\n      </div>\n    </ui-select-choices>\n    </ui-select>\n    <input type=\"hidden\" toggle-single-model sf-changed=\"form\" ng-model=\"insideModel\" schema-validate=\"form\" />\n    <span ng-if=\"form.feedback !== false\"\n      class=\"form-control-feedback\"\n      ng-class=\"evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }\"></span>\n    <div class=\"help-block\"\n      ng-show=\"(hasError() && errorMessage(schemaError())) || form.description\"\n      ng-bind-html=\"(hasError() && errorMessage(schemaError())) || form.description\"></div>\n  </div>\n</div>");
 $templateCache.put("directives/decorators/bootstrap/uiselect/uiselectmultiple.html","\n<div class=\"form-group\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess(), \'has-feedback\': form.feedback !== false}\" ng-init=\"form.select_models=(item in form.titleMap| whereMulti : \'value\' : ($$value$$||[]))\">\n  <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n  <div class=\"form-group\">\n    <ui-select multiple sortable-options=\"{{form.sortableOptions}}\" ng-model=\"form.select_models\" theme=\"bootstrap\" on-select=\"$$value$$.push($item.value)\" on-remove=\"$$value$$.splice($$value$$.indexOf($item.value), 1)\" class=\"{{form.options.uiClass}}\">\n      <ui-select-match placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">{{$item.name}}</ui-select-match>\n      <ui-select-choices repeat=\"item in form.titleMap | propsFilter: {name: $select.search}\"\n         refresh=\"form.options.refreshMethod(form.schema, $select.search)\"\n         refresh-delay=\"form.options.refreshDelay\">\n        <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n      </ui-select-choices>\n    </ui-select>\n    <input toggle-model type=\"hidden\" ng-model=\"insideModel\" sf-changed=\"form\" schema-validate=\"form\" />\n    <span ng-if=\"form.feedback !== false\"\n      class=\"form-control-feedback\"\n      ng-class=\"evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }\"></span>\n    <div class=\"help-block\"\n      ng-show=\"(hasError() && errorMessage(schemaError())) || form.description\"\n      ng-bind-html=\"(hasError() && errorMessage(schemaError())) || form.description\"></div>\n  </div>\n</div>");}]);
 angular.module('schemaForm').config(
@@ -32,14 +30,14 @@ angular.module('schemaForm').config(
                 'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapselect.html');
             schemaFormDecoratorsProvider.createDirective('strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
             schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselectdynamic.html');
+                'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
 
             // UI SELECT
@@ -252,47 +250,58 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.fetchResult = function (options) {
-        if (!options) {
+    $scope.fetchResult = function (form) {
+
+        if ("enum" in form.schema) {
+            form.titleMap = [];
+            form.schema.enum.forEach(function (item) {
+                    form.titleMap.push({"value": item, "name": item})
+                }
+            );
+
+        } else if (form.titleMap) {
+            console.log("dynamicSelectController.fetchResult : There is already a titleMap");
+        }
+        else if (!form.options) {
 
             console.log("dynamicSelectController.fetchResult : No options set, needed for dynamic selects");
         }
-        else if (options.callback) {
+        else if (form.options.callback) {
 
-            $scope.form.titleMap = $scope.getCallback(options.callback)(options);
-            console.log('callback items', $scope.form.titleMap);
+            $scope.form.titleMap = $scope.getCallback(form.options.callback)(form.options);
+            console.log('callback items', form.titleMap);
         }
-        else if (options.asyncCallback) {
-            return $scope.getCallback(options.asyncCallback)(options).then(
+        else if (form.options.asyncCallback) {
+            return $scope.getCallback(form.options.asyncCallback)(form.options).then(
                 function (_data) {
-                    $scope.form.titleMap = $scope.remap(options, _data.data);
-                    console.log('asyncCallback items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(form.options, _data.data);
+                    console.log('asyncCallback items', form.titleMap);
                 },
                 function (data, status) {
-                    alert("Loading select items failed(Options: '" + String(options) +
+                    alert("Loading select items failed(Options: '" + String(form.options) +
                     "\nError: " + status);
                 });
         }
-        else if (options.httpPost) {
-            var finalOptions = $scope.getOptions(options);
+        else if (form.options.httpPost) {
+            var finalOptions = $scope.getOptions(form.options);
 
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    $scope.form.titleMap = $scope.remap(finalOptions, _data.data);
-                    console.log('httpPost items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(finalOptions, _data.data);
+                    console.log('httpPost items', form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
                     "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nError: " + status);
                 });
         }
-        else if (options.httpGet) {
-            var finalOptions = $scope.getOptions(options);
+        else if (form.options.httpGet) {
+            var finalOptions = $scope.getOptions(form.options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    $scope.form.titleMap = $scope.remap(finalOptions, data.data);
-                    console.log('httpGet items', $scope.form.titleMap);
+                    form.titleMap = $scope.remap(finalOptions, data.data);
+                    console.log('httpGet items', form.titleMap);
                 },
                 function (data, status) {
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
@@ -302,29 +311,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.findTitles = function (_form)
-    {
-        result = [];
-        if ("enum" in _form.schema) {
 
-            _form.schema.enum.forEach(function (item) {
-                    result.push({"value": item, "name": item})
-                }
-            );
-            return result;
-
-        } else
-        if ("titleMap" in _form) {
-            _form.titleMap.forEach(function (item) {
-                    if ("text" in item) {
-                        item.name = item.text
-                    }
-                }
-            );
-            return _form.titleMap;
-        }
-
-    }
 
 }]);
 
