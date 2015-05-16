@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang='en' ng-app='testApp'>
-  <head>
+<head>
     <meta charset='utf-8'>
     <meta content='IE=edge' http-equiv='X-UA-Compatible'>
     <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
-    <link href="app.css" media="all" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet"/>
+    <link href="app.css" media="all" rel="stylesheet"/>
     <script src="bower_components/angular/angular.js"></script>
     <script src='bower_components/angular-strap/dist/angular-strap.js'></script>
     <script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
@@ -18,12 +18,17 @@
 
     <script src="angular-schema-form-dynamic-select.js"></script>
     <script src="app.js"></script>
-  </head>
-  <body ng-controller='SelectController' class="container">
-    <p><h3>Note:</h3><br /> There is a <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/13">bug in angular-strap 2.2.1</a> that causes unitialized drop downs to fail, as shown by the Multi Select Dynamic HTTP Post drop down below.<br />
-         The work around until the next angular-strap release is to initialize the (see the <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/13">issue</a>) array.</p>
+    <title>Angular schema form dynamic select example</title>
+</head>
+<body ng-controller='SelectController' class="container">
+<h1>Example</h1>
 
+<p>This is an example of the features of <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select">Angular
+    schema form dynamic select</a></p>
 
-    <form form="selectForm" sf-schema="schema" sf-form="form" sf-model="model" ng-submit="submitted(selectForm)"></form>
-  </body>
+<p>Please <a href="https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues">report any issues or bugs
+    you may find.</a></p>
+
+<form form="selectForm" sf-schema="schema" sf-form="form" sf-model="model" ng-submit="submitted(selectForm)"></form>
+</body>
 </html>
