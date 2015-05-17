@@ -376,7 +376,7 @@ The support for angular-ui-select was added in the 0.9.0-version, and is current
 
 Its dependencies aren't included in the package.json, and will hence have to be installed manually, here is a script:
 
-   bower install angular-ui-select angular-underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitiz
+    bower install angular-ui-select angular-underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitiz
 
 It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
 
@@ -390,7 +390,7 @@ It is used as strapselect, but by including the form types uiselect and uiselect
         ]
     },
         
-It support dynamically fetching items from a backend using callbacks and http-methods, but filters, for example, aren't implemented yet.
+It supports dynamically fetching items from a backend using callbacks and http-methods, but filters, for example, aren't implemented yet.
 
 See the example app in the source for more details.
 
