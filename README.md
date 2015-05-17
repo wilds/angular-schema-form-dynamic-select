@@ -4,8 +4,16 @@
 Angular Strap Dynamic Select add-on
 ===================================
 
-The dynamic select add-on uses [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select)
- to provide a drop down interface to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
+The dynamic select add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
+ to provide fully featured drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
+
+Note: 
+The ui-select support is quite new and still somewhat partial, and therefore:
+
+* it is yet to support all the features below, they all apply to angular-strap-select.
+* its dependencies aren't automatically installed yet.
+
+It has a special section in the documentation, see the ui-select section for details.
 
 Features:
 
@@ -106,15 +114,9 @@ When you create your module, be sure to make it depend on mgcrea.ngStrap as well
 
 ## Form types
 
-The add-on contributes the following new form types, `strapselect`, `strapmultiselect`,`strapselectdynamic`, `strapmultiselectdynamic`.
+The add-on contributes the following new form types, `strapselect`, `uiselect`,`uiselectmulti`.
 
-
-| Form type             |   Control  |
-|:-------------------|:------------:|
-| strapselect   |strap select static content|
-| strapmultiselect   |strap multi select static content|
-| strapselectdynamic   |strap select dynamically loaded content|
-| strapmultiselectdynamic   |strap multi select dynamically loaded content|
+The strapselect implements angular-strap-selects and uiselect* implements angular-ui-select.
 
 Built-in select-controls gets the bootstrap look but retain their functionality.
 
@@ -145,7 +147,10 @@ Like the above, but allows multiple items to be selected.
 
      {
        "key": 'multiselect',
-       "type": 'strapmultiselect',
+       "type": 'strapselect',
+       "options": { 
+        "multiple": "true"
+       }
        "titleMap": [
             {"value": 'value1', "name": 'text1'},
             {"value": 'value2', "name": 'text2'},
@@ -159,7 +164,7 @@ The "options" structure is passed to it as a parameter.
 
      {
        "key": "selectDynamic",
-       "type": 'strapselectdynamic',
+       "type": 'strapselect',
        "options": {
             "callback": $scope.callBackSD
        }
@@ -171,8 +176,9 @@ Like strapselectdynamic above, but allowed multiple items to be selected.
      
      {
        "key": "multiselectDynamic",
-       "type": 'strapmultiselectdynamic',
+       "type": 'strapmultiselect',
        "options": {
+           "multiple": "true"
            "callback": $scope.callBackMSD
        }
      },
@@ -184,8 +190,9 @@ Note that in this example, the reference to the callback is a string, meaning a 
      
      {
        "key": "multiselectDynamicAsync",
-       "type": 'strapmultiselectdynamic',
+       "type": 'strapselect',
        "options": {
+           "multiple": "true"
            "asyncCallback": "callBackMSDAsync"
            }
        }
@@ -196,8 +203,9 @@ Expects the server to return a JSON array of value/name objects.
      
      {
        "key": "multiselectDynamicHttpGet",
-       "type": 'strapmultiselectdynamic',
+       "type": 'strapselect',
        "options": {
+           "multiple": "true"
            "httpGet": {
                "url" : "test/testdata.json"
            }
@@ -217,8 +225,9 @@ so the form instance is not affected by any modifications by the callback.
      
      {
        "key": "multiselectDynamicHttpPost",
-       "type": 'strapmultiselectdynamic',
+       "type": 'strapselect',
        "options": {
+           "multiple": "true"
            "httpPost": {
                "optionsCallback" : "stringOptionsCallback",
                "parameter": { "myparam" : "Hello"}
@@ -244,8 +253,9 @@ The options for that mapping look like this:
 
      {
        "key": "multiselectdynamic_http_get",
-       "type": 'strapmultiselectdynamic',
+       "type": 'strapselect',
        "options": {
+            "multiple": "true"
             "httpGet": {
                 "url": "test/testdata_mapped.json"
             },
@@ -273,8 +283,9 @@ Example:
 
     {
         "key": 'multiselect',
-        "type": 'strapmultiselect',
+        "type": 'strapselect',
         options: {
+            "multiple": "true"           
             "filterTriggers": ["model.select"],
             "filter" : "model.select==item.category"
         },
@@ -330,10 +341,8 @@ All select types can handle:
 * property mappings
 * filters
 
-## strapselect and strapmultiselect
-These types are static, which means that the list of items is statically defined in the form:
 
-## strapselectdynamic and strapmultiselectdynamic
+## Dynamically fetching drop down items
 These types are dynamic and fetches their data from different back ends.
 #### Callbacks in general
 Callbacks can be defined either by name(`"loadGroups"`) or absolute reference (`$scope.loadGroups`). 
@@ -361,6 +370,29 @@ The two methods of callback mechanisms are:
 * the url property defines the URL to use.
 * the optional optionsCallback can be used to add to or change the options with information known in runtime. 
 * httpPost-options has a "parameter"-property, that contains the JSON that will be POST:ed to the server.
+
+# UI-Select
+The support for angular-ui-select was added in the 0.9.0-version, and is currently partial.
+
+Its dependencies aren't included in the package.json, and will hence have to be installed manually, here is a script:
+
+   bower install angular-ui-select angular-underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitiz
+
+It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
+
+    {
+        "key": 'uiselectmultiple',
+        "type": 'uiselectmultiple',
+        "titleMap": [
+          { value: 'one', name: 'option one'},
+          { value: 'two', name: 'option two'},
+          { value: 'three', name: 'option three'}
+        ]
+    },
+        
+It support dynamically fetching items from a backend using callbacks and http-methods, but filters, for example, aren't implemented yet.
+
+See the example app in the source for more details.
 
 # Recommendations
 
@@ -434,6 +466,7 @@ The the add-on still supports both variants, but value/name will be removed.<br 
 * 0.8.0: Harmonization with angular-schema-form to be a drop-in replacement
   * Breaking change: The items array is now renamed to titleMap, as in ASF.
   * Value/name-pairs for drop-down data is now reintroduced (value/text is still supported)
+* 0.9.0: strapselectdynamic, strapmultiselect and strapmultiselect was merged into strapselect. 
 
 Note: no further API changes are planned.
 

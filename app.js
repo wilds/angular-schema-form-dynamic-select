@@ -71,13 +71,13 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             uiselect: {
                 title: 'Single select for UI-select',
                 type: 'string',
-                description: 'This one is using UI-select'
+                description: 'This one is using UI-select, single selection.'
             },
             uiselectmultiple: {
                 title: 'Multi select for UI-select',
                 type: 'array',
                 items: { type: "string"},
-                description: 'This one is using UI-select'
+                description: 'This one is using UI-select, allows multiple selection.'
             },
             selectDynamic: {
                 title: 'Single Select Dynamic',
@@ -168,19 +168,19 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             "key": 'uiselect',
             "type": 'uiselect',
             "titleMap": [
-              { value: 'one', name: 'labelx'},
-              { value: 'two', name: 'labelc'},
-              { value: 'three', name: 'label3'}
+              { value: 'one', name: 'option one'},
+              { value: 'two', name: 'option two'},
+              { value: 'three', name: 'option three'}
             ]
         },
         {
             "key": 'uiselectmultiple',
             "type": 'uiselectmultiple',
-            "titleMap": [
-              { value: 'one', name: 'labelx'},
-              { value: 'two', name: 'labelc'},
-              { value: 'three', name: 'label3'}
-            ]
+            "options": {
+                "httpGet": {
+                    "url": "test/testdata.json"
+                }
+            }
         },
 
         {
