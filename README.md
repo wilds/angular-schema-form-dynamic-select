@@ -456,7 +456,6 @@ The correct way, and how the HTML select element actually works, is value/text.(
 The the add-on still supports both variants, but value/name will be removed.<br /> 
 * 0.4.0: use the options.map functionality instead.<br /> 
 * 0.5.0: Breaking changes:
-* 0.5.0: Breaking changes:
   * http_post and http_get are renamed to httpPost and httpGet.
   * async.callback is removed and asyncCallback is used instead.
 * 0.6.0: earlier deprecated support for value/name-pairs is now removed 
@@ -466,7 +465,7 @@ The the add-on still supports both variants, but value/name will be removed.<br 
 * 0.8.0: Harmonization with angular-schema-form to be a drop-in replacement
   * Breaking change: The items array is now renamed to titleMap, as in ASF.
   * Value/name-pairs for drop-down data is now reintroduced (value/text is still supported)
-* 0.9.0: strapselectdynamic, strapmultiselect and strapmultiselect was merged into strapselect. 
+* 0.9.0: Breaking changes: strapselectdynamic, strapmultiselect and strapmultiselect was merged into strapselect. 
 
 Note: no further API changes are planned.
 

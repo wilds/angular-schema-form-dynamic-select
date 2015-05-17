@@ -1,7 +1,7 @@
 .tilted {
 
     /* Safari, Chrome */
-    -webkit-transform: rotate(-13deg);
+    -webkit-transform: rotate(-1deg);
 
     /* Firefox */
     -moz-transform: rotate(-1deg);
@@ -16,7 +16,7 @@
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.012);
 
     /* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
-    transform: rotate(-1.2deg);
+    transform: rotate(1.2deg);
 
     padding-bottom: 1em;
 

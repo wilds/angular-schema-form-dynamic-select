@@ -291,8 +291,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             console.log("dynamicSelectController.fetchResult : No options set, needed for dynamic selects");
         }
         else if (form.options.callback) {
-
-            $scope.form.titleMap = $scope.getCallback(form.options.callback)(form.options);
+            form.titleMap = $scope.getCallback(form.options.callback)(form.options);
             console.log('callback items', form.titleMap);
         }
         else if (form.options.asyncCallback) {
