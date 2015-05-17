@@ -195,17 +195,19 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamic",
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             placeholder: "not set yet(this text is defined using the placeholder option)",
             "options": {
+                "multiple" : "true",
                 "callback": "callBackMSD"
             }
         },
         {
             "key": "multiselectDynamicHttpPost",
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             "title": 'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
             "options": {
+                "multiple" : "true",
                 "httpPost": {
                     "optionsCallback": "stringOptionsCallback",
                     "parameter": {"myparam": "Hello"}
@@ -214,9 +216,10 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGet",
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             "placeholder": "None selected here neither.",
             "options": {
+                "multiple" : "true",
                 "httpGet": {
                     "url": "test/testdata.json"
                 }
@@ -224,8 +227,9 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGetMapped",
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             "options": {
+                "multiple" : "true",
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
@@ -234,11 +238,12 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicAsync",
-            "type": 'strapmultiselect',
+            "type": 'strapselect',
             "onChange": function () {
                 alert("You changed this value! (this was the onChange event in action)");
             },
             "options": {
+                "multiple" : "true",
                 "asyncCallback": $scope.callBackMSDAsync,
                 "urlOrWhateverOptionIWant": "test/testdata.json"
             }
