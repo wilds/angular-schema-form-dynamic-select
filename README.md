@@ -442,8 +442,8 @@ Note: no further API changes are planned.
 
 1. This component was originally created by [chengz](https://github.com/chengz/). 
 
-2. [stevehu](https://github.com/stevehu) then added functionality to his project to connect to his light(https://github.com/networknt/light) 
-framework.
+2. [stevehu](https://github.com/stevehu) then added functionality to his project to connect to his [light
+framework](https://github.com/networknt/light).
 
 3. This inspired [nicklasb](https://github.com/nicklasb) to merge stevehu:s code and rewrite the plugin in order to:
 
