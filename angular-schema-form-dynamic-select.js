@@ -86,14 +86,21 @@ angular.module('schemaForm').config(
             sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
         }
         $scope.$parent.$watch('form.select_models',function(){
+          if (!($scope.$parent.form.select_models)) {
+            // The select models has not yet been assigned. Do nothing.
+          } else
           if($scope.$parent.form.select_models.length == 0) {
             $scope.$parent.insideModel = $scope.$parent.$$value$$;
             if($scope.$parent.ngModel.$viewValue != undefined) {
               $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
             }
           } else {
-            $scope.$parent.insideModel = $scope.$parent.form.select_models;
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
+              $scope.$parent.insideModel = []
+              $scope.$parent.form.select_models.forEach(function (item){
+                    $scope.$parent.insideModel.push(item.value);
+                }
+            );
+            $scope.$parent.ngModel.$setViewValue($scope.$parent.insideModel);
           }
         }, true);
       }]
@@ -125,14 +132,14 @@ angular.module('schemaForm').config(
       var out = [];
 
       if (angular.isArray(values)) {
-        values.forEach(function(value) {
-          for (var i = 0; i < items.length; i++) {
-            if (value == items[i][key]) {
-              out.push(items[i]);
-              break;
-            }
-          }
-        });
+          values.forEach(function (value) {
+              for (var i = 0; i < items.length; i++) {
+                  if (value == items[i][key]) {
+                      out.push(items[i]);
+                      break;
+                  }
+              }
+          });
       } else {
         // Let the output be the input untouched
         out = items;

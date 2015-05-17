@@ -91,8 +91,12 @@ angular.module('schemaForm').config(
               $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
             }
           } else {
-            $scope.$parent.insideModel = $scope.$parent.form.select_models;
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
+              $scope.$parent.insideModel = []
+              $scope.$parent.form.select_models.forEach(function (item){
+                    $scope.$parent.insideModel.push(item.value);
+                }
+            );
+            $scope.$parent.ngModel.$setViewValue($scope.$parent.insideModel);
           }
         }, true);
       }]
