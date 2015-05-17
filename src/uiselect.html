@@ -1,6 +1,5 @@
 <div class="form-group"
      ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}"
-         ng-init="select_models=(form.titleMap | whereMulti : {value: $$value$$})">
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group" ng-init="select_model.selected=select_models[0]">
