@@ -1,19 +1,18 @@
 
 <div class="form-group" ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}"
-        ng-controller="dynamicSelectController">
+        ng-controller="dynamicSelectController" ng-init="uiMultiSelectInitInternalModel($$value$$)">
   <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
-  <div class="form-group" ng-init="form.select_models=(form.titleMap| whereMulti : 'value' : ($$value$$||[]))">
-    <ui-select multiple sortable-options="{{form.sortableOptions}}" ng-model="form.select_models" theme="bootstrap"
+  <div class="form-group">
+    <ui-select multiple sortable-options="{{form.sortableOptions}}" ng-model="internalModel" theme="bootstrap"
                on-select="$$value$$.push($item.value)" on-remove="$$value$$.splice($$value$$.indexOf($item.value), 1)"
                class="{{form.options.uiClass}}">
       <ui-select-match placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{$item.name}}</ui-select-match>
       <ui-select-choices repeat="item in form.titleMap | propsFilter: {name: $select.search}"
-         refresh="fetchResult(form, $select.search)"
+         refresh="populateTitleMap(form, $select.search)"
          refresh-delay="form.options.refreshDelay">
         <div ng-bind-html="item.name | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
-    <input toggle-model type="hidden" ng-model="insideModel" sf-changed="form" schema-validate="form" />
     <span ng-if="form.feedback !== false"
       class="form-control-feedback"
       ng-class="evalInScope(form.feedback) || {'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-remove': hasError() }"></span>

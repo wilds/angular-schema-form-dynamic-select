@@ -118,7 +118,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 description: 'This data is asynchrously loaded using a async call. ' +
                 '(specify options.async.call)'
             },
-            
+
             "priorities": {
                 "type": "object",
                 "description": 'Complex array in list',
@@ -126,8 +126,8 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                   "priority": {
                     "type": "array",
                     "items": {
-                      "type": "object",          
-                      "properties": {       
+                      "type": "object",
+                      "properties": {
                         "value": {
                           "type": "string",
                           "enum": [ "DOG", "CAT", "FISH" ]
@@ -154,33 +154,34 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             "options": {
                 "multiple": "true",
                 "filterTriggers": ["model.select"],
-                "filter": "model.select==item.category"
+                "filter": "item.category.indexOf(model.select) > -1"
             },
             "validationMessage": "Hey, you can only select three items or you'll see this!",
             "titleMap": [
                 {"value": 'value1', "name": 'text1', "category": "value1"},
                 {"value": 'value2', "name": 'text2', "category": "value1"},
-                {"value": 'value3', "name": 'long very very long label3', "category": "value2"},
+                {"value": 'value3', "name": 'long very very long label3', "category": ["value2", "value1"]},
                 {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
             ]
         },
         {
             "key": 'uiselect',
             "type": 'uiselect',
-            "titleMap": [
-              { value: 'one', name: 'option one'},
-              { value: 'two', name: 'option two'},
-              { value: 'three', name: 'option three'}
-            ]
+            "placeholder": "not set yet..",
+            "options": {
+                "callback": "callBackSD"
+            }
         },
         {
             "key": 'uiselectmultiple',
             "type": 'uiselectmultiple',
-            "options": {
-                "httpGet": {
-                    "url": "test/testdata.json"
-                }
-            }
+            "placeholder": "not set yet..",
+            "titleMap": [
+                {"value": 'value1', "name": 'text1', "category": "value1"},
+                {"value": 'value2', "name": 'text2', "category": "value1"},
+                {"value": 'value3', "name": 'long very very long label3', "category": "value2"},
+                {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
+            ]
         },
 
         {
@@ -228,6 +229,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         {
             "key": "multiselectDynamicHttpGetMapped",
             "type": 'strapselect',
+            "placeholder": "And even less here...",
             "options": {
                 "multiple" : "true",
                 "httpGet": {
@@ -268,12 +270,14 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
     $scope.model = {};
     $scope.model.select = 'value1';
     $scope.model.multiselect = ['value2', 'value1'];
+    $scope.model.uiselect = "text1";
+    $scope.model.uiselectmultiple = ['value1'];
     $scope.model.multiselectDynamicHttpPost = null;
     $scope.model.multiselectDynamicHttpGetMapped = [];
     $scope.model.multiselectDynamicAsync = [];
     $scope.model.multiselectDynamicHttpGet = [];
     $scope.model.multiselectDynamic = [];
-    
+
     $scope.model.priorities = {
       "priority": [
         {
@@ -287,7 +291,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         }
       ]
     };
- 
+
     $scope.submitted = function (form) {
         $scope.$broadcast('schemaFormValidate');
         console.log($scope.model);

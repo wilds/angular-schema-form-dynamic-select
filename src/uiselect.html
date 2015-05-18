@@ -1,8 +1,9 @@
 <div class="form-group"
      ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}"
+         ng-init="selectedOptions=form.titleMap; insideModel=$$value$$;">
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
-    <div class="form-group" ng-init="select_model.selected=select_models[0]">
+    <div class="form-group" ng-init="select_model.selected=selectedOptions[0]">
         <ui-select ng-controller="dynamicSelectController" ng-model="select_model.selected"
                    ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled"
                    on-select="$$value$$=$item.value" class="{{form.options.uiClass}}">
@@ -10,7 +11,7 @@
                     placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">
                 {{select_model.selected.name}}
             </ui-select-match>
-            <ui-select-choices refresh="fetchResult(form, form.options, $select.search)"
+            <ui-select-choices refresh="populateTitleMap(form, form.options, $select.search)"
                                refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"
                                repeat="item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                 <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -31,7 +32,7 @@
                 <small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small>
             </ui-select-match>
             <!--repeat code because tagging does not display properly under group by but is still useful -->
-            <ui-select-choices refresh="fetchResult(form, form.options, $select.search)"
+            <ui-select-choices refresh="populateTitleMap(form, form.options, $select.search)"
                                refresh-delay="form.options.refreshDelay"
                                repeat="item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                 <div ng-if="item.isTag"
@@ -57,11 +58,11 @@
                 <small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small>
             </ui-select-match>
             <ui-select-choices group-by="form.options.groupBy"
-                               refresh="fetchResult(form, form.options, $select.search)"
+                               refresh="populateTitleMap(form, form.options, $select.search)"
                                refresh-delay="form.options.refreshDelay"
                                repeat="item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                 <div ng-if="item.isTag"
-                     ng-bind-html="'<div>' + (item.name   | highlight: $select.search) + ' ' + form.options.taggingLabel + '</div><div class=&quot;divider&quot;></div>'"></div>
+                     ng-bind-html="'<div>' + (item.name  | highlight: $select.search) + ' ' + form.options.taggingLabel + '</div><div class=&quot;divider&quot;></div>'"></div>
                 <div ng-if="!item.isTag" ng-bind-html="item.name + item.isTag| highlight: $select.search"></div>
                 <div ng-if="item.description">
                     <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'"></span>

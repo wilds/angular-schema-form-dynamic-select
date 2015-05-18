@@ -81,22 +81,22 @@ angular.module('schemaForm').config(
             list = [];
             sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
         }
-        $scope.$parent.$watch('form.select_models',function(){
-          if (!($scope.$parent.form.select_models)) {
-            // The select models has not yet been assigned. Do nothing.
+        $scope.$parent.$watch('form.selectedOptions',function(){
+          if (!($scope.$parent.form.selectedOptions)) {
+
           } else
-          if($scope.$parent.form.select_models.length == 0) {
-            $scope.$parent.insideModel = $scope.$parent.$$value$$;
+          if($scope.$parent.form.selectedOptions.length == 0) {
+
             if($scope.$parent.ngModel.$viewValue != undefined) {
-              $scope.$parent.ngModel.$setViewValue($scope.$parent.form.select_models);
+              $scope.$parent.ngModel.$setViewValue($scope.$parent.form.selectedOptions);
             }
           } else {
-              $scope.$parent.insideModel = []
-              $scope.$parent.form.select_models.forEach(function (item){
-                    $scope.$parent.insideModel.push(item.value);
+              $scope.$parent.$$value$$ = [];
+              $scope.$parent.form.selectedOptions.forEach(function (item){
+                    $scope.$parent.$$value$$.push(item.value);
                 }
             );
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.insideModel);
+            $scope.$parent.ngModel.$setViewValue($scope.$parent.$$value$$);
           }
         }, true);
       }]
@@ -127,7 +127,7 @@ angular.module('schemaForm').config(
     return function(items, key, values) {
       var out = [];
 
-      if (angular.isArray(values)) {
+      if (angular.isArray(values) && items !== undefined) {
           values.forEach(function (value) {
               for (var i = 0; i < items.length; i++) {
                   if (value == items[i][key]) {
@@ -182,20 +182,18 @@ angular.module('schemaForm').config(
 angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
 
-    $scope.triggerItems = function () {
+    $scope.triggerTitleMap = function () {
         console.log("listener triggered");
-        $scope.$$watchers.forEach(function (watcher) {
-            if (watcher.exp == "form.titleMap") {
-                watcher.fn($scope.form.titleMap, $scope.form.titleMap)
-            }
-        });
+        // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
+        $scope.form.titleMap.push({"value": "345890u340598u3405u9", "name": "34095u3p4ouij"})
+        $timeout(function () { $scope.form.titleMap.pop() })
 
     };
 
     $scope.initFiltering = function (localModel) {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
-                $scope.$watch(trigger, $scope.triggerItems)
+                $scope.$parent.$watch(trigger, $scope.triggerTitleMap)
 
             });
         }
@@ -274,7 +272,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.fetchResult = function (form) {
+    $scope.test = function (form) {
+        form.titleMap.pop();
+    };
+
+    $scope.populateTitleMap = function (form) {
 
         if ("enum" in form.schema) {
             form.titleMap = [];
@@ -284,11 +286,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             );
 
         } else if (form.titleMap) {
-            console.log("dynamicSelectController.fetchResult : There is already a titleMap");
+            console.log("dynamicSelectController.populateTitleMap(key:" + form.key + ") : There is already a titleMap");
         }
         else if (!form.options) {
 
-            console.log("dynamicSelectController.fetchResult : No options set, needed for dynamic selects");
+            console.log("dynamicSelectController.populateTitleMap(key:" + form.key + ") : No options set, needed for dynamic selects");
         }
         else if (form.options.callback) {
             form.titleMap = $scope.getCallback(form.options.callback)(form.options);
@@ -330,11 +332,28 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
                     "\nError: " + status);
                 });
+        }
+    };
+    $scope.uiMultiSelectInitInternalModel = function(_model)
+    {
+        function find_in_titleMap(value) {
+            for (i = 0; i < $scope.form.titleMap.length; i++) {
+                if ($scope.form.titleMap[i].value == value) {
+                    return $scope.form.titleMap[i].name
+                }
+            }
+
 
         }
+        $scope.internalModel = [];
+        if (_model !== undefined && angular.isArray(_model)){
+            _model.forEach(function (value) {
+                    $scope.internalModel.push({"value": value, "name": find_in_titleMap(value) })
+                }
 
-    };
-
+            )
+        }
+    }
 
 }]);
 
@@ -368,7 +387,7 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             else if (localModel) {
                 // If not in list, also remove the set value
 
-                if (controller.localModelType == "[object Array]") {
+                if (controller.localModelType == "[object Array]" && localModel.indexOf(curr_item.value) > -1) {
                     localModel.splice(localModel.indexOf(curr_item.value), 1);
                 }
                 else if (localModel == curr_item.value) {
@@ -393,8 +412,3 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
         return data;
     };
 }]);
-
-
-
-
-
