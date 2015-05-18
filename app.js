@@ -59,69 +59,68 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 title: 'Single select strap-select',
                 type: 'string',
                 enum: ["value1", "value2", "value3"],
-                description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
+                description: 'Only single item is allowed. Based on schema enum and form default. Change here and observe how the select list below is filtered.'
             },
             multiselect: {
                 title: 'Multi select strap-select',
                 type: 'array',
                 items: { type: "string"},
                 maxItems: 2,
-                description: 'Multiple items are allowed. (select three for maxItems validation error)'
+                description: 'Multiple items are allowed, select three for maxItems validation error. Each item belongs to a \"category\", so the list is filtered depending on what you have selected in the \"Single select strap-select\" above.'
             },
             uiselect: {
                 title: 'Single select for UI-select',
                 type: 'string',
-                description: 'This one is using UI-select, single selection.'
+                description: 'This one is using UI-select, single selection. Fetches lookup values(titleMap) from a callback.'
             },
             uiselectmultiple: {
                 title: 'Multi select for UI-select',
                 type: 'array',
                 items: { type: "string"},
-                description: 'This one is using UI-select, allows multiple selection.'
+                description: 'This one is using UI-select, allows multiple selection. Static titleMap.'
             },
             selectDynamic: {
                 title: 'Single Select Dynamic',
                 type: 'string',
-                description: 'This data is loaded from the $scope.callBackSD function. (and laid out using css-options)'
+                description: 'This titleMap is loaded from the $scope.callBackSD function. (and laid out using css-options)'
             },
             multiselectDynamic: {
                 title: 'Multi Select Dynamic',
                 type: 'array',
                 items: { type:"string"},
-                description: 'This data is loaded from the $scope.callBackMSD function. (referenced by name)'
+                description: 'This titleMap is loaded from the $scope.callBackMSD function. (referenced by name)'
             },
             multiselectDynamicHttpPost: {
                 title: 'Multi Select Dynamic HTTP Post',
                 type: 'array',
                 items: { type:"string"},
-                description: 'This data is asynchronously loaded using a HTTP post. ' +
+                description: 'This titleMap is asynchronously loaded using a HTTP post. ' +
                 '(specifies parameter in form, options.url in a named callback)'
             },
             multiselectDynamicHttpGet: {
                 title: 'Multi Select Dynamic HTTP Get',
                 type: 'array',
                 items: { type:"string"},
-                description: 'This data is asynchronously loaded using a HTTP get. ' +
+                description: 'This titleMap is asynchronously loaded using a HTTP get. ' +
                 '(Set the URL at options.url)'
             },
             multiselectDynamicHttpGetMapped: {
                 title: 'Multi Select Dynamic HTTP Get Mapped data',
                 type: 'array',
                 items: { type:"string"},
-                description: 'This data is as above, but remapped from a nodeId/nodeName array of objects. ' +
+                description: 'This titleMap is as above, but remapped from a nodeId/nodeName array of objects. ' +
                 '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
             },
             multiselectDynamicAsync: {
                 title: 'Multi Select Dynamic Async',
                 type: 'array',
                 items: { type:"string"},
-                description: 'This data is asynchrously loaded using a async call. ' +
+                description: 'This titleMap is asynchrously loaded using a async call. ' +
                 '(specify options.async.call)'
             },
 
             "priorities": {
                 "type": "object",
-                "description": 'Complex array in list',
                 "properties": {
                   "priority": {
                     "type": "array",
@@ -158,10 +157,10 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             },
             "validationMessage": "Hey, you can only select three items or you'll see this!",
             "titleMap": [
-                {"value": 'value1', "name": 'text1', "category": "value1"},
-                {"value": 'value2', "name": 'text2', "category": "value1"},
-                {"value": 'value3', "name": 'long very very long label3', "category": ["value2", "value1"]},
-                {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
+                {"value": 'value1', "name": 'text1 (belongs to the value1-category)', "category": "value1"},
+                {"value": 'value2', "name": 'text2 (belongs to the value1-category)', "category": "value1"},
+                {"value": 'value3', "name": 'long very very long label3 (belongs to the value2-category)', "category": "value2"},
+                {"value": 'value4', "name": 'Select three and get a validation error! (belongs to the value1-category)', "category": "value1"}
             ]
         },
         {
@@ -252,6 +251,8 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "priorities.priority",
+            "title": 'Array inside an object, defaults ASF select only',
+            "description": 'This is an example of how to use this in a complex structure. Note that the title and description is in the form, ASF only looks in the form for that.',
             "type" : "array",
             "items": [
                 {
