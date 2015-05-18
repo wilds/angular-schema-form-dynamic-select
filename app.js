@@ -272,11 +272,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
     $scope.model.multiselect = ['value2', 'value1'];
     $scope.model.uiselect = "text1";
     $scope.model.uiselectmultiple = ['value1'];
-    $scope.model.multiselectDynamicHttpPost = null;
-    $scope.model.multiselectDynamicHttpGetMapped = [];
-    $scope.model.multiselectDynamicAsync = [];
-    $scope.model.multiselectDynamicHttpGet = [];
-    $scope.model.multiselectDynamic = [];
+
 
     $scope.model.priorities = {
       "priority": [
