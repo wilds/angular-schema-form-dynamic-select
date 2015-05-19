@@ -324,6 +324,29 @@ The schema declaration(the enum values will be both value and name for the optio
         description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
     },
 
+## inlineMaxLength and inlineMaxLengthHtml angularStrap parameters.
+These settings affects only [strapselect](http://mgcrea.github.io/angular-strap/#/selects-usage) and controls the number of items that are shown in the selected list of items.
+If that list is full, the number of list items + the test in inlineMaxLengthHtml is shown.
+If, for example, inlineMaxLength is set to 2 and the number of selected items is 4, the text shown will be `4 items are too many items to show....` 
+
+Example(the same as in the example file):
+
+    "key": 'multiselect_overflow',
+    "type": 'strapselect',
+    "placeholder": "Please select some items.",
+    "options": {
+        "multiple": "true",
+        "inlineMaxLength": "2",
+        "inlineMaxLengthHtml": " items are too many items to show...."
+    },
+    "titleMap": [
+        {"value": 'value1', "name": 'text1'},
+        {"value": 'value2', "name": 'text2'},
+        {"value": 'value3', "name": 'text3'},
+        {"value": 'value4', "name": 'text4'},
+    ]
+
+
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
 
