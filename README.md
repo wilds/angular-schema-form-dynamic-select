@@ -41,7 +41,6 @@ The ui-select support is quite new and still somewhat partial, and therefore:*
 # Example
 
 There is a live example at http://demo.optimalbpm.se/angular-schema-form-dynamic-select/ .
-npm i angular-schema-form-dynamic-select
 The example code is in the repository, it's the index.html, bootstrap-strapselect.js file, test/testdata.json and the test/testdata_mapped.json files.
 
 To run it locally, simply clone the repository 
