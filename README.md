@@ -408,7 +408,7 @@ The support for angular-ui-select was added in the 0.9.0-version, and is current
 Its dependencies aren't included in the package.json, and will hence have to be installed manually, here is a script:
 
 ```bash
-    bower install angular-ui-select angular-underscore underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitize
+ $  bower install angular-ui-select angular-underscore underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitize
 ```
 It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
 
