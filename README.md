@@ -16,7 +16,7 @@ The ui-select support is quite new and still somewhat partial, and therefore:
 
 It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/#ui-select).
 
-Features:
+# Features:
 
 * Static and dynamic lists
 * Single and multiple select
