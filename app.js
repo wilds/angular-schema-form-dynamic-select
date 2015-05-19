@@ -119,7 +119,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 '(specify options.async.call)'
             },
             multiselect_overflow: {
-                title: 'strap select with overflow',
+                title: 'Strap select with overflow',
                 type: 'array',
                 items: { type: "string"},
                 description: 'If you select more than two items here, it will only show the first two and '

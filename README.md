@@ -327,7 +327,9 @@ The schema declaration(the enum values will be both value and name for the optio
 ## inlineMaxLength and inlineMaxLengthHtml angularStrap parameters.
 These settings affects only [strapselect](http://mgcrea.github.io/angular-strap/#/selects-usage) and controls the number of items that are shown in the selected list of items.
 If that list is full, the number of list items + the test in inlineMaxLengthHtml is shown.
-If, for example, inlineMaxLength is set to 2 and the number of selected items is 4, the text shown will be `4 items are too many items to show....` 
+If, for example, inlineMaxLength is set to 2 and the number of selected items is 4, the text shown will be:
+
+`4 items are too many items to show....` 
 
 Example(the same as in the example file):
 
