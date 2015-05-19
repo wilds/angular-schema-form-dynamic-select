@@ -41,7 +41,7 @@ Features:
 # Example
 
 There is a live example at http://demo.optimalbpm.se/angular-schema-form-dynamic-select/ .
-
+npm i angular-schema-form-dynamic-select
 The example code is in the repository, it's the index.html, bootstrap-strapselect.js file, test/testdata.json and the test/testdata_mapped.json files.
 
 To run it locally, simply clone the repository 
@@ -81,7 +81,9 @@ $ bower install angular-schema-form-dynamic-select#develop
 
 You can also use npm:
 
-    npm i angular-schema-form-dynamic-select
+```bash
+$ npm i angular-schema-form-dynamic-select
+```
 
 # Usage
 
@@ -424,16 +426,18 @@ Any ideas on new features are always welcome.
 Building and minifying is done using [gulp](http://gulpjs.com/) 
 
 ### Installing gulp
-To install gulp, you need npm
+To install gulp, you need npm:
 
-    npm install gulp -g
-
+```bash
+$ npm install gulp -g
+```
 ### Running the build
 
 In the project root folder, run:
 
-    gulp default
-
+```bash
+$ gulp default
+```
 
 # Contributing
 
@@ -442,17 +446,24 @@ Pull requests are always very welcome. Try to make one for each thing you add, d
 Remember that the next version is in the develop branch, so if you want to add new features, do that there.<br />
 If you want to fix a bug, do that against the master branch and it will be merged into the develop branch later.
 
-To install all the developer dependencies, like for running tests, you may also want to run:
-npm update
+
 
 # Testing
 
 Unit testing is done using [Karma and Jasmine](http://karma-runner.github.io/0.12/intro/installation.html).
 The main configuration file for running tests is karma.conf.js, and test/tests.js holds the test code.
-To run the tests, make sure the relevant dev dependencies are installed, and run:
+First, make sure the relevant development dependencies are installed:
 
-    node_modules/karma/bin/karma start karma.conf.js
+```bash
+$ npm update
+```
 
+To run the tests:
+
+
+```bash
+$ node_modules/karma/bin/karma start karma.conf.js
+```
 # Breaking change history
 
 <b>Important: Over the early minor versions, there has been considerable changes:</b>
