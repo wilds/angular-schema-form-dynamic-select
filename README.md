@@ -78,6 +78,9 @@ $ bower install angular-schema-form-dynamic-select#develop
 
 \#develop is not recommended for production, but perhaps you want to use stuff from the next version in development.
 
+You can also use npm:
+
+    npm i angular-schema-form-dynamic-select
 
 # Usage
 
