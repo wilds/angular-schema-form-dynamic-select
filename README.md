@@ -1,4 +1,5 @@
-[![Bower version](https://badge.fury.io/bo/angular-schema-form-dynamic-select.svg)](http://badge.fury.io/bo/angular-schema-form-dynamic-select)
+[![bower version](https://img.shields.io/bower/v/angular-schema-form-dynamic-select?style=flat-square)](#bower)
+[![npm version](https://img.shields.io/npm/v/angular-schema-form-dynamic-select?style=flat-square)](https://www.npmjs.org/package/angular-schema-form-dynamic-select)
 [![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Angular Strap Dynamic Select add-on
@@ -440,6 +441,9 @@ Pull requests are always very welcome. Try to make one for each thing you add, d
 
 Remember that the next version is in the develop branch, so if you want to add new features, do that there.<br />
 If you want to fix a bug, do that against the master branch and it will be merged into the develop branch later.
+
+To install all the developer dependencies, like for running tests, you may also want to run:
+npm update
 
 # Testing
 

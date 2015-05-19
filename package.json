@@ -26,6 +26,10 @@
     "angular-strap": ">= 2.2.2",
     "bootstrap": "^3.2.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git"
+  },
   "devDependencies": {
     "angular-translate": ">= 2.4.0",
     "angular-mocks": ">= 1.2",
