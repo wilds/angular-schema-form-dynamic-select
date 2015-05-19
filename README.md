@@ -1,6 +1,6 @@
 [![Bower version](https://badge.fury.io/bo/angular-schema-form-dynamic-select.svg)](http://badge.fury.io/bo/angular-schema-form-dynamic-select)
-[![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)]
-(https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Angular Strap Dynamic Select add-on
 ===================================
 
@@ -79,7 +79,7 @@ $ bower install angular-schema-form-dynamic-select#develop
 \#develop is not recommended for production, but perhaps you want to use stuff from the next version in development.
 
 
-#Usage
+# Usage
 
 Usage is straightforward, simply include and reference.
 
