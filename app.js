@@ -118,7 +118,12 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 description: 'This titleMap is asynchrously loaded using a async call. ' +
                 '(specify options.async.call)'
             },
-
+            multiselect_overflow: {
+                title: 'strap select with overflow',
+                type: 'array',
+                items: { type: "string"},
+                description: 'If you select more than two items here, it will only show the first two and '
+            },
             "priorities": {
                 "type": "object",
                 "properties": {
@@ -248,6 +253,22 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 "asyncCallback": $scope.callBackMSDAsync,
                 "urlOrWhateverOptionIWant": "test/testdata.json"
             }
+        },
+        {
+            "key": 'multiselect_overflow',
+            "type": 'strapselect',
+            "placeholder": "Please select some items.",
+            "options": {
+                "multiple": "true",
+                "inlineMaxLength": "2",
+                "inlineMaxLengthHtml": "Too many items to show...."
+            },
+            "titleMap": [
+                {"value": 'value1', "name": 'text1'},
+                {"value": 'value2', "name": 'text2'},
+                {"value": 'value3', "name": 'text3'},
+                {"value": 'value4', "name": 'text4'},
+            ]
         },
         {
             "key": "priorities.priority",
