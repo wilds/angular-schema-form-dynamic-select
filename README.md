@@ -225,7 +225,7 @@ It is a callback that like the others, gets the options structure
 as a parameter, but allows its content to be modified and returned for use in the call. 
 Here, the otherwise mandatory httpPost.url is not set in the options but in the callback.
 
-See the stringOptionsCallback function in [app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js) for an example. 
+See the [stringOptionsCallback function in app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js#L46) for an example. 
 The options-instance that is passed to the parameter is a *copy* of the instance in the form, 
 so the form instance is not affected by any modifications by the callback.
      
@@ -274,8 +274,8 @@ in a completely different format, the callback and asyncCallback options should 
 
 ## Filters
 
-Filters, like [conditions](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options) 
-handle visibility, but for each item in the options list.
+Filters, like [conditions](https://github.com/Textalk/angular-schema-form/blob/development/docs/index.md#standard-options),
+ handle visibility, but for each item in the options list.
 
 It works by evaluating the filter expression for each row, if it evaluates to true, the option remains in the list.
 One could compare it with an SQL join.
