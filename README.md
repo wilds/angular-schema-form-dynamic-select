@@ -2,10 +2,10 @@
 [![npm version](https://img.shields.io/npm/v/angular-schema-form-dynamic-select.svg?style=flat-square)](https://www.npmjs.org/package/angular-schema-form-dynamic-select)
 [![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Angular Strap Dynamic Select add-on
-===================================
+Angular Schema Form Dynamic Select(ASFDS) add-on
+================================================
 
-The dynamic select add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
+This add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
  to provide fully featured drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
 
 It is drop-in compliant with angular-schema-forms existing selects, which makes using it a breeze, no adaptations are needed. 
@@ -53,6 +53,8 @@ To run it locally, simply clone the repository
 
 ..and open index.html in a browser or serve using your favorite IDE.
 
+To make the entire example work properly, as it contains UI-select components, please install the [ui-select dependencies](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select) as well.
+
 (you will need to have [bower installed](http://bower.io/#install-bower), of course)
 
 
@@ -61,10 +63,9 @@ To run it locally, simply clone the repository
 
 * List items: the items that make up the selection list, for example the items in a drop down.
 
-# Installation
+# Installation and usage
 
-This is an add-on to the angular-schema-form. To use it (in production), just include
-`angular-schema-form-dynamic-select.min.js` and satisfy its dependency.
+ASFDS is an add-on to the angular-schema-form. To use it (in production), follow these step:
 
 Easiest way is to install is with bower, this will also include dependencies:
 
@@ -80,23 +81,13 @@ $ bower install angular-schema-form-dynamic-select#develop
 
 \#develop is not recommended for production, but perhaps you want to use stuff from the next version in development.
 
-You can also use npm:
+You can also use npm for installation:
 
 ```bash
 $ npm i angular-schema-form-dynamic-select
 ```
 
-# Usage
-
-Usage is straightforward, simply include and reference.
-
-
-Example:
- 
-### HTML
-
-You'll need to load a few additional files to use the editor:
-
+Usage is straightforward, simply include and reference:
 
 
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
@@ -109,25 +100,23 @@ You'll need to load a few additional files to use the editor:
     <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
     <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
 
-<i>Note: Make sure you load angular-schema-form-dynamic-select.js after loading angular schema form.</i>
+<i>Note: Make sure you load angular-schema-form-dynamic-select.js **after** loading angular schema form.</i>
 
-### Module javascript</i>
+### Configuring your angular module
 
 When you create your module, be sure to make it depend on mgcrea.ngStrap as well:
 
     angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
 
-
+<i>Note: ui-select needs the following 
 
 ## Form types
 
-The add-on contributes the following new form types, `strapselect`, `uiselect`,`uiselectmulti`.
+The add-on contributes the following new form types, `strapselect`, `uiselect`, `uiselectmulti`.
 
 The strapselect implements angular-strap-selects and uiselect* implements angular-ui-select.
 
 Built-in select-controls gets the bootstrap look but retain their functionality.
-
-
 
 
 ## Form Definition
@@ -376,6 +365,7 @@ All select types can handle:
 
 ## Dynamically fetching drop down items
 These types are dynamic and fetches their data from different back ends.
+
 #### Callbacks in general
 Callbacks can be defined either by name(`"loadGroups"`) or absolute reference (`$scope.loadGroups`). 
 
@@ -406,11 +396,25 @@ The two methods of callback mechanisms are:
 # UI-Select
 The support for angular-ui-select was added in the 0.9.0-version, and is currently partial.
 
+## Installation
+
+UI-select is not installed by default in ASFDS, even though it is feature in the demo and example, here are the step
+
+### Dependencies
+
 Its dependencies aren't included in the package.json, and will hence have to be installed manually, here is a script:
 
 ```bash
  $  bower install angular-ui-select angular-underscore underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitize
 ```
+### Angular module configuration
+
+UI-select have several additional dependencies that need to be added to your module configuration:
+
+```bash
+angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap', 'mgcrea.ngStrap.modal', 'pascalprecht.translate', 'ui.select', 'ui.highlight','mgcrea.ngStrap.select']);
+```    
+### Forms
 It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
 
     {
@@ -423,7 +427,7 @@ It is used as strapselect, but by including the form types uiselect and uiselect
         ]
     },
         
-It supports dynamically fetching items from a backend using callbacks and http-methods, but filters, for example, aren't implemented yet.
+It supports dynamically fetching items from a backend using callbacks and http-methods, but works a little bit different from AngularStrap internally, so filters, for example, aren't implemented yet.
 
 See the example app in the source for more details on how to use it.
 
