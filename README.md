@@ -65,8 +65,9 @@ To make the entire example work properly, as it contains UI-select components, p
 
 # Installation and usage
 
-ASFDS is an add-on to the angular-schema-form. To use it (in production), follow these step:
+ASFDS is an add-on to the angular-schema-form. To use it (in production), follow these steps:
 
+### Dependencies
 Easiest way is to install is with bower, this will also include dependencies:
 
 ```bash
@@ -86,9 +87,10 @@ You can also use npm for installation:
 ```bash
 $ npm i angular-schema-form-dynamic-select
 ```
-
+### HTML
 Usage is straightforward, simply include and reference:
 
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
 
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
@@ -108,7 +110,11 @@ When you create your module, be sure to make it depend on mgcrea.ngStrap as well
 
     angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
 
-<i>Note: ui-select needs the following 
+<i>Note: Se the [ui-select dependencies](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select) section for ui-select instructions</i>
+
+# Form
+
+ASFDS is configured using form settings:
 
 ## Form types
 
@@ -407,6 +413,18 @@ Its dependencies aren't included in the package.json, and will hence have to be 
 ```bash
  $  bower install angular-ui-select angular-underscore underscore angular-ui-utils angular-translate angular-ui-select angular-ui-utils angular-sanitize
 ```
+### HTML
+Include all relevant files:
+
+    <link href="bower_components/angular-ui-select/dist/select.css" rel="stylesheet" />
+    
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/angular-underscore/angular-underscore.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+    <script src='bower_components/angular-ui-select/dist/select.js'></script>
+    
 ### Angular module configuration
 
 UI-select have several additional dependencies that need to be added to your module configuration:
@@ -414,6 +432,8 @@ UI-select have several additional dependencies that need to be added to your mod
 ```bash
 angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap', 'mgcrea.ngStrap.modal', 'pascalprecht.translate', 'ui.select', 'ui.highlight','mgcrea.ngStrap.select']);
 ```    
+
+
 ### Forms
 It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
 
