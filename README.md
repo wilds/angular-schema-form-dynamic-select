@@ -2,8 +2,8 @@
 [![npm version](https://img.shields.io/npm/v/angular-schema-form-dynamic-select.svg?style=flat-square)](https://www.npmjs.org/package/angular-schema-form-dynamic-select)
 [![Join the chat at https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Angular Schema Form Dynamic Select(ASFDS) add-on
-================================================
+Angular Schema Form Dynamic Select (ASFDS) add-on
+=================================================
 
 This add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
  to provide fully featured drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
@@ -14,9 +14,9 @@ It is drop-in compliant with angular-schema-forms existing selects, which makes 
 The ui-select support is quite new and still somewhat partial, and therefore:*
 
 * *it is yet to support all the features below, they all apply to angular-strap-select.*
-* *its dependencies aren't automatically installed yet.*
+* *its dependencies aren't automatically installed yet. [Should they be?](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/18)*
 
-*It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/#ui-select).*
+* It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select).*
 
 # Features:
 
@@ -45,7 +45,7 @@ The ui-select support is quite new and still somewhat partial, and therefore:*
 There is a live example at http://demo.optimalbpm.se/angular-schema-form-dynamic-select/ .
 The example code is in the repository, it's made up of the index.html, app.js, test/testdata.json and test/testdata_mapped.json files.
 
-To run it locally, simply clone the repository 
+To run it locally, simply clone the repository:
     
     git clone https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git
     cd angular-schema-form-dynamic-select
@@ -53,15 +53,15 @@ To run it locally, simply clone the repository
 
 ..and open index.html in a browser or serve using your favorite IDE.
 
-To make the entire example work properly, as it contains UI-select components, please install the [ui-select dependencies](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select) as well.
+However, to make the *entire* example work properly, as it contains UI-select components, please install the [ui-select dependencies](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select) as well.
 
 (you will need to have [bower installed](http://bower.io/#install-bower), of course)
-
 
 
 # Glossary
 
 * List items: the items that make up the selection list, for example the items in a drop down.
+* ASFDS: Angular-Schema-Form-Dynamic-Select
 
 # Installation and usage
 
@@ -87,6 +87,7 @@ You can also use npm for installation:
 ```bash
 $ npm i angular-schema-form-dynamic-select
 ```
+
 ### HTML
 Usage is straightforward, simply include and reference:
 
