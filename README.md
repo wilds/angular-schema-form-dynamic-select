@@ -16,7 +16,7 @@ The ui-select support is quite new and still somewhat partial, and therefore:*
 * *it is yet to support all the features below, they all apply to angular-strap-select.*
 * *its dependencies aren't automatically installed yet. [Should they be?](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/18)*
 
-* It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select).*
+*It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select).*
 
 # Features:
 
@@ -42,7 +42,8 @@ The ui-select support is quite new and still somewhat partial, and therefore:*
 
 # Example
 
-There is a live example at http://demo.optimalbpm.se/angular-schema-form-dynamic-select/ .
+There is a live example at [http://demo.optimalbpm.se/angular-schema-form-dynamic-select/](http://demo.optimalbpm.se/angular-schema-form-dynamic-select/).
+
 The example code is in the repository, it's made up of the index.html, app.js, test/testdata.json and test/testdata_mapped.json files.
 
 To run it locally, simply clone the repository:
@@ -115,7 +116,7 @@ When you create your module, be sure to make it depend on mgcrea.ngStrap as well
 
 # Form
 
-ASFDS is configured using form settings:
+ASFDS is configured using form settings. There are no ASFDS-specific items.
 
 ## Form types
 
@@ -162,7 +163,7 @@ Like the above, but allows multiple items to be selected.
      },
      
 ### Single select from dynamically loaded list via synchronous callback function
-Callback must return an array of value/name objects (see static list above)
+Callback must return an array of value/name objects (see static list above).
 The "options" structure is passed to it as a parameter.
 
      {
@@ -172,6 +173,8 @@ The "options" structure is passed to it as a parameter.
             "callback": $scope.callBackSD
        }
      },
+
+For examples of how the different kinds of callbacks are implemented, please look at the [relevant code in app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js#L18), 
      
 ### Multiple select from dynamically loaded list via synchronous callback function
 Like strapselectdynamic above, but allowed multiple items to be selected.
