@@ -6,7 +6,9 @@ Angular Strap Dynamic Select add-on
 ===================================
 
 The dynamic select add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
- to provide fully featured drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
+ to provide fully featured, and drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
+
+It is drop-in compliant with angular-schema-forms existing selects, which makes using it a breeze, no adaptations are needed. 
 
 *Note about UI-select: 
 The ui-select support is quite new and still somewhat partial, and therefore:*
