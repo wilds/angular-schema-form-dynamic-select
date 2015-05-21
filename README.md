@@ -8,7 +8,9 @@ Angular Schema Form Dynamic Select (ASFDS) add-on
 This add-on integrates the [angular-strap-select](https://github.com/mgcrea/angular-strap/tree/master/src/select) and the [angular-ui-select](https://github.com/angular-ui/ui-select) components 
  to provide fully featured drop downs to [angular-schema-form](https://github.com/Textalk/angular-schema-form). 
 
-It is drop-in compliant with angular-schema-forms existing selects, which makes using it a breeze, no adaptations are needed. 
+It is drop-in compliant with angular-schema-forms existing selects, which makes using it a breeze, no adaptations are needed.
+
+All settings are kept in the form, separating validation and UI-configuration.
 
 *Note about UI-select: 
 The ui-select support is quite new and still somewhat partial, and therefore:*
@@ -116,7 +118,9 @@ When you create your module, be sure to make it depend on mgcrea.ngStrap as well
 
 # Form
 
-ASFDS is configured using form settings. There are no ASFDS-specific items.
+ASFDS is configured using form settings. There are no ASFDS-specific settings in the schema.
+
+This is to keep the schemas clean from UI-specific settings and kept usable anywhere in the solution and/or organization.
 
 ## Form types
 
