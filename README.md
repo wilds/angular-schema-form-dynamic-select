@@ -412,7 +412,7 @@ The support for angular-ui-select was added in the 0.9.0-version, and is current
 
 ## Installation
 
-UI-select is not installed by default in ASFDS, even though it is feature in the demo and example, here are the step
+UI-select is not installed by default in ASFDS, even though it is featured in the demo and example, here is how to make it work:
 
 ### Dependencies
 
