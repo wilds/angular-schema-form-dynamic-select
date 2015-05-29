@@ -60,6 +60,36 @@ However, to make the *entire* example work properly, as it contains UI-select co
 
 (you will need to have [bower installed](http://bower.io/#install-bower), of course)
 
+# Help
+
+What are my options if I feel I need help?
+
+### I don't understand the documentation
+The prerequisite for understanding the documentation [below](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#installation-and-usage) it that you have basic understanding of how to use [Angular Schema Form](https://github.com/Textalk/angular-schema-form#basic-usage).<br />
+So if you still cannot understand the documentation of ASFDS, it is probably not your fault. [Please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues) in those cases.<br />
+
+### I have a question
+If you have a question and cannot find an answer for it in the documentation below, [please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues).<br />
+Questions and their answers have great value for the community.
+
+### I have found a bug 
+[Please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues).
+Be sure to provide ample information, remember that any help won't be better than your explanation. 
+
+Unless something is obviously wrong, you are likely to be asked to provide a [plunkr](http://plnkr.co/)-example, displaying the erroneous behaviour.
+
+<i>While this might feel troublesome, a tip is to always make a plunkr that have the same external requirements as your project.<br />
+<b>It is great for troubleshooting</b> those annoying problems where you don't know if the problem is at your end or the components'.<br />
+And you can then easily fork and provide as an example.<br />
+You will answers and resolutions way quicker, also, many other open source projects require it.</i>
+
+### I have a feature request
+[Good stuff! Please create an issue!](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues)<br />
+(features are more likely to be added the more users they seem to benefit)
+
+### I want to discuss ASFDS or reach out to the developers, or other ASFDS users
+[The gitter page](https://gitter.im/OptimalBPM/angular-schema-form-dynamic-select) is good for when you want to talk, but perhaps doesn't feel that the discussion has to be indexed for posterity.
+
 
 # Glossary
 
@@ -469,16 +499,7 @@ As long this is the case, all relevant fields must specify the "type"-property. 
 If not, they will get the wrong editor. Either way, it is recommended to define the type.
 
 
-# Bugs, omissions, feature requests 
 
-Please [report *all* issues you encounter](https://github.com/OptimalBPM/schema-form-dynamic-select/issues)
-
-If you suspect that there is a bug in angular-schema-form-dynamic-select that isn't reproducible in any of the examples,<br />
-please make a small example in plunkr or similar where you recreate the problem, it will make it easier to help you.<br />
-
-If something is difficult to understand, that is also an issue, please ask for clarification if the documentation is insufficient.
-
-Any ideas on new features are always welcome.
 
 # Building
 
