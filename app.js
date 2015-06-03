@@ -1,5 +1,5 @@
 /*global angular */
-'use strict';
+"use strict";
 
 /**
  * The main app module
@@ -7,19 +7,19 @@
  * @type {angular.Module}
  */
 
-var testApp = angular.module('testApp', ['schemaForm','mgcrea.ngStrap', 'mgcrea.ngStrap.modal',
-    'pascalprecht.translate', 'ui.select',
-    'ui.highlight','mgcrea.ngStrap.select'
+var testApp = angular.module("testApp", ["schemaForm","mgcrea.ngStrap", "mgcrea.ngStrap.modal",
+    "pascalprecht.translate", "ui.select",
+    "ui.highlight","mgcrea.ngStrap.select"
 
 ]);
 
-testApp.controller('appController', ['$scope', '$http', function ($scope, $http) {
+testApp.controller("appController", ["$scope", "$http", function ($scope, $http) {
 
     $scope.callBackSD = function (options) {
         return [
-            {value: 'value1', name: 'text1'},
-            {value: 'value2', name: 'text2'},
-            {value: 'value3', name: 'Select dynamic!'}
+            {value: "value1", name: "text1"},
+            {value: "value2", name: "text2"},
+            {value: "value3", name: "Select dynamic!"}
         ];
         // Note: Options is a reference to the original instance, if you change a value,
         // that change will persist when you use this form instance again.
@@ -27,9 +27,9 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
 
     $scope.callBackMSD = function (options) {
         return [
-            {value: 'value1', name: 'text1'},
-            {value: 'value2', name: 'text2'},
-            {value: 'value3', name: 'Multiple select dynamic!'}
+            {value: "value1", name: "text1"},
+            {value: "value2", name: "text2"},
+            {value: "value3", name: "Multiple select dynamic!"}
         ];
         // Note: Options is a reference to the original instance, if you change a value,
         // that change will persist when you use this form instance again.
@@ -52,77 +52,77 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.schema = {
-        type: 'object',
-        title: 'Select',
+        type: "object",
+        title: "Select",
         properties: {
             select: {
-                title: 'Single select strap-select',
-                type: 'string',
+                title: "Single select strap-select",
+                type: "string",
                 enum: ["value1", "value2", "value3"],
-                description: 'Only single item is allowed. Based on schema enum and form default. Change here and observe how the select list below is filtered.'
+                description: "Only single item is allowed. Based on schema enum and form default. Change here and observe how the select list below is filtered."
             },
             multiselect: {
-                title: 'Multi select strap-select',
-                type: 'array',
+                title: "Multi select strap-select",
+                type: "array",
                 items: { type: "string"},
                 maxItems: 2,
-                description: 'Multiple items are allowed, select three for maxItems validation error. Each item belongs to a \"category\", so the list is filtered depending on what you have selected in the \"Single select strap-select\" above.'
+                description: "Multiple items are allowed, select three for maxItems validation error. Each item belongs to a \"category\", so the list is filtered depending on what you have selected in the \"Single select strap-select\" above."
             },
             uiselect: {
-                title: 'Single select for UI-select',
-                type: 'string',
-                description: 'This one is using UI-select, single selection. Fetches lookup values(titleMap) from a callback.'
+                title: "Single select for UI-select",
+                type: "string",
+                description: "This one is using UI-select, single selection. Fetches lookup values(titleMap) from a callback."
             },
             uiselectmultiple: {
-                title: 'Multi select for UI-select',
-                type: 'array',
+                title: "Multi select for UI-select",
+                type: "array",
                 items: { type: "string"},
-                description: 'This one is using UI-select, allows multiple selection. Static titleMap.'
+                description: "This one is using UI-select, allows multiple selection. Static titleMap."
             },
             selectDynamic: {
-                title: 'Single Select Dynamic',
-                type: 'string',
-                description: 'This titleMap is loaded from the $scope.callBackSD function. (and laid out using css-options)'
+                title: "Single Select Dynamic",
+                type: "string",
+                description: "This titleMap is loaded from the $scope.callBackSD function. (and laid out using css-options)"
             },
             multiselectDynamic: {
-                title: 'Multi Select Dynamic',
-                type: 'array',
+                title: "Multi Select Dynamic",
+                type: "array",
                 items: { type:"string"},
-                description: 'This titleMap is loaded from the $scope.callBackMSD function. (referenced by name)'
+                description: "This titleMap is loaded from the $scope.callBackMSD function. (referenced by name)"
             },
             multiselectDynamicHttpPost: {
-                title: 'Multi Select Dynamic HTTP Post',
-                type: 'array',
+                title: "Multi Select Dynamic HTTP Post",
+                type: "array",
                 items: { type:"string"},
-                description: 'This titleMap is asynchronously loaded using a HTTP post. ' +
-                '(specifies parameter in form, options.url in a named callback)'
+                description: "This titleMap is asynchronously loaded using a HTTP post. " +
+                "(specifies parameter in form, options.url in a named callback)"
             },
             multiselectDynamicHttpGet: {
-                title: 'Multi Select Dynamic HTTP Get',
-                type: 'array',
+                title: "Multi Select Dynamic HTTP Get",
+                type: "array",
                 items: { type:"string"},
-                description: 'This titleMap is asynchronously loaded using a HTTP get. ' +
-                '(Set the URL at options.url)'
+                description: "This titleMap is asynchronously loaded using a HTTP get. " +
+                "(Set the URL at options.url)"
             },
             multiselectDynamicHttpGetMapped: {
-                title: 'Multi Select Dynamic HTTP Get Mapped data',
-                type: 'array',
+                title: "Multi Select Dynamic HTTP Get Mapped data",
+                type: "array",
                 items: { type:"string"},
-                description: 'This titleMap is as above, but remapped from a nodeId/nodeName array of objects. ' +
-                '(See app.js: "map" : {valueProperty: "nodeId", textProperty: "nodeName"})'
+                description: "This titleMap is as above, but remapped from a nodeId/nodeName array of objects. " +
+                "(See app.js: \"map\" : {valueProperty: \"nodeId\", textProperty: \"nodeName\"})"
             },
             multiselectDynamicAsync: {
-                title: 'Multi Select Dynamic Async',
-                type: 'array',
+                title: "Multi Select Dynamic Async",
+                type: "array",
                 items: { type:"string"},
-                description: 'This titleMap is asynchrously loaded using a async call. ' +
-                '(specify options.async.call)'
+                description: "This titleMap is asynchrously loaded using a async call. " +
+                "(specify options.async.call)"
             },
             multiselect_overflow: {
-                title: 'Strap select with overflow',
-                type: 'array',
+                title: "Strap select with overflow",
+                type: "array",
                 items: { type: "string"},
-                description: 'If you select more than two items here, it will only show the first two and '
+                description: "If you select more than two items here, it will only show the first two and "
             },
             "priorities": {
                 "type": "object",
@@ -143,17 +143,17 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
               }
 
         },
-        required: ['select', 'multiselect']
+        required: ["select", "multiselect"]
     };
 
     $scope.form = [
 
         {
-            "key": 'select'
+            "key": "select"
         },
         {
-            "key": 'multiselect',
-            "type": 'strapselect',
+            "key": "multiselect",
+            "type": "strapselect",
             "placeholder": "My items feel unselected. Or you selected text3 in the selector above me.",
             "options": {
                 "multiple": "true",
@@ -162,35 +162,35 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             },
             "validationMessage": "Hey, you can only select three items or you'll see this!",
             "titleMap": [
-                {"value": 'value1', "name": 'text1 (belongs to the value1-category)', "category": "value1"},
-                {"value": 'value2', "name": 'text2 (belongs to the value1-category)', "category": "value1"},
-                {"value": 'value3', "name": 'long very very long label3 (belongs to the value2-category)', "category": "value2"},
-                {"value": 'value4', "name": 'Select three and get a validation error! (belongs to the value1-category)', "category": "value1"}
+                {"value": "value1", "name": "text1 (belongs to the value1-category)", "category": "value1"},
+                {"value": "value2", "name": "text2 (belongs to the value1-category)", "category": "value1"},
+                {"value": "value3", "name": "long very very long label3 (belongs to the value2-category)", "category": "value2"},
+                {"value": "value4", "name": "Select three and get a validation error! (belongs to the value1-category)", "category": "value1"}
             ]
         },
         {
-            "key": 'uiselect',
-            "type": 'uiselect',
+            "key": "uiselect",
+            "type": "uiselect",
             "placeholder": "not set yet..",
             "options": {
                 "callback": "callBackSD"
             }
         },
         {
-            "key": 'uiselectmultiple',
-            "type": 'uiselectmultiple',
+            "key": "uiselectmultiple",
+            "type": "uiselectmultiple",
             "placeholder": "not set yet..",
             "titleMap": [
-                {"value": 'value1', "name": 'text1', "category": "value1"},
-                {"value": 'value2', "name": 'text2', "category": "value1"},
-                {"value": 'value3', "name": 'long very very long label3', "category": "value2"},
-                {"value": 'value4', "name": 'Select three and get a validation error!', "category": "value1"}
+                {"value": "value1", "name": "text1", "category": "value1"},
+                {"value": "value2", "name": "text2", "category": "value1"},
+                {"value": "value3", "name": "long very very long label3", "category": "value2"},
+                {"value": "value4", "name": "You've selected all of them!", "category": "value1"}
             ]
         },
 
         {
             "key": "selectDynamic",
-            "type": 'strapselect',
+            "type": "strapselect",
             "htmlClass": "col-lg-3 col-md-3",
             "labelHtmlClass": "bigger",
             "fieldHtmlClass": "tilted",
@@ -200,7 +200,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamic",
-            "type": 'strapselect',
+            "type": "strapselect",
             placeholder: "not set yet(this text is defined using the placeholder option)",
             "options": {
                 "multiple" : "true",
@@ -209,8 +209,8 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpPost",
-            "type": 'strapselect',
-            "title": 'Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)',
+            "type": "strapselect",
+            "title": "Multi Select Dynamic HTTP Post (title is from form.options, overriding the schema.title)",
             "options": {
                 "multiple" : "true",
                 "httpPost": {
@@ -221,7 +221,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGet",
-            "type": 'strapselect',
+            "type": "strapselect",
             "placeholder": "None selected here neither.",
             "options": {
                 "multiple" : "true",
@@ -232,7 +232,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicHttpGetMapped",
-            "type": 'strapselect',
+            "type": "strapselect",
             "placeholder": "And even less here...",
             "options": {
                 "multiple" : "true",
@@ -244,7 +244,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
         },
         {
             "key": "multiselectDynamicAsync",
-            "type": 'strapselect',
+            "type": "strapselect",
             "onChange": function () {
                 alert("You changed this value! (this was the onChange event in action)");
             },
@@ -255,8 +255,8 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
             }
         },
         {
-            "key": 'multiselect_overflow',
-            "type": 'strapselect',
+            "key": "multiselect_overflow",
+            "type": "strapselect",
             "placeholder": "Please select some items.",
             "options": {
                 "multiple": "true",
@@ -264,16 +264,16 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
                 "inlineMaxLengthHtml": "Too many items to show...."
             },
             "titleMap": [
-                {"value": 'value1', "name": 'text1'},
-                {"value": 'value2', "name": 'text2'},
-                {"value": 'value3', "name": 'text3'},
-                {"value": 'value4', "name": 'text4'},
+                {"value": "value1", "name": "text1"},
+                {"value": "value2", "name": "text2"},
+                {"value": "value3", "name": "text3"},
+                {"value": "value4", "name": "text4"}
             ]
         },
         {
             "key": "priorities.priority",
-            "title": 'Array inside an object, defaults ASF select only',
-            "description": 'This is an example of how to use this in a complex structure. Note that the title and description is in the form, ASF only looks in the form for that.',
+            "title": "Array inside an object, defaults ASF select only",
+            "description": "This is an example of how to use this in a complex structure. Note that the title and description is in the form, ASF only looks in the form for that.",
             "type" : "array",
             "items": [
                 {
@@ -290,10 +290,10 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
 
     ];
     $scope.model = {};
-    $scope.model.select = 'value1';
-    $scope.model.multiselect = ['value2', 'value1'];
+    $scope.model.select = "value1";
+    $scope.model.multiselect = ["value2", "value1"];
     $scope.model.uiselect = "text1";
-    $scope.model.uiselectmultiple = ['value1'];
+    $scope.model.uiselectmultiple = ["value1"];
 
 
     $scope.model.priorities = {
@@ -311,7 +311,7 @@ testApp.controller('appController', ['$scope', '$http', function ($scope, $http)
     };
 
     $scope.submitted = function (form) {
-        $scope.$broadcast('schemaFormValidate');
+        $scope.$broadcast("schemaFormValidate");
         console.log($scope.model);
     };
 }])
