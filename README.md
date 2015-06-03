@@ -65,8 +65,8 @@ However, to make the *entire* example work properly, as it contains UI-select co
 What are my options if I feel I need help?
 
 ### I don't understand the documentation
-The prerequisite for understanding the documentation [below](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#installation-and-usage) it that you have basic understanding of how to use [Angular Schema Form](https://github.com/Textalk/angular-schema-form#basic-usage).<br />
-So if you still cannot understand the documentation of ASFDS, it is probably not your fault. [Please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues) in those cases.<br />
+The prerequisite for understanding the ASFDS documentation [below](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#installation-and-usage) is that you have a basic understanding of how to use [Angular Schema Form](https://github.com/Textalk/angular-schema-form#basic-usage).<br />
+So if you understand that, and still cannot understand the documentation of ASFDS, it is probably not your fault. [Please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues) in those cases.<br />
 
 ### I have a question
 If you have a question and cannot find an answer for it in the documentation below, [please create an issue](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues).<br />
