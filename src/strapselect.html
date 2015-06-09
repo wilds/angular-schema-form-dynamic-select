@@ -11,7 +11,7 @@
                 bs-options="item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;"
                 bs-select>
         </button>
-        <button ng-if="(!(form.options.multiple == 'true') || (form.options.multiple == true))"
+        <button ng-if="!((form.options.multiple == 'true') || (form.options.multiple == true))"
                 type="button" class="btn btn-default" sf-changed="form" schema-validate="form" ng-model="$$value$$"
                 data-placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select')}}"
                 data-html="1"
