@@ -245,8 +245,15 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
         {
             "key": "multiselectDynamicAsync",
             "type": "strapselect",
-            "onChange": function () {
-                alert("You changed this value! (this was the onChange event in action)");
+            "onChange": function (modelValue,form) {
+                $scope.form.forEach(function(item) {
+                    if (item.key == "multiselectDynamicHttpGet") {
+                        item.options.scope.populateTitleMap(item);
+                    }
+                });
+                alert("onChange happened! You changed this value into " + modelValue + " !\nThen code in this event cause the multiselectDynamicHttpGet to reload. \nSee the ASF onChange event for info.");
+
+
             },
             "options": {
                 "multiple" : "true",

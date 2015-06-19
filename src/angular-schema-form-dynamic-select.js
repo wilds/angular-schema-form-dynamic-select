@@ -181,6 +181,15 @@ angular.module('schemaForm').config(
 
 angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
+    if (!$scope.form.options) {
+        console.log("THERE ARE NOT OPTIONS SET..");
+
+        $scope.form.options = {};
+
+    }
+
+    console.log("Setting options." + $scope.form.options.toString());
+    $scope.form.options.scope = $scope;
 
     $scope.triggerTitleMap = function () {
         console.log("listener triggered");
@@ -227,10 +236,15 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
     $scope.clone = function (obj) {
+        // Clone an object (except references to this scope)
         if (null == obj || "object" != typeof(obj)) return obj;
+
         var copy = obj.constructor();
         for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
+            // Do not clone if it is this scope
+            if (obj[attr] != $scope) {
+                if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
+            }
         }
         return copy;
     };
@@ -284,9 +298,6 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     form.titleMap.push({"value": item, "name": item})
                 }
             );
-
-        } else if (form.titleMap) {
-            console.log("dynamicSelectController.populateTitleMap(key:" + form.key + ") : There is already a titleMap");
         }
         else if (!form.options) {
 
@@ -369,12 +380,16 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
 
+
+
         console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
         console.log("Filter:" + controller.form.options.filter);
         if (!controller.filteringInitialized) {
             console.log("Initialize filter");
             controller.initFiltering(localModel);
         }
+
+
         var data = [];
 
 
