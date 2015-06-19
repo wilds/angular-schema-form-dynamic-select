@@ -115,8 +115,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 title: "Multi Select Dynamic Async",
                 type: "array",
                 items: { type:"string"},
-                description: "This titleMap is asynchrously loaded using a async call. " +
-                "(specify options.async.call)"
+                description: "This titleMap is asynchrously loaded using options.async.call and implements the onChange event. "
             },
             multiselect_overflow: {
                 title: "Strap select with overflow",
@@ -251,7 +250,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                         item.options.scope.populateTitleMap(item);
                     }
                 });
-                alert("onChange happened! You changed this value into " + modelValue + " !\nThen code in this event cause the multiselectDynamicHttpGet to reload. \nSee the ASF onChange event for info.");
+                alert("onChange happened!\nYou changed this value into " + modelValue + " !\nThen code in this event cause the multiselectDynamicHttpGet to reload. \nSee the ASF onChange event for info.");
 
 
             },

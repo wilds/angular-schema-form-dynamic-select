@@ -342,6 +342,16 @@ Note on filterTrigger and why not having a watch on the entire expression:
 * Adding watches for the expression would mean having to add one watch for each list item, long lists would mean a huge overhead.
 * Also, there might be use cases where triggering should be triggered by other conditions. Or not be triggered for some other reason.
 
+## The ASFDS controller scope
+
+One usable property that is set by ASFDS is the options.scope-attribute.
+
+Its value is the scope of the controller, which provides far-reaching control over ASFDS behavior.
+
+In the [example](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js), the multiselectDynamicAsync's 
+onChange event is implemented so that another ASFDS controller is told to repopulate its select list items when the value is changed.
+This is valuable, for example, when there is too much data or for some other reason, filters are inappropriate.
+
 ## Defaults and enum
 If a there is a form item that only has type "string" defined, but has an enum value, then a single select will be shown for that value.
 
@@ -397,17 +407,12 @@ And ending the form element array:
     ];
     
 
-# Feature summary
+# Populating the list items
 
-The options.items property in form holds the list items(also in the dynamic variants).
+The form.titleMap property in a form holds the list items(also in the dynamic variants).
+The name titleMap is the same as the built-in angular-schema-form select. 
 
-All select types can handle:
-
-* property mappings
-* filters
-
-
-## Dynamically fetching drop down items
+## Dynamically fetching list items
 These types are dynamic and fetches their data from different back ends.
 
 #### Callbacks in general
@@ -423,7 +428,7 @@ and there, `callback: $scope.loadGroups` is not allowed.
 #### Callback results
 The results of all callbacks can be remapped using the "map" property described above.
 
-The two methods of callback mechanisms are:
+The two kinds of callback mechanisms are:
 
 ### callback and asyncCallback
 
@@ -436,6 +441,10 @@ The two methods of callback mechanisms are:
 * the url property defines the URL to use.
 * the optional optionsCallback can be used to add to or change the options with information known in runtime. 
 * httpPost-options has a "parameter"-property, that contains the JSON that will be POST:ed to the server.
+
+## Statically setting the list items
+
+This is done by either using the JSON-schema enum-property, or by manually setting form.titleMap.
 
 # UI-Select
 The support for angular-ui-select was added in the 0.9.0-version, and is currently partial.
