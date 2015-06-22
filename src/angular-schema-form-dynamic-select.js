@@ -292,7 +292,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
     $scope.populateTitleMap = function (form) {
 
-        if ("enum" in form.schema) {
+        if (form.schema && "enum" in form.schema) {
             form.titleMap = [];
             form.schema.enum.forEach(function (item) {
                     form.titleMap.push({"value": item, "name": item})
