@@ -308,6 +308,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     form.titleMap.push({"value": item, "name": item})
                 }
             );
+
         }
         else if (!form.options) {
 
