@@ -24,7 +24,16 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
         // Note: Options is a reference to the original instance, if you change a value,
         // that change will persist when you use this form instance again.
     };
-
+    $scope.callBackUI = function (options) {
+        return [
+                {"value": "value1", "name": "text1", "category": "value1"},
+                {"value": "value2", "name": "text2", "category": "value1"},
+                {"value": "value3", "name": "So this is the next item", "category": "value2"},
+                {"value": "value4", "name": "The last item", "category": "value1"}
+        ];
+        // Note: Options is a reference to the original instance, if you change a value,
+        // that change will persist when you use this form instance again.
+    };
     $scope.callBackMSD = function (options) {
         return [
             {value: "value1", name: "text1"},
@@ -76,8 +85,8 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
             uiselectmultiple: {
                 title: "Multi select for UI-select",
                 type: "array",
-                items: { type: "string"},
-                description: "This one is using UI-select, allows multiple selection. Static titleMap."
+                items: { type: "integer"},
+                description: "This one is using UI-select, allows multiple selection. From a callback."
             },
             selectDynamic: {
                 title: "Single Select Dynamic",
@@ -175,18 +184,15 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 "callback": "callBackSD"
             }
         },
+
         {
             "key": "uiselectmultiple",
             "type": "uiselectmultiple",
             "placeholder": "not set yet..",
-            "titleMap": [
-                {"value": "value1", "name": "text1", "category": "value1"},
-                {"value": "value2", "name": "text2", "category": "value1"},
-                {"value": "value3", "name": "long very very long label3", "category": "value2"},
-                {"value": "value4", "name": "You've selected all of them!", "category": "value1"}
-            ]
+            "options": {
+                "callback": "callBackUI"
+            }
         },
-
         {
             "key": "selectDynamic",
             "type": "strapselect",
@@ -299,7 +305,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
     $scope.model.select = "value1";
     $scope.model.multiselect = ["value2", "value1"];
     $scope.model.uiselect = "text1";
-    $scope.model.uiselectmultiple = ["value1"];
+    $scope.model.uiselectmultiple = ["value1", "value2"];
 
 
     $scope.model.priorities = {
