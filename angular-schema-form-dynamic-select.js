@@ -186,10 +186,7 @@ angular.module('schemaForm').config(
 angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
     if (!$scope.form.options) {
-        console.log("THERE ARE NOT OPTIONS SET..");
-
         $scope.form.options = {};
-
     }
 
     console.log("Setting options." + $scope.form.options.toString());
@@ -216,16 +213,18 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
 
-    $scope.remap = function (options, data) {
-        if (options && "map" in options && options.map) {
+    $scope.finalizeTitleMap = function (form, data, newOptions) {
+        // Remap the data
+
+        form.titleMap = [];
+
+        if (newOptions && "map" in newOptions && newOptions .map) {
             var current_row = null;
-            var result = [];
             data.forEach(function (current_row) {
-                current_row["value"] = current_row[options.map.valueProperty];
-                current_row["name"] = current_row[options.map.nameProperty];
-                result.push(current_row);
+                current_row["value"] = current_row[newOptions .map.valueProperty];
+                current_row["name"] = current_row[newOptions .map.nameProperty];
+                form.titleMap.push(current_row);
             });
-            return result;
 
         }
         else {
@@ -235,7 +234,13 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     }
                 }
             );
-            return data;
+            form.titleMap = data;
+        }
+
+        // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
+        if ($scope.internalModel) {
+            console.log("Call uiMultiSelectInitInternalModel");
+            $scope.uiMultiSelectInitInternalModel($scope.externalModel);
         }
     };
 
@@ -254,7 +259,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
 
-    $scope.getCallback = function (callback, name) {
+    $scope.getCallback = function (callback) {
         if (typeof(callback) == "string") {
             var _result = $scope.$parent.evalExpr(callback);
             if (typeof(_result) == "function") {
@@ -294,6 +299,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         form.titleMap.pop();
     };
 
+
     $scope.populateTitleMap = function (form) {
 
         if ("enum" in form.schema) {
@@ -310,12 +316,13 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
         else if (form.options.callback) {
             form.titleMap = $scope.getCallback(form.options.callback)(form.options);
-            console.log('callback items', form.titleMap);
+            $scope.finalizeTitleMap(form,form.titleMap, finalOptions)
+            console.log("callback items: ", form.titleMap);
         }
         else if (form.options.asyncCallback) {
             return $scope.getCallback(form.options.asyncCallback)(form.options).then(
                 function (_data) {
-                    form.titleMap = $scope.remap(form.options, _data.data);
+                    $scope.finalizeTitleMap(form, _data.data, form.options);
                     console.log('asyncCallback items', form.titleMap);
                 },
                 function (data, status) {
@@ -329,7 +336,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
-                    form.titleMap = $scope.remap(finalOptions, _data.data);
+                    $scope.finalizeTitleMap(form, _data.data, finalOptions);
                     console.log('httpPost items', form.titleMap);
                 },
                 function (data, status) {
@@ -341,7 +348,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             var finalOptions = $scope.getOptions(form.options);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
-                    form.titleMap = $scope.remap(finalOptions, data.data);
+                    $scope.finalizeTitleMap(form, data.data, finalOptions);
                     console.log('httpGet items', form.titleMap);
                 },
                 function (data, status) {
@@ -350,7 +357,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                 });
         }
     };
-    $scope.uiMultiSelectInitInternalModel = function(_model)
+
+    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
     {
         function find_in_titleMap(value) {
             for (i = 0; i < $scope.form.titleMap.length; i++) {
@@ -358,16 +366,18 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     return $scope.form.titleMap[i].name
                 }
             }
-
-
         }
-        $scope.internalModel = [];
-        if (_model !== undefined && angular.isArray(_model)){
-            _model.forEach(function (value) {
-                    $scope.internalModel.push({"value": value, "name": find_in_titleMap(value) })
-                }
 
-            )
+        console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
+        $scope.externalModel = supplied_model;
+        $scope.internalModel = [];
+        if ($scope.form.titleMap) {
+            if (supplied_model !== undefined && angular.isArray(supplied_model)){
+                supplied_model.forEach(function (value) {
+                        $scope.internalModel.push({"value": value, "name": find_in_titleMap(value)})
+                    }
+                )
+            }
         }
     }
 
@@ -399,8 +409,8 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
 
 
         angular.forEach(inputArray, function (curr_item) {
-            console.log("Compare: curr_item: " + JSON.stringify(curr_item) +
-            "with : " + JSON.stringify( controller.$eval(controller.form.options.filterTriggers[0])));
+            //console.log("Compare: curr_item: " + JSON.stringify(curr_item) +
+            //"with : " + JSON.stringify( controller.$eval(controller.form.options.filterTriggers[0])));
             if (controller.$eval(controller.form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
             }
@@ -424,9 +434,9 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             controller.$eval(strLocalModel + "=[]");
         }
 
-        console.log("Input: " + JSON.stringify(inputArray));
-        console.log("Output: " + JSON.stringify(data));
-        console.log("Model value out : " + JSON.stringify(localModel));
+        //console.log("Input: " + JSON.stringify(inputArray));
+        //console.log("Output: " + JSON.stringify(data));
+        //console.log("Model value out : " + JSON.stringify(localModel));
         console.log("----- Exiting filter for " + controller.form.title + "-----");
 
         return data;
