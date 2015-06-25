@@ -514,12 +514,18 @@ If not, they will get the wrong editor. Either way, it is recommended to define 
 
 Building and minifying is done using [gulp](http://gulpjs.com/) 
 
-### Installing gulp
-To install gulp, you need npm:
-
+### Installing gulp and requrements
+To install gulp, you need npm to be installer, however, we want a local bower install:
 ```bash
-$ npm install gulp -g
+sudo npm install bower
+node_modules/bower/bin/bower install
 ```
+And then install the rest of the depencies
+```bash
+sudo npm install
+```
+*The instructions are for Linux, to install under windows, the same commands adjusted for windows should work*
+
 ### Running the build
 
 In the project root folder, run:
