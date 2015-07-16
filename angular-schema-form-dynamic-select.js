@@ -20,23 +20,14 @@ angular.module('schemaForm').config(
 
             //Add to the bootstrap directive
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
-                'directives/decorators/bootstrap/strap/strapselect.html');
-            schemaFormDecoratorsProvider.createDirective('strapselect',
-                'directives/decorators/bootstrap/strap/strapselect.html');
-
+                'directives/decorators/bootstrap/strap/strapselect.html')
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselect',
-                'directives/decorators/bootstrap/strap/strapmultiselect.html');
-            schemaFormDecoratorsProvider.createDirective('strapmultiselect',
                 'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
                 'directives/decorators/bootstrap/strap/strapselect.html');
-            schemaFormDecoratorsProvider.createDirective('strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselect.html');
-            schemaFormDecoratorsProvider.createDirective('strapmultiselectdynamic',
                 'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
 
@@ -45,14 +36,10 @@ angular.module('schemaForm').config(
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselect',
                 'directives/decorators/bootstrap/uiselect/uiselect.html')
 
-            schemaFormDecoratorsProvider.createDirective('uiselect',
-                'directives/decorators/bootstrap/uiselect/uiselect.html');
 
             schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselectmultiple',
                 'directives/decorators/bootstrap/uiselect/uiselectmultiple.html')
 
-            schemaFormDecoratorsProvider.createDirective('uiselectmultiple',
-                'directives/decorators/bootstrap/uiselect/uiselectmultiple.html');
 
         }])
   .directive("toggleSingleModel", function() {
