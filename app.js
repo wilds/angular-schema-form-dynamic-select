@@ -304,7 +304,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
     $scope.model = {};
     $scope.model.select = "value1";
     $scope.model.multiselect = ["value2", "value1"];
-    $scope.model.uiselect = "text1";
+    $scope.model.uiselect = "value1";
     $scope.model.uiselectmultiple = ["value1", "value2"];
 
 
