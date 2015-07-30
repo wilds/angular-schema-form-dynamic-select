@@ -230,15 +230,15 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.getOptions = function (options) {
+    $scope.getOptions = function (options, search) {
         // If defined, let the a callback function manipulate the options
         if (options.httpPost && options.httpPost.optionsCallback) {
             newOptionInstance = $scope.clone(options);
-            return $scope.getCallback(options.httpPost.optionsCallback)(newOptionInstance);
+            return $scope.getCallback(options.httpPost.optionsCallback)(newOptionInstance, search);
         }
         if (options.httpGet && options.httpGet.optionsCallback) {
             newOptionInstance = $scope.clone(options);
-            return $scope.getCallback(options.httpGet.optionsCallback)(newOptionInstance);
+            return $scope.getCallback(options.httpGet.optionsCallback)(newOptionInstance, search);
         }
         else {
             return options;
@@ -250,7 +250,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
 
-    $scope.populateTitleMap = function (form) {
+    $scope.populateTitleMap = function (form, search) {
 
         if (form.schema && "enum" in form.schema) {
             form.titleMap = [];
@@ -265,12 +265,12 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             console.log("dynamicSelectController.populateTitleMap(key:" + form.key + ") : No options set, needed for dynamic selects");
         }
         else if (form.options.callback) {
-            form.titleMap = $scope.getCallback(form.options.callback)(form.options);
+            form.titleMap = $scope.getCallback(form.options.callback)(form.options, search);
             $scope.finalizeTitleMap(form,form.titleMap, finalOptions)
             console.log("callback items: ", form.titleMap);
         }
         else if (form.options.asyncCallback) {
-            return $scope.getCallback(form.options.asyncCallback)(form.options).then(
+            return $scope.getCallback(form.options.asyncCallback)(form.options, search).then(
                 function (_data) {
                     $scope.finalizeTitleMap(form, _data.data, form.options);
                     console.log('asyncCallback items', form.titleMap);
@@ -281,7 +281,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                 });
         }
         else if (form.options.httpPost) {
-            var finalOptions = $scope.getOptions(form.options);
+            var finalOptions = $scope.getOptions(form.options, search);
 
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
@@ -295,7 +295,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                 });
         }
         else if (form.options.httpGet) {
-            var finalOptions = $scope.getOptions(form.options);
+            var finalOptions = $scope.getOptions(form.options, search);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
                     $scope.finalizeTitleMap(form, data.data, finalOptions);

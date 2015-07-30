@@ -422,18 +422,22 @@ The name is actually is an expression evaluated in the user scope that must retu
 This means that it *can* be `"getLoadFunctions('Groups')"`, as long as that returns a function reference.
 
 But the main reason for supporting referring to functions both by name and reference is that forms 
-often is stored in a database and passed from the server to the client in [pure JSON format](http://stackoverflow.com/questions/2904131/what-is-the-difference-between-json-and-object-literal-notation),
+are often stored in a database and passed from the server to the client in [pure JSON format](http://stackoverflow.com/questions/2904131/what-is-the-difference-between-json-and-object-literal-notation),
 and there, `callback: $scope.loadGroups` is not allowed.
 
 #### Callback results
 The results of all callbacks can be remapped using the "map" property described above.
+All callbacks(also optionsCallback) has two parameters: 
+* the options of the form, 
+* if it is a UI-selects, the entered search value (see the UI-select example).
 
 The two kinds of callback mechanisms are:
 
 ### callback and asyncCallback
 
-* list items are fetched by a user-specified callback. User implements the calling mechanism.
+* list items are fetched by a user-specified callback. The user implements the calling mechanism.
 * the callback receive the form options as a parameter and returns an array of list items(see the static strapselect)
+* asyncCallback implementations returns the data through a HttpPromise.
 
 ### httpGet and httpPost
 
