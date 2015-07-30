@@ -55,40 +55,7 @@ angular.module('schemaForm').config(
       }]
     };
   })
-  .directive("toggleModel", function() {
-    // some how we get this to work ...
-    return {
-      require: 'ngModel',
-      restrict: "A",
-      scope: {},
-      controller: ['$scope','sfSelect', function($scope,  sfSelect)  {
-        var list = sfSelect($scope.$parent.form.key, $scope.$parent.model);
-        //as per base array implemention if the array is undefined it must be set as empty for data binding to work
-        if (angular.isUndefined(list)) {
-            list = [];
-            sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
-        }
-        $scope.$parent.$watch('form.selectedOptions',function(){
-          if (!($scope.$parent.form.selectedOptions)) {
 
-          } else
-          if($scope.$parent.form.selectedOptions.length == 0) {
-
-            if($scope.$parent.ngModel.$viewValue != undefined) {
-              $scope.$parent.ngModel.$setViewValue($scope.$parent.form.selectedOptions);
-            }
-          } else {
-              $scope.$parent.$$value$$ = [];
-              $scope.$parent.form.selectedOptions.forEach(function (item){
-                    $scope.$parent.$$value$$.push(item.value);
-                }
-            );
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.$$value$$);
-          }
-        }, true);
-      }]
-    };
-  })
   .directive('multipleOn', function() {
     return {
     link: function($scope, $element, $attrs) {
@@ -341,15 +308,19 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
     };
 
-    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
-    {
-        function find_in_titleMap(value) {
-            for (i = 0; i < $scope.form.titleMap.length; i++) {
-                if ($scope.form.titleMap[i].value == value) {
-                    return $scope.form.titleMap[i].name
-                }
+
+    $scope.find_in_titleMap = function (value) {
+        for (i = 0; i < $scope.form.titleMap.length; i++) {
+            if ($scope.form.titleMap[i].value == value) {
+                return {"value": $scope.form.titleMap[i].value, "name": $scope.form.titleMap[i].name}
             }
         }
+
+    };
+
+    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
+    {
+
 
         console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
         $scope.externalModel = supplied_model;
@@ -357,12 +328,12 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         if ($scope.form.titleMap) {
             if (supplied_model !== undefined && angular.isArray(supplied_model)){
                 supplied_model.forEach(function (value) {
-                        $scope.internalModel.push({"value": value, "name": find_in_titleMap(value)})
+                        $scope.internalModel.push($scope.find_in_titleMap(value));
                     }
                 )
             }
         }
-    }
+    };
 
 }]);
 
