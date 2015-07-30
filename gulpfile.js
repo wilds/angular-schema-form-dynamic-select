@@ -24,6 +24,31 @@ gulp.task('minify', function() {
                     root: 'directives/decorators/bootstrap/strap/'
                   }))
     );
+
+  stream.queue(
+              gulp.src('./src/strap*.html')
+                  .pipe(minifyHtml({
+                    empty: true,
+                    spare: true,
+                    quotes: true
+                  }))
+                  .pipe(templateCache({
+                    module: 'schemaForm',
+                    root: 'directives/decorators/bootstrap/strap/'
+                  }))
+    );
+  stream.queue(
+              gulp.src('./src/ui*.html')
+                  .pipe(minifyHtml({
+                    empty: true,
+                    spare: true,
+                    quotes: true
+                  }))
+                  .pipe(templateCache({
+                    module: 'schemaForm',
+                    root: 'directives/decorators/bootstrap/uiselect/'
+                  }))
+    );
   stream.queue(gulp.src('./src/*.js'));
 
   stream.done()
