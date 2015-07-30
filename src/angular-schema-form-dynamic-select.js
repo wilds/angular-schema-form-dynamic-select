@@ -63,7 +63,7 @@ angular.module('schemaForm').config(
       scope: {},
       controller: ['$scope','sfSelect', function($scope,  sfSelect)  {
         var list = sfSelect($scope.$parent.form.key, $scope.$parent.model);
-        //as per base array implemenation if the array is undefined it must be set as empty for data binding to work
+        //as per base array implemention if the array is undefined it must be set as empty for data binding to work
         if (angular.isUndefined(list)) {
             list = [];
             sfSelect($scope.$parent.form.key, $scope.$parent.model, list);
