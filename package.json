@@ -28,6 +28,7 @@
     "angular-ui-select": "^0.11.0",
     "angular-ui-utils": "^0.2.0"
   },
+  "main": "angular-schema-form-dynamic-select.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git"
