@@ -8,8 +8,7 @@
  */
 
 var testApp = angular.module("testApp", ["schemaForm", "mgcrea.ngStrap", "mgcrea.ngStrap.modal",
-    "pascalprecht.translate", "ui.select",
-    "ui.highlight", "mgcrea.ngStrap.select"
+    "pascalprecht.translate", "ui.select", "mgcrea.ngStrap.select"
 
 ]);
 
