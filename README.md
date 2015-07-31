@@ -13,12 +13,7 @@ It is drop-in compliant with angular-schema-forms existing selects, which makes 
 All settings are kept in the form, separating validation and UI-configuration.
 
 *Note about UI-select: 
-The ui-select support is quite new and still somewhat partial, and therefore:*
-
-* *it is yet to support all the features below, they all apply to angular-strap-select.*
-* *its dependencies aren't automatically installed yet. [Should they be?](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/issues/18)*
-
-*It has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select).*
+The ui-select support is quite new and while many things work, it is still somewhat partial, so WRT the features below, they apply to angular-strap-select. For that reason, ui-select has a [special section in the documentation](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select).*
 
 # Features:
 
