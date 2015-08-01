@@ -44,6 +44,7 @@
     "gulp-minify-html": "^0.1.1",
     "gulp-uglify": "^0.2.1",
     "gulp-webserver": "^0.9.1",
+    "gulp-umd": "",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
     "karma-chai-sinon": "^0.1.3",

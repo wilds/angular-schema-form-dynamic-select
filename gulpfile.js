@@ -9,6 +9,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var streamqueue = require('streamqueue');
 var jscs = require('gulp-jscs');
+var umd    = require('gulp-umd');
 
 gulp.task('minify', function() {
   var stream = streamqueue({objectMode: true});
@@ -53,6 +54,15 @@ gulp.task('minify', function() {
 
   stream.done()
         .pipe(concat('angular-schema-form-dynamic-select.min.js'))
+        .pipe(umd({
+            dependencies: function() {
+              return [
+                {name: 'angularSchemaFormDynamicSelect'},
+              ];
+            },
+            exports: function() {return 'angularSchemaFormDynamicSelect';},
+            namespace: function() {return 'angularSchemaFormDynamicSelect';}
+            }))
         .pipe(uglify())
         .pipe(gulp.dest('.'));
 
@@ -78,6 +88,15 @@ gulp.task('non-minified-dist', function() {
 
   stream.done()
         .pipe(concat('angular-schema-form-dynamic-select.js'))
+        .pipe(umd({
+            dependencies: function() {
+              return [
+                {name: 'angularSchemaFormDynamicSelect'},
+              ];
+            },
+            exports: function() {return 'angularSchemaFormDynamicSelect';},
+            namespace: function() {return 'angularSchemaFormDynamicSelect';}
+            }))
         .pipe(gulp.dest('.'));
 
 });
