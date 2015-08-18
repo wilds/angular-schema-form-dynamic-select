@@ -57,7 +57,9 @@ gulp.task('minify', function() {
         .pipe(umd({
             dependencies: function() {
               return [
-                {name: 'angularSchemaFormDynamicSelect'},
+                {name: 'angularSchemaFormDynamicSelect',
+                amd:"angular-schema-form-dynamic-select",
+                cjs: 'angular-schema-form-dynamic-select'},
               ];
             },
             exports: function() {return 'angularSchemaFormDynamicSelect';},
@@ -91,7 +93,9 @@ gulp.task('non-minified-dist', function() {
         .pipe(umd({
             dependencies: function() {
               return [
-                {name: 'angularSchemaFormDynamicSelect'},
+                {name: 'angularSchemaFormDynamicSelect',
+                amd:"angular-schema-form-dynamic-select",
+                cjs: 'angular-schema-form-dynamic-select'},
               ];
             },
             exports: function() {return 'angularSchemaFormDynamicSelect';},

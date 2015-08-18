@@ -1,8 +1,8 @@
 ;(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['angularSchemaFormDynamicSelect'], factory);
+    define(['angular-schema-form-dynamic-select'], factory);
   } else if (typeof exports === 'object') {
-    module.exports = factory(require('angularSchemaFormDynamicSelect'));
+    module.exports = factory(require('angular-schema-form-dynamic-select'));
   } else {
     root.angularSchemaFormDynamicSelect = factory(root.angularSchemaFormDynamicSelect);
   }
