@@ -434,7 +434,7 @@ The two kinds of callback mechanisms are:
 * the callback receive the form options as a parameter and returns an array of list items(see the static strapselect)
 * asyncCallback implementations returns the data through a HttpPromise.
 
-*TIP: in an asyncCallback, you need to intercept and change an async server response before passing it on to the add-on, use the [transformResponse function](https://docs.angularjs.org/api/ng/service/$http#Transforming%20Requests%20and%20Responses).*
+*TIP: in an asyncCallback, you need to intercept and change an async server response before passing it on to the add-on, use the [transformResponse function](https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses).*
 
 ### httpGet and httpPost
 
