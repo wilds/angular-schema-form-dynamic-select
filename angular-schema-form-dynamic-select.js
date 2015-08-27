@@ -279,7 +279,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
         else if (form.options.callback) {
             form.titleMap = $scope.getCallback(form.options.callback)(form.options, search);
-            $scope.finalizeTitleMap(form,form.titleMap, finalOptions)
+            $scope.finalizeTitleMap(form,form.titleMap, form.options);
             console.log("callback items: ", form.titleMap);
         }
         else if (form.options.asyncCallback) {
