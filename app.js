@@ -136,8 +136,8 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 title: "Multi Select Dynamic HTTP Get Mapped data using array",
                 type: "array",
                 items: {type: "string"},
-                description: "This titleMap is as above, but remapped from a nodeId/nodeName/category array of objects with optional seperator." +
-                "(See app.js: \"map\" : {valueProperty: \"nodeId\", nameProperty: [\"nodeName\",\"category\"], seperatorValue: \" | \"})"
+                description: "This titleMap is as above, but remapped from a nodeId/nodeName/category array of objects with optional separator." +
+                "(See app.js: \"map\" : {valueProperty: \"nodeId\", nameProperty: [\"nodeName\",\"category\"], separatorValue: \" | \"})"
             },
             multiselectDynamicAsync: {
                 title: "Multi Select Dynamic Async",
@@ -283,7 +283,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 "httpGet": {
                     "url": "test/testdata_mapped.json"
                 },
-                "map": {valueProperty: "nodeId", nameProperty: ["nodeName","category"], seperatorValue: " | "}
+                "map": {valueProperty: "nodeId", nameProperty: ["nodeName","category"], separatorValue: " | "}
             }
         },
         {
