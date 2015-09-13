@@ -118,27 +118,27 @@ $ npm i angular-schema-form-dynamic-select
 
 ### HTML
 Usage is straightforward, simply include and reference:
+```html
+<link href="bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
 
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
-
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src='bower_components/angular-strap/dist/angular-strap.min.js'></script>
-    <script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
-    <script src="bower_components/tv4/tv4.js"></script>
-    <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
-    <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
-    <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-    <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
-
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src='bower_components/angular-strap/dist/angular-strap.min.js'></script>
+<script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
+<script src="bower_components/tv4/tv4.js"></script>
+<script src="bower_components/objectpath/lib/ObjectPath.js"></script>
+<script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
+<script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+<script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
+```
 <i>Note: Make sure you load angular-schema-form-dynamic-select.js **after** loading angular schema form.</i>
 
 ### Configuring your angular module
 
 When you create your module, be sure to make it depend on mgcrea.ngStrap as well:
-
+```js
     angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap']);
-
+```
 <i>Note: Se the [ui-select dependencies](https://github.com/OptimalBPM/angular-schema-form-dynamic-select#ui-select) section for ui-select instructions</i>
 
 # Form
@@ -158,95 +158,96 @@ Built-in select-controls gets the bootstrap look but retain their functionality.
 
 ## Form Definition
 All settings reside in the form definition. See the [app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js) file for this example in use.
-
-    $scope.form = [
-
+```js
+$scope.form = [
+```
 
 ### Single select from static list
 The drop down items are defined by and array of value/name objects residing in the form
-
-     {
-       "key": 'select',
-       "type": 'strapselect',
-       "titleMap": [
-          {"value": 'value1', "name": 'text1'},
-          {"value": 'value2', "name": 'text2'},
-          {"value": 'value3', "name": 'text3'}
-        ]
-     },
-     
+```js
+ {
+   "key": 'select',
+   "type": 'strapselect',
+   "titleMap": [
+      {"value": 'value1', "name": 'text1'},
+      {"value": 'value2', "name": 'text2'},
+      {"value": 'value3', "name": 'text3'}
+    ]
+ },
+```
 ### Multiple select from static list
 Like the above, but allows multiple items to be selected. 
-
-     {
-       "key": 'multiselect',
-       "type": 'strapselect',
-       "options": { 
-        "multiple": "true"
-       }
-       "titleMap": [
-            {"value": 'value1', "name": 'text1'},
-            {"value": 'value2', "name": 'text2'},
-            {"value": 'value3', "name": 'long very very long label3'}
-       ]
-     },
-     
+```js
+ {
+   "key": 'multiselect',
+   "type": 'strapselect',
+   "options": { 
+    "multiple": "true"
+   }
+   "titleMap": [
+        {"value": 'value1', "name": 'text1'},
+        {"value": 'value2', "name": 'text2'},
+        {"value": 'value3', "name": 'long very very long label3'}
+   ]
+ },
+```js   
 ### Single select from dynamically loaded list via synchronous callback function
 Callback must return an array of value/name objects (see static list above).
 The "options" structure is passed to it as a parameter.
-
-     {
-       "key": "selectDynamic",
-       "type": 'strapselect',
-       "options": {
-            "callback": $scope.callBackSD
-       }
-     },
-
+```js
+ {
+   "key": "selectDynamic",
+   "type": 'strapselect',
+   "options": {
+        "callback": $scope.callBackSD
+   }
+ },
+```
 For examples of how the different kinds of callbacks are implemented, please look at the [relevant code in app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js#L18), 
      
 ### Multiple select from dynamically loaded list via synchronous callback function
 Like strapselectdynamic above, but allowed multiple items to be selected.
 
-     
-     {
-       "key": "multiselectDynamic",
-       "type": 'strapmultiselect',
-       "options": {
-           "multiple": "true"
-           "callback": $scope.callBackMSD
-       }
-     },
-     
+```js     
+ {
+   "key": "multiselectDynamic",
+   "type": 'strapmultiselect',
+   "options": {
+       "multiple": "true"
+       "callback": $scope.callBackMSD
+   }
+ },
+```     
 ### Multiple select from asynchronous callback
 
 The asyncCallback must return a http-style promise and the data must be a JSON array of value/name objects.
 Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
-     
-     {
-       "key": "multiselectDynamicAsync",
-       "type": 'strapselect',
-       "options": {
-           "multiple": "true"
-           "asyncCallback": "callBackMSDAsync"
-           }
+```js     
+ {
+   "key": "multiselectDynamicAsync",
+   "type": 'strapselect',
+   "options": {
+       "multiple": "true"
+       "asyncCallback": "callBackMSDAsync"
        }
-     },
+   }
+ },
+```
 ### Multiple select from dynamically loaded list via http get
 Convenience function, makes a get request, no need for callback.
 Expects the server to return a JSON array of value/name objects.
-     
-     {
-       "key": "multiselectDynamicHttpGet",
-       "type": 'strapselect',
-       "options": {
-           "multiple": "true"
-           "httpGet": {
-               "url" : "test/testdata.json"
-           }
+```js    
+ {
+   "key": "multiselectDynamicHttpGet",
+   "type": 'strapselect',
+   "options": {
+       "multiple": "true"
+       "httpGet": {
+           "url" : "test/testdata.json"
        }
-     },
-               
+   }
+ },
+```
 ### Multiple select from dynamically loaded list via http post with an options callback
 Like the get variant above function, but makes a JSON POST request passing the "parameter" as JSON.<br />
 This example makes use of the optionsCallback property. 
@@ -257,19 +258,19 @@ Here, the otherwise mandatory httpPost.url is not set in the options but in the 
 See the [stringOptionsCallback function in app.js](https://github.com/OptimalBPM/angular-schema-form-dynamic-select/blob/master/app.js#L46) for an example. 
 The options-instance that is passed to the parameter is a *copy* of the instance in the form, 
 so the form instance is not affected by any modifications by the callback.
-     
-     {
-       "key": "multiselectDynamicHttpPost",
-       "type": 'strapselect',
-       "options": {
-           "multiple": "true"
-           "httpPost": {
-               "optionsCallback" : "stringOptionsCallback",
-               "parameter": { "myparam" : "Hello"}
-           }
+```js
+ {
+   "key": "multiselectDynamicHttpPost",
+   "type": 'strapselect',
+   "options": {
+       "multiple": "true"
+       "httpPost": {
+           "optionsCallback" : "stringOptionsCallback",
+           "parameter": { "myparam" : "Hello"}
        }
-     },
-
+   }
+ },
+```
 
 ### Property mapping
 The angular-schema-form titleMap naming standard is value/name, but that is sometimes difficult to get from a server, 
@@ -277,32 +278,34 @@ it might not support it.
 Therefore, a "map"-property is provided. <br />
 The property in valueProperty says in what property to look for the value, and nameProperty the name.
 In this case:
-
-    {nodeId : 1, nodeName: "Test", "nodeType": "99"}
+```js
+{nodeId : 1, nodeName: "Test", "nodeType": "99"}
+```
 which cannot be used, is converted into:
-
-    {value : 1, name: "Test", nodeId : 1, nodeName: "Test", "nodeType": "99"}
+```js
+{value : 1, name: "Test", nodeId : 1, nodeName: "Test", "nodeType": "99"}
+```
 which is the native format with the old options retained to not destroy auxiliary information.
 For example, a field like "nodeType" might be used for filtering(see Filters section, below). 
 The options for that mapping look like this:
-
-     {
-       "key": "multiselectdynamic_http_get",
-       "type": 'strapselect',
-       "options": {
-            "multiple": "true"
-            "httpGet": {
-                "url": "test/testdata_mapped.json"
-            },
-            "map" : {valueProperty: "nodeId", nameProperty: "nodeName"}
-       }
-     },    
-     
+```js
+ {
+   "key": "multiselectdynamic_http_get",
+   "type": 'strapselect',
+   "options": {
+        "multiple": "true"
+        "httpGet": {
+            "url": "test/testdata_mapped.json"
+        },
+        "map" : {valueProperty: "nodeId", nameProperty: "nodeName"}
+   }
+ },    
+```     
 The nameProperty can also be an array, in which case ASFDS looks for the first value. 
 For example, in this case, one wants to first show the caption, and if that is not available, the name:
 
 ```js
-     "map" : {valueProperty: "nodeId", nameProperty: ["nodeCaption", "nodeName"]}
+"map" : {valueProperty: "nodeId", nameProperty: ["nodeCaption", "nodeName"]}
 ```
      
 *For more complicated mappings, and situations where the source data is
@@ -322,22 +325,22 @@ The options are:
 * filterTrigger : An array of expressions triggering the filtering, `"model.select"`
 
 Example:
-
-    {
-        "key": 'multiselect',
-        "type": 'strapselect',
-        options: {
-            "multiple": "true"           
-            "filterTriggers": ["model.select"],
-            "filter" : "model.select==item.category"
-        },
-        "items": [
-            {"value": 'value1', "name": 'text1', "category": "value1"},
-            {"value": 'value2', "name": 'text2', "category": "value1"},
-            {"value": 'value3', "name": 'long very very long label3'}
-        ]
+```js
+{
+    "key": 'multiselect',
+    "type": 'strapselect',
+    options: {
+        "multiple": "true"           
+        "filterTriggers": ["model.select"],
+        "filter" : "model.select==item.category"
     },
-
+    "items": [
+        {"value": 'value1', "name": 'text1', "category": "value1"},
+        {"value": 'value2', "name": 'text2', "category": "value1"},
+        {"value": 'value3', "name": 'long very very long label3'}
+    ]
+},
+```
 Note on filterTrigger and why not having a watch on the entire expression:
 
 * The expression is actually a one-to-many join, and mixes two scopes in the evaluation. This might not always be handled the same by $eval. 
@@ -356,20 +359,20 @@ This is valuable, for example, when there is too much data or for some other rea
 
 ## Defaults and enum
 If a there is a form item that only has type "string" defined, but has an enum value, then a single select will be shown for that value.
-
-    {
-        "key": 'select'
-    },
-    
+```js
+{
+    "key": 'select'
+},
+```  
 The schema declaration(the enum values will be both value and name for the options): 
-   
-    select: {
-        title: 'Single Select Static',
-        type: 'string',
-        enum: ["value1", "value2", "value3"],
-        description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
-    },
-
+```js   
+select: {
+    title: 'Single Select Static',
+    type: 'string',
+    enum: ["value1", "value2", "value3"],
+    description: 'Only single item is allowed. Based on schema enum and form default.(change here and observe how the select list below is filtered)'
+},
+```
 ## inlineMaxLength and inlineMaxLengthHtml angularStrap parameters.
 These settings affects only [strapselect](http://mgcrea.github.io/angular-strap/#/selects-usage) and controls the number of items that are shown in the selected list of items.
 If that list is full, the number of list items + the test in inlineMaxLengthHtml is shown.
@@ -378,7 +381,7 @@ If, for example, inlineMaxLength is set to 2 and the number of selected items is
 `4 items are too many items to show....` 
 
 Example(the same as in the example file):
-
+```js
     "key": 'multiselect_overflow',
     "type": 'strapselect',
     "placeholder": "Please select some items.",
@@ -394,20 +397,21 @@ Example(the same as in the example file):
         {"value": 'value4', "name": 'text4'},
     ]
 
+```
 
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
-
-     {
-       type: "submit",
-       style: "btn-info",
-       title: "OK"
-     }
-     
+```js
+ {
+   type: "submit",
+   style: "btn-info",
+   title: "OK"
+ }
+ ```js    
 And ending the form element array:
-
+```js
     ];
-    
+```  
 
 # Populating the list items
 
@@ -470,16 +474,16 @@ Its dependencies aren't included in the package.json, and will hence have to be 
 ```
 ### HTML
 Include all relevant files:
+```html
+<link href="bower_components/angular-ui-select/dist/select.css" rel="stylesheet" />
 
-    <link href="bower_components/angular-ui-select/dist/select.css" rel="stylesheet" />
-    
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="bower_components/underscore/underscore-min.js"></script>
-    <script src="bower_components/angular-underscore/angular-underscore.js"></script>
-    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-    <script src='bower_components/angular-ui-select/dist/select.js'></script>
-    
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/angular-underscore/angular-underscore.js"></script>
+<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+<script src='bower_components/angular-ui-select/dist/select.js'></script>
+```    
 ### Angular module configuration
 
 UI-select have several additional dependencies that need to be added to your module configuration:
@@ -491,7 +495,7 @@ angular.module('yourModule', ['schemaForm', 'mgcrea.ngStrap', 'mgcrea.ngStrap.mo
 
 ### Forms
 It is used as strapselect, but by including the form types uiselect and uiselectmultiple instead. 
-
+```js
     {
         "key": 'uiselectmultiple',
         "type": 'uiselectmultiple',
@@ -501,7 +505,7 @@ It is used as strapselect, but by including the form types uiselect and uiselect
           { value: 'three', name: 'option three'}
         ]
     },
-        
+```        
 It supports dynamically fetching items from a backend using callbacks and http-methods, but works a little bit different from AngularStrap internally, so filters, for example, aren't implemented yet.
 
 See the example app in the source for more details on how to use it.
