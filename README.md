@@ -298,8 +298,15 @@ The options for that mapping look like this:
        }
      },    
      
-This is convenience functionality, for more complicated mappings, and situations where the source data is
-in a completely different format, the callback and asyncCallback options should be used instead.
+The nameProperty can also be an array, in which case ASFDS looks for the first value. 
+For example, in this case, one wants to first show the caption, and if that is not available, the name:
+
+```js
+     "map" : {valueProperty: "nodeId", nameProperty: ["nodeCaption", "nodeName"]}
+```
+     
+*For more complicated mappings, and situations where the source data is
+in a completely different format, the callback and asyncCallback options can be used instead.*
 
 ## Filters
 

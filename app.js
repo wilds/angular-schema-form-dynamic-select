@@ -136,7 +136,8 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 title: "Multi Select Dynamic HTTP Get Mapped data using array",
                 type: "array",
                 items: {type: "string"},
-                description: "This titleMap is as above, but remapped from a nodeId/nodeName/category array of objects with optional separator." +
+                description: "This titleMap is as above, but remapped from a nodeId/nodeName/category array of objects" +
+                " with an optional separator and using the first existing value for the nameProperty (similar to COALESCE in sql server)." +
                 "(See app.js: \"map\" : {valueProperty: \"nodeId\", nameProperty: [\"nodeName\",\"category\"], separatorValue: \" | \"})"
             },
             multiselectDynamicAsync: {
