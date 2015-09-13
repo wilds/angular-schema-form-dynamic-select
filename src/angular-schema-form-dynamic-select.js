@@ -169,10 +169,24 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         form.titleMap = [];
 
         if (newOptions && "map" in newOptions && newOptions .map) {
-            var current_row = null;
-            data.forEach(function (current_row) {
+            var current_row = null,
+			final = newOptions.map.nameProperty.length - 1,
+			separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
+				data.forEach(function (current_row) {
                 current_row["value"] = current_row[newOptions .map.valueProperty];
-                current_row["name"] = current_row[newOptions .map.nameProperty];
+				current_row["name"] = ""; //init the 'name' property
+				//check if the value passed is a string or not
+				if(typeof newOptions.map.nameProperty != 'string'){
+					//loop through the object/array
+					for (var i in newOptions.map.nameProperty) {
+						current_row["name"] += current_row[newOptions .map.nameProperty[i]]; 
+						if(i != final){current_row["name"] += separator};
+						}	
+					}
+                else{
+					//if it is a string
+					current_row["name"] = current_row[newOptions .map.nameProperty];
+				}
                 form.titleMap.push(current_row);
             });
 

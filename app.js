@@ -132,6 +132,13 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 description: "This titleMap is as above, but remapped from a nodeId/nodeName array of objects. " +
                 "(See app.js: \"map\" : {valueProperty: \"nodeId\", textProperty: \"nodeName\"})"
             },
+            multiselectDynamicHttpGetMappedArray: {
+                title: "Multi Select Dynamic HTTP Get Mapped data using array",
+                type: "array",
+                items: {type: "string"},
+                description: "This titleMap is as above, but remapped from a nodeId/nodeName/category array of objects with optional separator." +
+                "(See app.js: \"map\" : {valueProperty: \"nodeId\", nameProperty: [\"nodeName\",\"category\"], separatorValue: \" | \"})"
+            },
             multiselectDynamicAsync: {
                 title: "Multi Select Dynamic Async",
                 type: "array",
@@ -265,6 +272,18 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                     "url": "test/testdata_mapped.json"
                 },
                 "map": {valueProperty: "nodeId", nameProperty: "nodeName"}
+            }
+        },
+        {
+            "key": "multiselectDynamicHttpGetMappedArray",
+            "type": "strapselect",
+            "placeholder": "And even less here...",
+            "options": {
+                "multiple": "true",
+                "httpGet": {
+                    "url": "test/testdata_mapped.json"
+                },
+                "map": {valueProperty: "nodeId", nameProperty: ["nodeName","category"], separatorValue: " | "}
             }
         },
         {
