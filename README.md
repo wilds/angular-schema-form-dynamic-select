@@ -190,7 +190,7 @@ Like the above, but allows multiple items to be selected.
         {"value": 'value3', "name": 'long very very long label3'}
    ]
  },
-```js   
+```   
 ### Single select from dynamically loaded list via synchronous callback function
 Callback must return an array of value/name objects (see static list above).
 The "options" structure is passed to it as a parameter.
