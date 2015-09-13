@@ -407,7 +407,7 @@ Not needed, of course, but is commonly used.
    style: "btn-info",
    title: "OK"
  }
- ```js    
+ ```   
 And ending the form element array:
 ```js
     ];
