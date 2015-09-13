@@ -410,7 +410,7 @@ Not needed, of course, but is commonly used.
  ```   
 And ending the form element array:
 ```js
-    ];
+];
 ```  
 
 # Populating the list items
