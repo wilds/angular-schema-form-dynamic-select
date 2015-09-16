@@ -220,8 +220,9 @@ Like strapselectdynamic above, but allowed multiple items to be selected.
 ```     
 ### Multiple select from asynchronous callback
 
-The asyncCallback must return a http-style promise and the data must be a JSON array of value/name objects.
-Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
+The asyncCallback must return a *http-style promise* and the data the promise provides must be a JSON array of value/name objects.
+
+
 ```js     
  {
    "key": "multiselectDynamicAsync",
@@ -233,6 +234,10 @@ Note that in this example, the reference to the callback is a string, meaning a 
    }
  },
 ```
+Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
+Also note, again, because this is a common misunderstanding, that asyncCallback should *not* return the array of items, but a http-promise, like the one $http.get()/$http.post() 
+Returning the array would be a synchronous operation, see "callback" above.
+
 ### Multiple select from dynamically loaded list via http get
 Convenience function, makes a get request, no need for callback.
 Expects the server to return a JSON array of value/name objects.
@@ -443,7 +448,7 @@ The two kinds of callback mechanisms are:
 
 * list items are fetched by a user-specified callback. The user implements the calling mechanism.
 * the callback receive the form options as a parameter and returns an array of list items(see the static strapselect)
-* asyncCallback implementations returns the data through a HttpPromise.
+* asyncCallback implementations returns the data through a HttpPromise. NOT an array if items.
 
 *TIP: in an asyncCallback, you need to intercept and change an async server response before passing it on to the add-on, use the [transformResponse function](https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses).*
 
