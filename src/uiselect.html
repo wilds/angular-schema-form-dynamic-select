@@ -3,7 +3,7 @@
          ng-init="insideModel=$$value$$;">
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
-    <div class="form-group" ng-init="populateTitleMap(form, $select.search);select_model.selected=find_in_titleMap($$value$$)">
+    <div class="form-group">
         <ui-select ng-model="select_model.selected"
                    ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled"
                    on-select="$$value$$=$item.value" class="{{form.options.uiClass}}">

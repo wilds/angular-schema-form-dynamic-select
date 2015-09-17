@@ -139,6 +139,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         $scope.form.options = {};
     }
 
+    $scope.select_model = {};
+
     console.log("Setting options." + $scope.form.options.toString());
     $scope.form.options.scope = $scope;
 
