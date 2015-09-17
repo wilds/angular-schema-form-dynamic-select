@@ -214,6 +214,10 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             form.titleMap = data;
         }
 
+        if ($scope.insideModel && $scope.select_model.selected === undefined) {
+          $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel);
+        }
+
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
         if ($scope.internalModel) {
             console.log("Call uiMultiSelectInitInternalModel");
@@ -424,4 +428,5 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
     };
 }]);
 
+return angularSchemaFormDynamicSelect;
 }));
