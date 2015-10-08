@@ -130,6 +130,7 @@ Usage is straightforward, simply include and reference:
 <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
 <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
+
 ```
 <i>Note: Make sure you load angular-schema-form-dynamic-select.js **after** loading angular schema form.</i>
 
@@ -464,7 +465,11 @@ The two kinds of callback mechanisms are:
 This is done by either using the JSON-schema enum-property, or by manually setting form.titleMap.
 
 # UI-Select
-The support for angular-ui-select was added in the 0.9.0-version, and is currently partial.
+The support for angular-ui-select was added in the 0.9.0-version, and is currently partial, but getting there.
+
+The currently supported UI-select specific/native options are:
+* Single: tagging, taggingTokens, taggingLabel, refreshDelay, searchDescription, uiClass   
+* Multiple select: refreshDelay, uiClass, groupBy(only multiple)
 
 ## Installation
 
