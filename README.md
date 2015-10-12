@@ -236,7 +236,7 @@ The asyncCallback must return a *http-style promise* and the data the promise pr
  },
 ```
 Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
-Also note, again, because this is a common misunderstanding, that asyncCallback should *not* return the array of items, but a http-promise, like the one $http.get()/$http.post() 
+Also note, again, because this is a common misunderstanding, that asyncCallback should *not* return the array of items, but a http-promise, like the one $http.get()/$http.post() or [jquery's deferred.promise](https://api.jquery.com/deferred.promise/).
 Returning the array would be a synchronous operation, see "callback" above.
 
 ### Multiple select from dynamically loaded list via http get
