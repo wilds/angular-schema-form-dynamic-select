@@ -309,8 +309,14 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     console.log('asyncCallback items', form.titleMap);
                 },
                 function (data, status) {
-                    alert("Loading select items failed(Options: '" + String(form.options) +
-                    "\nError: " + status);
+                    if (form.options.onPopulationError) {
+                        $scope.getCallback(form.options.onPopulationError)(form, data, status);
+                    }
+                    else {
+                        alert("Loading select items failed(Key(field): " + form.key + "Options: '" + String(form.options) +
+                        "\nError: " + status);
+                    }
+
                 });
         }
         else if (form.options.httpPost) {
@@ -323,8 +329,14 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     console.log('httpPost items', form.titleMap);
                 },
                 function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
-                    "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nError: " + status);
+                    if (finalOptions.onPopulationError) {
+                        $scope.getCallback(finalOptions.onPopulationError)(form, data, status, finalOptions);
+                    }
+                    else {
+                        alert("Loading select items failed (Key(field): " + form.key + " URL: '" + String(finalOptions.httpPost.url) +
+                    "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nStatus: " + status);
+                    }
+
                 });
         }
         else if (form.options.httpGet) {
@@ -335,8 +347,13 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     console.log('httpGet items', form.titleMap);
                 },
                 function (data, status) {
-                    alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
-                    "\nError: " + status);
+                    if (finalOptions.onPopulationError) {
+                        $scope.getCallback(finalOptions.onPopulationError)(form, data, status, finalOptions);
+                    }
+                    else {
+                        alert("Loading select items failed (Key(field): " + form.key + " URL: '" + String(finalOptions.httpGet.url) +
+                            "\nStatus: " + status);
+                    }
                 });
         }
     };
@@ -430,5 +447,4 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
     };
 }]);
 
-return angularSchemaFormDynamicSelect;
 }));
