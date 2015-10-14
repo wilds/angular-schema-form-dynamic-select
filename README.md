@@ -463,8 +463,8 @@ The two kinds of callback mechanisms are:
 ### Handling errors from asynchronous callbacks
 For asyncCallback, httpGet and httpPost, there is an option, `onPopulationError`.
 
-If set to a callback function, and in case of an http error, the callback is called.
-Its parameters are the form of the field(where they key and options are), the data and the status.
+If set to a callback function, and in case of a http error, the callback is called.
+Its parameters are: the form of the field(where they key and options are), the data and the status.
 
 See app.js for an example of its usage. Try and rename test/testdata.js and you'll see it being called.
 
