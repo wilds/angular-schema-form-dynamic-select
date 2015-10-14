@@ -340,7 +340,7 @@ Example:
         "filterTriggers": ["model.select"],
         "filter" : "model.select==item.category"
     },
-    "items": [
+    "titleMap": [
         {"value": 'value1', "name": 'text1', "category": "value1"},
         {"value": 'value2', "name": 'text2', "category": "value1"},
         {"value": 'value3', "name": 'long very very long label3'}
