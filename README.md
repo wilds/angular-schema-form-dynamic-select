@@ -460,6 +460,14 @@ The two kinds of callback mechanisms are:
 * the optional optionsCallback can be used to add to or change the options with information known in runtime. 
 * httpPost-options has a "parameter"-property, that contains the JSON that will be POST:ed to the server.
 
+### Handling errors from asynchronous callbacks
+For asyncCallback, httpGet and httpPost, there is an option, `onPopulationError`.
+
+If set to a callback function, and in case of an http error, the callback is called.
+Its parameters are the form of the field(where they key and options are), the data and the status.
+
+See app.js for an example of its usage. Try and rename test/testdata.js and you'll see it being called.
+
 ## Statically setting the list items
 
 This is done by either using the JSON-schema enum-property, or by manually setting form.titleMap.
