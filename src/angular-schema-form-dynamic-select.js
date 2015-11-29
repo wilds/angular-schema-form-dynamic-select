@@ -38,67 +38,69 @@ angular.module('schemaForm').config(
 
 
         }])
-  .directive("toggleSingleModel", function() {
-    // some how we get this to work ...
-    return {
-      require: 'ngModel',
-      restrict: "A",
-      scope: {},
-      replace: true,
-      controller: ['$scope', function($scope)  {
-        $scope.$parent.$watch('select_model.selected',function(){
-          if($scope.$parent.select_model.selected != undefined) {
-            $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected.value);
-          }
-        });
-      }]
-    };
-  })
+    .directive("toggleSingleModel", function () {
+        // some how we get this to work ...
+        return {
+            require: 'ngModel',
+            restrict: "A",
+            scope: {},
+            replace: true,
+            controller: ['$scope', function ($scope) {
+                $scope.$parent.$watch('select_model.selected', function () {
+                    if ($scope.$parent.select_model.selected != undefined) {
+                        $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
+                        $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected.value);
+                    }
+                });
+            }]
+        };
+    })
 
-  .directive('multipleOn', function() {
-    return {
-    link: function($scope, $element, $attrs) {
-        $scope.$watch(
-            function () { return $element.attr('multiple-on'); },
-            function (newVal) {
+    .directive('multipleOn', function () {
+        return {
+            link: function ($scope, $element, $attrs) {
+                $scope.$watch(
+                    function () {
+                        return $element.attr('multiple-on');
+                    },
+                    function (newVal) {
 
-                if(newVal == "true") {
-                    var select_scope = angular.element($element).scope().$$childTail;
-                    select_scope.$isMultiple = true;
-                    select_scope.options.multiple = true;
-                    select_scope.$select.$element.addClass('select-multiple');
-                }
-                else {
-                    angular.element($element).scope().$$childTail.$isMultiple = false;
-                }
+                        if (newVal == "true") {
+                            var select_scope = angular.element($element).scope().$$childTail;
+                            select_scope.$isMultiple = true;
+                            select_scope.options.multiple = true;
+                            select_scope.$select.$element.addClass('select-multiple');
+                        }
+                        else {
+                            angular.element($element).scope().$$childTail.$isMultiple = false;
+                        }
+                    }
+                );
             }
-        );
-      }
-    };
-  })
-  .filter('whereMulti', function() {
-    return function(items, key, values) {
-      var out = [];
+        };
+    })
+    .filter('whereMulti', function () {
+        return function (items, key, values) {
+            var out = [];
 
-      if (angular.isArray(values) && items !== undefined) {
-          values.forEach(function (value) {
-              for (var i = 0; i < items.length; i++) {
-                  if (value == items[i][key]) {
-                      out.push(items[i]);
-                      break;
-                  }
-              }
-          });
-      } else {
-        // Let the output be the input untouched
-        out = items;
-      }
+            if (angular.isArray(values) && items !== undefined) {
+                values.forEach(function (value) {
+                    for (var i = 0; i < items.length; i++) {
+                        if (value == items[i][key]) {
+                            out.push(items[i]);
+                            break;
+                        }
+                    }
+                });
+            } else {
+                // Let the output be the input untouched
+                out = items;
+            }
 
-      return out;
-    };
-  })
-  .filter('propsFilter', function() {
+            return out;
+        };
+    })
+    .filter('propsFilter', function () {
         return function (items, props) {
             var out = [];
 
@@ -148,7 +150,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         console.log("listener triggered");
         // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
         $scope.form.titleMap.push({"value": "345890u340598u3405u9", "name": "34095u3p4ouij"})
-        $timeout(function () { $scope.form.titleMap.pop() })
+        $timeout(function () {
+            $scope.form.titleMap.pop()
+        })
 
     };
 
@@ -160,7 +164,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             });
         }
         // This is set here, as the model value may become unitialized and typeless if validation fails.
-        $scope.localModelType =  Object.prototype.toString.call(localModel);
+        $scope.localModelType = Object.prototype.toString.call(localModel);
         $scope.filteringInitialized = true;
     };
 
@@ -170,25 +174,27 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
         form.titleMap = [];
 
-        if (newOptions && "map" in newOptions && newOptions .map) {
+        if (newOptions && "map" in newOptions && newOptions.map) {
             var current_row = null,
-			final = newOptions.map.nameProperty.length - 1,
-			separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
-				data.forEach(function (current_row) {
-                current_row["value"] = current_row[newOptions .map.valueProperty];
-				current_row["name"] = ""; //init the 'name' property
-				//check if the value passed is a string or not
-				if(typeof newOptions.map.nameProperty != 'string'){
-					//loop through the object/array
-					for (var i in newOptions.map.nameProperty) {
-						current_row["name"] += current_row[newOptions .map.nameProperty[i]]; 
-						if(i != final){current_row["name"] += separator};
-						}	
-					}
-                else{
-					//if it is a string
-					current_row["name"] = current_row[newOptions .map.nameProperty];
-				}
+                final = newOptions.map.nameProperty.length - 1,
+                separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
+            data.forEach(function (current_row) {
+                current_row["value"] = current_row[newOptions.map.valueProperty];
+                current_row["name"] = ""; //init the 'name' property
+                //check if the value passed is a string or not
+                if (typeof newOptions.map.nameProperty != 'string') {
+                    //loop through the object/array
+                    for (var i in newOptions.map.nameProperty) {
+                        current_row["name"] += current_row[newOptions.map.nameProperty[i]];
+                        if (i != final) {
+                            current_row["name"] += separator
+                        };
+                    }
+                }
+                else {
+                    //if it is a string
+                    current_row["name"] = current_row[newOptions.map.nameProperty];
+                }
                 form.titleMap.push(current_row);
             });
 
@@ -204,7 +210,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
 
         if ($scope.insideModel && $scope.select_model.selected === undefined) {
-          $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel);
+            $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel);
         }
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
@@ -286,7 +292,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
         else if (form.options.callback) {
             form.titleMap = $scope.getCallback(form.options.callback)(form.options, search);
-            $scope.finalizeTitleMap(form,form.titleMap, form.options);
+            $scope.finalizeTitleMap(form, form.titleMap, form.options);
             console.log("callback items: ", form.titleMap);
         }
         else if (form.options.asyncCallback) {
@@ -301,7 +307,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     }
                     else {
                         alert("Loading select items failed(Key(field): " + form.key + "Options: '" + String(form.options) +
-                        "\nError: " + status);
+                            "\nError: " + status);
                     }
 
                 });
@@ -321,7 +327,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     }
                     else {
                         alert("Loading select items failed (Key(field): " + form.key + " URL: '" + String(finalOptions.httpPost.url) +
-                    "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nStatus: " + status);
+                            "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nStatus: " + status);
                     }
 
                 });
@@ -355,15 +361,14 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
     };
 
-    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
-    {
+    $scope.uiMultiSelectInitInternalModel = function (supplied_model) {
 
 
-        console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
+        console.log("$scope.externalModel: Key: " + $scope.form.key.toString() + " Model: " + supplied_model.toString());
         $scope.externalModel = supplied_model;
         $scope.internalModel = [];
         if ($scope.form.titleMap) {
-            if (supplied_model !== undefined && angular.isArray(supplied_model)){
+            if (supplied_model !== undefined && angular.isArray(supplied_model)) {
                 supplied_model.forEach(function (value) {
                         $scope.internalModel.push($scope.find_in_titleMap(value));
                     }
@@ -381,14 +386,12 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
         // its string representation as well as we do not know its name. A typical value if strLocalModel is model['groups']
         // This is very ugly, though. TODO: Find out why the model is set to undefined after validation failure.
 
-        if (!angular.isDefined(inputArray) || !angular.isDefined(controller.form.options) ||
-            !angular.isDefined(controller.form.options.filter) || controller.form.options.filter == '') {
+        if (!angular.isDefined(inputArray) || !angular.isDefined(controller.form.options) || !angular.isDefined(controller.form.options.filter) || controller.form.options.filter == '') {
             return inputArray;
         }
 
 
-
-        console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
+        console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title + "), model value: " + JSON.stringify(localModel) + "----");
         console.log("Filter:" + controller.form.options.filter);
         if (!controller.filteringInitialized) {
             console.log("Initialize filter");
@@ -412,7 +415,7 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
                     localModel.splice(localModel.indexOf(curr_item.value), 1);
                 }
                 else if (localModel == curr_item.value) {
-                    console.log("Setting model of type " + controller.localModelType  + "to null.");
+                    console.log("Setting model of type " + controller.localModelType + "to null.");
                     localModel = null;
                 }
             }
@@ -420,7 +423,7 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
 
         if (controller.localModelType == "[object Array]" && !localModel) {
             // An undefined local model seems to mess up bootstrap select's indicators
-            console.log("Resetting model of type " + controller.localModelType  + " to [].");
+            console.log("Resetting model of type " + controller.localModelType + " to [].");
 
             controller.$eval(strLocalModel + "=[]");
         }
