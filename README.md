@@ -130,6 +130,7 @@ Usage is straightforward, simply include and reference:
 <script src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
 <script src="bower_components/angular-schema-form-dynamic-select/angular-schema-form-dynamic-select.js"></script>
+
 ```
 <i>Note: Make sure you load angular-schema-form-dynamic-select.js **after** loading angular schema form.</i>
 
@@ -235,7 +236,7 @@ The asyncCallback must return a *http-style promise* and the data the promise pr
  },
 ```
 Note that in this example, the reference to the callback is a string, meaning a callback in the using controller scope.
-Also note, again, because this is a common misunderstanding, that asyncCallback should *not* return the array of items, but a http-promise, like the one $http.get()/$http.post() 
+Also note, again, because this is a common misunderstanding, that asyncCallback should *not* return the array of items, but a http-promise, like the one $http.get()/$http.post() or [jquery's deferred.promise](https://api.jquery.com/deferred.promise/).
 Returning the array would be a synchronous operation, see "callback" above.
 
 ### Multiple select from dynamically loaded list via http get
@@ -339,7 +340,7 @@ Example:
         "filterTriggers": ["model.select"],
         "filter" : "model.select==item.category"
     },
-    "items": [
+    "titleMap": [
         {"value": 'value1', "name": 'text1', "category": "value1"},
         {"value": 'value2', "name": 'text2', "category": "value1"},
         {"value": 'value3', "name": 'long very very long label3'}
@@ -459,12 +460,24 @@ The two kinds of callback mechanisms are:
 * the optional optionsCallback can be used to add to or change the options with information known in runtime. 
 * httpPost-options has a "parameter"-property, that contains the JSON that will be POST:ed to the server.
 
+### Handling errors from asynchronous callbacks
+For asyncCallback, httpGet and httpPost, there is an option, `onPopulationError`.
+
+If set to a callback function, and in case of a http error, the callback is called.
+Its parameters are: the form of the field(where they key and options are), the data and the status.
+
+See app.js for an example of its usage. Try and rename test/testdata.js and you'll see it being called.
+
 ## Statically setting the list items
 
 This is done by either using the JSON-schema enum-property, or by manually setting form.titleMap.
 
 # UI-Select
-The support for angular-ui-select was added in the 0.9.0-version, and is currently partial.
+The support for angular-ui-select was added in the 0.9.0-version, and is currently partial, but getting there.
+
+The currently supported UI-select specific/native options are:
+* Single: tagging, taggingTokens, taggingLabel, refreshDelay, searchDescription, uiClass   
+* Multiple select: refreshDelay, uiClass, groupBy(only multiple)
 
 ## Installation
 

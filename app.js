@@ -72,6 +72,12 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
         return options;
     };
 
+    $scope.onPopulationError = function (form, data, status) {
+        console.log("An error occurred when the " + form.key + "-fields drop down was to be populated! \n")
+        console.log("The data: " + data.data.toString());
+        console.log("The status: " + status);
+    };
+
     $scope.schema = {
         type: "object",
         title: "Select",
@@ -303,6 +309,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
             "options": {
                 "multiple": "true",
                 "asyncCallback": $scope.callBackMSDAsync,
+                "onPopulationError": "onPopulationError",
                 "urlOrWhateverOptionIWant": "test/testdata.json"
             }
         },
