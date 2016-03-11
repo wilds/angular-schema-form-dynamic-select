@@ -404,7 +404,19 @@ Example(the same as in the example file):
     ]
 
 ```
+## Positioning the angularStrap select.
+The placement option can be used to position a [strapselect](http://mgcrea.github.io/angular-strap/#/selects). Possible values for placement are top, bottom, left, right, auto or any combination (e.g. bottom-right).
+Further details can be found in the [angularStrap select documentation](http://mgcrea.github.io/angular-strap/#/selects-usage).
 
+Example (the same as in the example file):
+```js
+    "key": "select_placement",
+	"placeholder": "Please select from the right.",
+	"options": {
+		"placement": "right"
+	}
+
+```
 ### And then a submit button. 
 Not needed, of course, but is commonly used.
 ```js
