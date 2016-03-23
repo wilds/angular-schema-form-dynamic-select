@@ -158,6 +158,12 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 items: {type: "string"},
                 description: "If you select more than two items here, it will only show the first two and "
             },
+            select_placement: {
+                title: "Strap select with position set to right",
+                type: "string",
+                enum: ["value1", "value2", "value3"],
+                description: "Position of the select set using the placement option."
+            },
             "priorities": {
                 "type": "object",
                 "properties": {
@@ -328,6 +334,13 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
                 {"value": "value3", "name": "text3"},
                 {"value": "value4", "name": "text4"}
             ]
+        },
+        {
+            "key": "select_placement",
+            "placeholder": "Please select from the right.",
+            "options": {
+                "placement": "right"
+            }
         },
         {
             "key": "priorities.priority",
