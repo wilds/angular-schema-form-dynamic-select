@@ -32,7 +32,7 @@
                 <small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small>
             </ui-select-match>
             <!--repeat code because tagging does not display properly under group by but is still useful -->
-            <ui-select-choices refresh="populateTitleMap(form, $select.search))"
+            <ui-select-choices refresh="populateTitleMap(form, $select.search)"
                                refresh-delay="form.options.refreshDelay"
                                repeat="item in form.titleMap | propsFilter: {name: $select.search, description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                 <div ng-if="item.isTag"
