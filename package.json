@@ -26,7 +26,7 @@
     "angular-schema-form": ">= 0.8.0",
     "angular-strap": ">= 2.2.2",
     "bootstrap": "^3.2.0",
-    "ui-select": "^0.14.0"
+    "angular-ui-select": "^0.14.0"
   },
   "main": "angular-schema-form-dynamic-select.js",
   "repository": {
