@@ -6,6 +6,7 @@
     "test": "rm -fr coverage && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS karma.conf.js"
   },
   "author": "Nicklas Borjesson",
+  "registry": "jspm",
   "contributors": [
     {
       "name": "Cheng Zhu",
