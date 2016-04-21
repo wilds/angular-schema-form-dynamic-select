@@ -1,6 +1,6 @@
 {
   "name": "angular-schema-form-dynamic-select",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "Dynamic select add-on for angular schema form",
   "scripts": {
     "test": "rm -fr coverage && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS karma.conf.js"
@@ -23,10 +23,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "angular-schema-form": ">= 0.8.0",
-    "angular-strap": ">= 2.2.2",
-    "bootstrap": "^3.2.0",
-    "angular-ui-select": "^0.14.0"
+    "angular-schema-form": "^0.0",
+    "angular-strap": "^2.0",
+    "bootstrap": "^3.0",
+    "angular-ui-select": "^0.0"
   },
   "main": "angular-schema-form-dynamic-select.js",
   "repository": {
@@ -34,8 +34,8 @@
     "url": "https://github.com/OptimalBPM/angular-schema-form-dynamic-select.git"
   },
   "devDependencies": {
-    "angular-mocks": ">= 1.2",
-    "angular-translate": ">= 2.4.0",
+    "angular-mocks": "^1.2",
+    "angular-translate": "^2.4.0",
     "chai": "^1.9.0",
     "coveralls": "^2.11.0",
     "gulp": "^3.5.6",
