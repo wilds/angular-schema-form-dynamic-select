@@ -4,7 +4,7 @@
   "main": [
     "angular-schema-form-dynamic-select.min.js"
   ],
-  "version": "0.14.4",
+  "version": "0.14.5",
   "authors": [
     "Cheng Zhu<cheng@aqmin.com>",
     "Stevehu",
@@ -31,10 +31,10 @@
     "coverage"
   ],
   "dependencies": {
-    "angular-schema-form": "^0.0",
-    "angular-strap": "^2.0",
-    "bootstrap": "^3.0",
-    "angular-ui-select": "^0.0"
+    "angular-schema-form": "^0",
+    "angular-strap": "^2",
+    "bootstrap": "^3",
+    "angular-ui-select": "^0"
   },
   "repository": {
     "type": "git",
