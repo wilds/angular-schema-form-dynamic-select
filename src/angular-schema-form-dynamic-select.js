@@ -57,10 +57,12 @@ angular.module('schemaForm').config(
         });
 
         $scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
-            if (newValue != undefined) {
-                $scope.ngModel = newValue.value;
-                $scope.$parent.$parent.ngModel.$setViewValue(newValue.value);
+            if (newValue != oldValue) {
+                $scope.ngModel = newValue ? newValue.value : '';
+                $scope.$parent.$parent.ngModel.$setViewValue($scope.ngModel);
+                console.log($scope.$parent.$parent.ngModel.$viewValue);
             }
+
         }, true);
 
       }]
