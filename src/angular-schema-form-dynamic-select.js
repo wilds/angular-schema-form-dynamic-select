@@ -42,17 +42,27 @@ angular.module('schemaForm').config(
   .directive("toggleSingleModel", function() {
     // some how we get this to work ...
     return {
-      require: 'ngModel',
-      restrict: "A",
-      scope: {},
-      replace: true,
+      restrict: 'A',
+      scope: {
+        ngModel: '=',
+        selectModel : '=',
+        preSelectedValue : '=',
+      },
       controller: ['$scope', function($scope)  {
-        $scope.$parent.$watch('select_model.selected',function(){
-          if($scope.$parent.select_model.selected != undefined) {
-            $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
-            $scope.$parent.ngModel.$setViewValue($scope.$parent.select_model.selected.value);
-          }
+        var initOnce = $scope.$watch('preSelectedValue', function(value) {
+            if (value) {
+                $scope.ngModel = value;
+                initOnce();
+            }
         });
+
+        $scope.$watch('selectModel.selected', function(newValue, oldValue, scope) {
+            if (newValue != undefined) {
+                $scope.ngModel = newValue.value;
+                $scope.$parent.$parent.ngModel.$setViewValue(newValue.value);
+            }
+        }, true);
+
       }]
     };
   })
