@@ -1,6 +1,6 @@
 <div ng-controller="dynamicSelectController" class="form-group"
      ng-class="{'has-error': hasError(), 'has-success': hasSuccess(), 'has-feedback': form.feedback !== false}"
-         ng-init="insideModel=$$value$$;">
+         ng-init="form.$$selectedValue=$$value$$;">
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group">
@@ -74,7 +74,7 @@
             type="hidden"
             name="{{form.key.slice(-1)[0]}}"
             sf-changed="form"
-            ng-model="insideModel"
+            ng-model="form.$$selectedValue"
             toggle-single-model
                 pre-selected-value="$$value$$"
                 select-model="select_model"
