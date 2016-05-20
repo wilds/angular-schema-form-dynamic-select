@@ -45,8 +45,8 @@ angular.module('schemaForm').config(
       restrict: 'A',
       scope: {
         ngModel: '=',
-        selectModel : '=',
         preSelectedValue : '=',
+        form : '='
       },
       controller: ['$scope', function($scope)  {
         var initOnce = $scope.$watch('preSelectedValue', function(value) {
@@ -56,7 +56,7 @@ angular.module('schemaForm').config(
             }
         });
 
-        $scope.$watch('selectModel.selected', function(newValue, oldValue, scope) {
+        $scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
             if (newValue != undefined) {
                 $scope.ngModel = newValue.value;
                 $scope.$parent.$parent.ngModel.$setViewValue(newValue.value);
@@ -150,7 +150,6 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         $scope.form.options = {};
     }
 
-    $scope.select_model = {};
 
     console.log("Setting options." + $scope.form.options.toString());
     $scope.form.options.scope = $scope;
@@ -215,8 +214,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             form.titleMap = data;
         }
 
-        if ($scope.form.$$selectedValue && $scope.select_model.selected === undefined) {
-          $scope.select_model.selected = $scope.find_in_titleMap($scope.form.$$selectedValue);
+        if ($scope.form.$$selectedValue && $scope.form.$$selectedObject === undefined) {
+          $scope.form.$$selectedObject = $scope.find_in_titleMap($scope.form.$$selectedValue);
         }
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.

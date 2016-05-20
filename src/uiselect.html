@@ -3,12 +3,12 @@
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group">
-        <ui-select ng-model="select_model.selected"
+        <ui-select ng-model="form.$$selectedObject"
                    ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled"
                    on-select="$$value$$=$item.value" class="{{form.options.uiClass}}">
             <ui-select-match
                     placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">
-                {{select_model.selected.name}}
+                {{form.$$selectedObject.name}}
             </ui-select-match>
             <ui-select-choices refresh="populateTitleMap(form, $select.search)"
                                refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"
@@ -19,7 +19,7 @@
                 </div>
             </ui-select-choices>
         </ui-select>
-        <ui-select ng-controller="dynamicSelectController" ng-model="select_model.selected"
+        <ui-select ng-controller="dynamicSelectController" ng-model="form.$$selectedObject"
                    ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)"
                    tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel"
                    tagging-tokens="form.options.taggingTokens"
@@ -27,8 +27,8 @@
                    class="{{form.options.uiClass}}">
             <ui-select-match
                     placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">
-                {{select_model.selected.name}}&nbsp;
-                <small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small>
+                {{form.$$selectedObject.name}}&nbsp;
+                <small>{{(form.$$selectedObject.isTag===true ? form.options.taggingLabel : '')}}</small>
             </ui-select-match>
             <!--repeat code because tagging does not display properly under group by but is still useful -->
             <ui-select-choices refresh="populateTitleMap(form, $select.search)"
@@ -45,7 +45,7 @@
 
         <!--repeat code because tagging does not display properly under group by but is still useful -->
 
-        <ui-select ng-controller="dynamicSelectController" ng-model="select_model.selected"
+        <ui-select ng-controller="dynamicSelectController" ng-model="form.$$selectedObject"
                    ng-if="(form.options.tagging||false) && (form.options.groupBy || false)"
                    tagging="form.options.tagging||false" tagging-label="form.options.taggingLabel"
                    tagging-tokens="form.options.taggingTokens"
@@ -53,8 +53,8 @@
                    class="{{form.options.uiClass}}">
             <ui-select-match
                     placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">
-                {{select_model.selected.name}}&nbsp;
-                <small>{{(select_model.selected.isTag===true ? form.options.taggingLabel : '')}}</small>
+                {{form.$$selectedObject.name}}&nbsp;
+                <small>{{(form.$$selectedObject.isTag===true ? form.options.taggingLabel : '')}}</small>
             </ui-select-match>
             <ui-select-choices group-by="form.options.groupBy"
                                refresh="populateTitleMap(form, $select.search)"
@@ -76,7 +76,7 @@
             ng-model="form.$$selectedValue"
             toggle-single-model
                 pre-selected-value="$$value$$"
-                select-model="select_model"
+                form="form"
             schema-validate="form"/>
 
         <span ng-if="form.feedback !== false"
