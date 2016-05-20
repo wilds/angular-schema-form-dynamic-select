@@ -16,7 +16,7 @@
             ng-if="!(form.options.tagging||false)"
             ng-model="form.$$selectedObject"
             ng-disabled="form.disabled"
-            on-select="$$value$$=$item.value"
+            on-select="$$value$$=$item.value||''"
             theme="bootstrap"
             class="{{form.options.uiClass}}">
 
