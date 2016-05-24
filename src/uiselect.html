@@ -16,7 +16,6 @@
             ng-if="!(form.options.tagging||false)"
             ng-model="form.$$selectedObject"
             ng-disabled="form.disabled"
-            on-select="$$value$$=$item.value||''"
             theme="bootstrap"
             class="{{form.options.uiClass}}">
 
@@ -150,11 +149,10 @@
         <input
             type="hidden"
             name="{{form.key.slice(-1)[0]}}"
-            sf-changed="form"
-            ng-model="form.$$selectedValue"
             toggle-single-model
-                pre-selected-value="$$value$$"
+                ng-model="$$value$$"
                 form="form"
+            sf-changed="form"
             schema-validate="form"/>
 
         <span

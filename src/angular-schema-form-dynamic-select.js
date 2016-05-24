@@ -42,30 +42,33 @@ angular.module('schemaForm').config(
   .directive("toggleSingleModel", function() {
     // some how we get this to work ...
     return {
+      require: 'ngModel',
       restrict: 'A',
       scope: {
         ngModel: '=',
-        preSelectedValue : '=',
         form : '='
       },
-      controller: ['$scope', function($scope)  {
-        var initOnce = $scope.$watch('preSelectedValue', function(value) {
+      link: function(scope, element, attrs, ngModelCtrl)  {
+
+        var initOnce = scope.$watch('ngModel', function(value) {
             if (value) {
-                $scope.ngModel = value;
-                initOnce();
+                scope.form.$$selectedValue = value;
+                initOnce()
             }
         });
 
-        $scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
+
+        scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
             if (newValue != oldValue) {
-                $scope.ngModel = newValue ? newValue.value : '';
-                $scope.$parent.$parent.ngModel.$setViewValue($scope.ngModel);
-                console.log($scope.$parent.$parent.ngModel.$viewValue);
+                scope.ngModel = newValue ? newValue.value : '';
+                scope.form.$$selectedValue = scope.ngModel; // mirror scope var
+                ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
             }
 
         }, true);
 
-      }]
+
+      }
     };
   })
 
@@ -151,7 +154,6 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     if (!$scope.form.options) {
         $scope.form.options = {};
     }
-
 
     console.log("Setting options." + $scope.form.options.toString());
     $scope.form.options.scope = $scope;
