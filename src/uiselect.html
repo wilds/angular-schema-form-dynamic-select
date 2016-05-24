@@ -57,10 +57,9 @@
 
         <!-- 2. Tagging && !groupBy -->
         <ui-select
-            ng-if="(form.options.tagging||false) && !(form.options.groupBy || false)"
+            ng-if="(form.options.tagging||false) && !(form.options.groupBy||false)"
             ng-model="form.$$selectedObject"
             ng-disabled="form.disabled"
-            on-select="$$value$$=$item.value"
             tagging="form.options.tagging||false"
             tagging-label="form.options.taggingLabel"
             tagging-tokens="form.options.taggingTokens"
@@ -68,7 +67,10 @@
             class="{{form.options.uiClass}}">
 
             <ui-select-match
-                placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">
+                placeholder="{{form.placeholder ||
+                    form.schema.placeholder ||
+                    ('placeholders.select' | translate)}}
+                ">
                 {{form.$$selectedObject.name}}&nbsp;
                 <small>
                     {{(form.$$selectedObject.isTag===true ? form.options.taggingLabel : '')}}
@@ -84,8 +86,16 @@
                     )
                 }" >
 
-                <div ng-if="item.isTag"
-                     ng-bind-html="'<div>' + (item.name   | highlight: $select.search) + ' ' + form.options.taggingLabel + '</div><div class=&quot;divider&quot;></div>'"></div>
+                <div
+                    ng-if="item.isTag"
+                    ng-bind-html="
+                    '<div>' +
+                        (item.name | highlight: $select.search) +
+                         ' ' +
+                         form.options.taggingLabel +
+                     '</div>
+                     <div class=&quot;divider&quot;></div>'">
+                 </div>
 
                 <div
                     ng-if="!item.isTag"
@@ -93,7 +103,10 @@
                 </div>
 
                 <div ng-if="item.description">
-                    <span ng-bind-html="'<small>' + (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) + '</small>'">
+                    <span ng-bind-html="
+                    '<small>' +
+                        (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
+                    '</small>'">
                     </span>
                 </div>
             </ui-select-choices>
