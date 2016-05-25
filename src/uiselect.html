@@ -34,7 +34,7 @@
                     description: (form.options.searchDescriptions===true ? $select.search :
                         'NOTSEARCHINGFORTHIS'
                     )
-                }" > <!--TODO: add a track by here -->
+                } track by $index">
 
                 <div ng-bind-html="item.name | highlight: $select.search"></div>
 
@@ -54,26 +54,28 @@
         </ui-select>
 
         <!--repeat code because tagging does not display properly under group by -->
-
         <!-- 2. Tagging && !groupBy -->
         <ui-select
             ng-if="(form.options.tagging||false) && !(form.options.groupBy||false)"
             ng-model="form.$$selectedObject"
             ng-disabled="form.disabled"
-            tagging="form.options.tagging||false"
-            tagging-label="form.options.taggingLabel"
-            tagging-tokens="form.options.taggingTokens"
+            tagging="(getTaggingFn(form.options.tagging))"
+            tagging-label="{{form.options.taggingLabel}}||'(new)'"
+            tagging-tokens="{{form.options.taggingTokens}}||;|,"
             theme="bootstrap"
             class="{{form.options.uiClass}}">
 
             <ui-select-match
-                placeholder="{{form.placeholder ||
+                placeholder="{{
+                    form.placeholder ||
                     form.schema.placeholder ||
-                    ('placeholders.select' | translate)}}
-                ">
-                {{form.$$selectedObject.name}}&nbsp;
+                    ('placeholders.select' | translate)}}">
+                {{form.$$selectedObject.name||form.$$selectedObject.value}}&nbsp;
                 <small>
-                    {{(form.$$selectedObject.isTag===true ? form.options.taggingLabel : '')}}
+                    {{  (form.$$selectedObject.isTag===true ?
+                        form.options.taggingLabel :
+                        '')
+                    }}
                 </small>
             </ui-select-match>
 
@@ -84,36 +86,35 @@
                     name: $select.search,
                     description: (form.options.searchDescription===true ? $select.search : 'NOTSEARCHINGFORTHIS'
                     )
-                }" >
+                } track by $index">
 
-                <div
-                    ng-if="item.isTag"
+                <!-- Newly created element (tag) -->
+                <div ng-if="item.isTag"
                     ng-bind-html="
                     '<div>' +
                         (item.name | highlight: $select.search) +
-                         ' ' +
-                         form.options.taggingLabel +
-                     '</div>
-                     <div class=&quot;divider&quot;></div>'">
-                 </div>
+                        ' ' + form.options.taggingLabel +
+                    '</div>' +
+                    '<div class=&quot;divider&quot;></div>'
+                    ">
+                    <!-- Show a separator between the standard items and new ones -->
+                </div>
 
-                <div
-                    ng-if="!item.isTag"
+                <div ng-if="!item.isTag"
                     ng-bind-html="item.name + item.isTag| highlight: $select.search">
                 </div>
 
                 <div ng-if="item.description">
-                    <span ng-bind-html="
-                    '<small>' +
-                        (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
-                    '</small>'">
-                    </span>
+                   <span ng-bind-html="
+                       '<small>' +
+                           (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
+                       '</small>'">
+                   </span>
                 </div>
             </ui-select-choices>
         </ui-select>
 
-
-         <!-- 3. Tagging && groupBy -->
+        <!-- 3. Tagging && groupBy -->
         <ui-select
             ng-if="(form.options.tagging||false) && (form.options.groupBy || false)"
             ng-model="form.$$selectedObject"

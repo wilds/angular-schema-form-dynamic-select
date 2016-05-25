@@ -158,6 +158,34 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     console.log("Setting options." + $scope.form.options.toString());
     $scope.form.options.scope = $scope;
 
+
+    $scope.getTaggingFn = function(options) {
+        return typeof options=== 'function' ? options : $scope.defaultSingleTaggingFn;
+    }
+
+    $scope.defaultSingleTaggingFn = function(el){
+        var newElement = {
+            name: el.name || el,
+            value: el.value || el,
+            isTag: true
+        };
+
+        var found = false;
+        for (i = 0; i < $scope.form.titleMap.length; i++) {
+            // substitute with old tag
+            if ($scope.form.titleMap[i].isTag == true) {
+                $scope.form.titleMap[i] = newElement;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            // Add as first item in titleMap
+            $scope.form.titleMap.unshift(newElement);
+        }
+        return newElement;
+    }
+
     $scope.triggerTitleMap = function () {
         console.log("listener triggered");
         // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
@@ -184,7 +212,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
         form.titleMap = [];
 
-        if (newOptions && "map" in newOptions && newOptions .map) {
+        if (newOptions && "map" in newOptions && newOptions.map) {
             var current_row = null,
             final = newOptions.map.nameProperty.length - 1,
             separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
@@ -290,10 +318,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         if (form.schema && "enum" in form.schema) {
             form.titleMap = [];
             form.schema.enum.forEach(function (item) {
-                    form.titleMap.push({"value": item, "name": item})
-                }
-            );
-
+                form.titleMap.push({"value": item, "name": item})
+            });
         }
         else if (!form.options) {
 
