@@ -156,7 +156,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     }
 
     console.log("Setting options." + $scope.form.options.toString());
-    $scope.form.options.scope = $scope;
+    // WHY???
+    // $scope.form.options.scope = $scope;
 
 
     $scope.getTaggingFn = function(taggingOption) {
@@ -169,6 +170,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     }
 
     $scope.defaultSingleTaggingFn = function(el){
+        // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
         var newElement = {
             name: el.name || el,
             value: el.value || el,

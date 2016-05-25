@@ -48,15 +48,14 @@
             </ui-select-choices>
         </ui-select>
 
-        <!--repeat code because tagging does not display properly under group by -->
+        <!--repeat because annoying bug: allow-clear and tagging won't remove the first item: https://github.com/angular-ui/ui-select/issues/954 -->
         <!-- 2. Tagging  -->
-
         <ui-select
             ng-if="(form.options.tagging||false)"
             ng-model="form.$$selectedObject"
             ng-disabled="form.disabled"
             tagging="(getTaggingFn(form.options.tagging))"
-            tagging-label="{{form.options.taggingLabel}}||'(new)'"
+            tagging-label="{{form.options.taggingLabel||'(new)'}}"
             tagging-tokens="{{form.options.taggingTokens}}||;|,"
             theme="bootstrap"
             class="{{form.options.uiClass}}">
@@ -68,11 +67,8 @@
                     form.schema.placeholder ||
                     ('placeholders.select' | translate)}}">
                 {{form.$$selectedObject.name||form.$$selectedObject.value}}&nbsp;
-                <small>
-                    {{  (form.$$selectedObject.isTag===true ?
-                        form.options.taggingLabel :
-                        '')
-                    }}
+                <small ng-if="form.$$selectedObject.isTag">
+                    {{($select.taggingLabel)}}
                 </small>
             </ui-select-match>
 
