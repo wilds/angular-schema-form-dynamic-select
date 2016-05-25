@@ -159,8 +159,13 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     $scope.form.options.scope = $scope;
 
 
-    $scope.getTaggingFn = function(options) {
-        return typeof options=== 'function' ? options : $scope.defaultSingleTaggingFn;
+    $scope.getTaggingFn = function(taggingOption) {
+        // TODO: single and multiple togehter
+        // if (scope.form.schema.) {}
+        if (!taggingOption) {
+            return false;
+        }
+        return typeof taggingOption=== 'function' ? taggingOption : $scope.defaultSingleTaggingFn;
     }
 
     $scope.defaultSingleTaggingFn = function(el){
