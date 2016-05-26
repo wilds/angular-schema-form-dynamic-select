@@ -9,8 +9,23 @@
 }(this, function(schemaForm) {
 angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/strap/strapmultiselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"populateTitleMap(form)\">\n        <button type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-html=\"1\"\n                data-multiple=\"1\"\n				data-placement=\"{{form.options.placement || \'bottom-left\'}}\"\n				data-max-length=\"{{form.options.inlineMaxLength}}\"\n                data-max-length-html=\"{{form.options.inlineMaxLengthHtml}}\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>\n    </div>\n</div>\n");
 $templateCache.put("directives/decorators/bootstrap/strap/strapselect.html","<div ng-controller=\"dynamicSelectController\" class=\"form-group {{form.htmlClass}}\"\n     ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess()}\">\n    <label class=\"control-label {{form.labelHtmlClass}}\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group {{form.fieldHtmlClass}}\" ng-init=\"populateTitleMap(form)\">\n        <button ng-if=\"(form.options.multiple == \'true\') || (form.options.multiple == true)\"\n                type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-html=\"1\" data-multiple=\"1\" data-max-length=\"{{form.options.inlineMaxLength}}\"\n				data-placement=\"{{form.options.placement || \'bottom-left\'}}\"\n                data-max-length-html=\"{{form.options.inlineMaxLengthHtml}}\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <button ng-if=\"!((form.options.multiple == \'true\') || (form.options.multiple == true))\"\n                type=\"button\" class=\"btn btn-default\" sf-changed=\"form\" schema-validate=\"form\" ng-model=\"$$value$$\"\n                data-placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\')}}\"\n                data-html=\"1\"\n				data-placement=\"{{form.options.placement || \'bottom-left\'}}\"\n                bs-options=\"item.value as item.name for item in form.titleMap | selectFilter:this:$$value$$:&quot;$$value$$&quot;\"\n                bs-select>\n        </button>\n        <span class=\"help-block\">{{ (hasError() && errorMessage(schemaError())) || form.description}} </span>\n    </div>\n</div>\n\n");}]);
-angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/uiselect/uiselect.html","<div ng-controller=\"dynamicSelectController\"\n     ng-class=\"{\n        \'has-error\': hasError(),\n        \'has-success\': hasSuccess(),\n        \'has-feedback\': form.feedback !== false\n    }\"\n    class=\"form-group\">\n\n    <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group\">\n\n        <!-- 1. NO Tagging -->\n        <!-- NOTE: ng-if creates a new scope, so any change made in the child will obscure any parent scope var unless \"dot rule\" -->\n        <ui-select\n            ng-if=\"!(form.options.tagging||false)\"\n            ng-model=\"form.$$selectedObject\"\n            ng-disabled=\"form.disabled\"\n            theme=\"bootstrap\"\n            class=\"{{form.options.uiClass}}\">\n\n            <ui-select-match\n                allow-clear=\"{{form.options.allowClear||false}}\"\n                placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">\n                {{form.$$selectedObject.name}}\n            </ui-select-match>\n\n            <ui-select-choices\n                refresh=\"populateTitleMap(form, $select.search)\"\n                refresh-delay=\"form.options.refreshDelay\"\n                group-by=\"form.options.groupBy\"\n                repeat=\"item in form.titleMap | propsFilter: {\n                    name: $select.search,\n                    description: (form.options.searchDescriptions===true ? $select.search :\n                        \'NOTSEARCHINGFORTHIS\'\n                    )\n                } track by $index\">\n\n                <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n\n                <div ng-if=\"item.description\">\n                   <span ng-bind-html=\"\n                       \'<small>\' +\n                           (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) +\n                       \'</small>\'\">\n                   </span>\n                </div>\n            </ui-select-choices>\n        </ui-select>\n\n        <!--repeat because annoying bug: allow-clear and tagging won\'t remove the first item: https://github.com/angular-ui/ui-select/issues/954 -->\n        <!-- 2. Tagging  -->\n        <ui-select\n            ng-if=\"(form.options.tagging||false)\"\n            ng-model=\"form.$$selectedObject\"\n            ng-disabled=\"form.disabled\"\n            tagging=\"(getTaggingFn(form.options.tagging))\"\n            tagging-label=\"{{form.options.taggingLabel||\'(new)\'}}\"\n            tagging-tokens=\"{{form.options.taggingTokens}}||;|,\"\n            theme=\"bootstrap\"\n            class=\"{{form.options.uiClass}}\">\n\n            <ui-select-match\n                allow-clear=\"{{form.options.allowClear||false}}\"\n                placeholder=\"{{\n                    form.placeholder ||\n                    form.schema.placeholder ||\n                    (\'placeholders.select\' | translate)}}\">\n                {{form.$$selectedObject.name||form.$$selectedObject.value}}&nbsp;\n                <small ng-if=\"form.$$selectedObject.isTag\">\n                    {{($select.taggingLabel)}}\n                </small>\n            </ui-select-match>\n\n            <ui-select-choices\n                group-by=\"form.options.groupBy\"\n                refresh=\"populateTitleMap(form, $select.search)\"\n                refresh-delay=\"form.options.refreshDelay\"\n                repeat=\"item in form.titleMap | propsFilter: {\n                    name: $select.search,\n                    description: (form.options.searchDescription===true ? $select.search : \'NOTSEARCHINGFORTHIS\'\n                    )\n                } track by $index\">\n\n                <!-- Newly created element (tag) -->\n                <div ng-if=\"item.isTag\"\n                    ng-bind-html=\"\n                        \'<div>\' +\n                            (item.name | highlight: $select.search) +\n                            \' \' + form.options.taggingLabel +\n                        \'</div>\' +\n                        \'<div class=&quot;divider&quot;></div>\' \">\n                        <!-- Show a separator between the new item and the standard one -->\n                </div>\n\n                <div ng-if=\"!item.isTag\"\n                    ng-bind-html=\"item.name + item.isTag| highlight: $select.search\">\n                </div>\n\n                <div ng-if=\"item.description\">\n                    <span ng-bind-html=\"\n                        \'<small>\' +\n                            (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) +\n                       \'</small>\'\">\n                    </span>\n                </div>\n\n            </ui-select-choices>\n        </ui-select>\n\n        <input\n            type=\"hidden\"\n            name=\"{{form.key.slice(-1)[0]}}\"\n            toggle-single-model\n                ng-model=\"$$value$$\"\n                form=\"form\"\n            sf-changed=\"form\"\n            schema-validate=\"form\"/>\n\n        <span\n            ng-if=\"form.feedback !== false\"\n            ng-class=\"evalInScope(form.feedback) || {\n                \'glyphicon\': true,\n                \'glyphicon-ok\': hasSuccess(),\n                \'glyphicon-remove\': hasError()\n            }\"\n            class=\"form-control-feedback\"\n            id=\"{{form.key.slice(-1)[0] + \'Status\'}}\">\n        </span>\n\n        <div class=\"help-block\" sf-message=\"form.description\"></div>\n\n    </div>\n</div>\n");
-$templateCache.put("directives/decorators/bootstrap/uiselect/uiselectmultiple.html","\n<div class=\"form-group\" ng-class=\"{\'has-error\': hasError(), \'has-success\': hasSuccess(), \'has-feedback\': form.feedback !== false}\"\n        ng-controller=\"dynamicSelectController\" ng-init=\"$$value$$=$$value$$||[];uiMultiSelectInitInternalModel($$value$$)\">\n  <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n  <div class=\"form-group\">\n    <ui-select multiple sortable-options=\"{{form.sortableOptions}}\" ng-model=\"internalModel\" theme=\"bootstrap\"\n               on-select=\"$$value$$.push($item.value)\" on-remove=\"$$value$$.splice($$value$$.indexOf($item.value), 1)\"\n               class=\"{{form.options.uiClass}}\">\n      <ui-select-match placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">{{$item.name}}</ui-select-match>\n      <ui-select-choices repeat=\"item in form.titleMap | propsFilter: {name: $select.search}\"\n         refresh=\"populateTitleMap(form, $select.search)\"\n         refresh-delay=\"form.options.refreshDelay\"\n         group-by=\"form.options.groupBy\">\n        <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n      </ui-select-choices>\n    </ui-select>\n    <span ng-if=\"form.feedback !== false\"\n      class=\"form-control-feedback\"\n      ng-class=\"evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }\"></span>\n    <div class=\"help-block\"\n      ng-show=\"(hasError() && errorMessage(schemaError())) || form.description\"\n      ng-bind-html=\"(hasError() && errorMessage(schemaError())) || form.description\"></div>\n  </div>\n</div>\n");}]);
+angular.module("schemaForm").run(["$templateCache", function($templateCache) {$templateCache.put("directives/decorators/bootstrap/uiselect/uiselect.html","<div ng-controller=\"dynamicSelectController\"\n     ng-class=\"{\n        \'has-error\': hasError(),\n        \'has-success\': hasSuccess(),\n        \'has-feedback\': form.feedback !== false\n    }\"\n    class=\"form-group\">\n\n    <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group\">\n        <!-- 1. NO Tagging -->\n        <!-- NOTE: ng-if creates a new scope, so any change made in the child will obscure any parent scope var unless \"dot rule\" -->\n        <ui-select\n            ng-if=\"!(form.options.tagging||false)\"\n            ng-model=\"form.$$selectedObject\"\n            ng-disabled=\"form.disabled\"\n            theme=\"bootstrap\"\n            class=\"{{form.options.uiClass}}\">\n\n            <ui-select-match\n                allow-clear=\"{{form.options.allowClear||false}}\"\n                placeholder=\"{{form.placeholder || form.schema.placeholder || (\'placeholders.select\' | translate)}}\">\n                {{form.$$selectedObject.name}}\n            </ui-select-match>\n\n            <ui-select-choices\n                refresh=\"populateTitleMap(form, $select.search)\"\n                refresh-delay=\"form.options.refreshDelay\"\n                group-by=\"form.options.groupBy\"\n                repeat=\"item in form.titleMap | propsFilter: {\n                    name: $select.search,\n                    description: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')\n                } track by $index\">\n\n                <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n\n                <div ng-if=\"item.description\">\n                    <span ng-bind-html=\"\n                        \'<small>\' +\n                            (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) +\n                        \'</small>\'\">\n                    </span>\n                </div>\n            </ui-select-choices>\n        </ui-select>\n\n        <!--repeat because annoying bug: allow-clear and tagging won\'t remove the first item: https://github.com/angular-ui/ui-select/issues/954 -->\n        <!-- 2. Tagging  -->\n        <ui-select\n            ng-if=\"(form.options.tagging||false)\"\n            ng-model=\"form.$$selectedObject\"\n            ng-disabled=\"form.disabled\"\n            tagging=\"(getTaggingFn(form.options.tagging))\"\n            tagging-label=\"{{form.options.taggingLabel||\'(new)\'}}\"\n            tagging-tokens=\"{{form.options.taggingTokens}}||;|,\"\n            theme=\"bootstrap\"\n            class=\"{{form.options.uiClass}}\">\n\n            <ui-select-match\n                allow-clear=\"{{form.options.allowClear||false}}\"\n                placeholder=\"{{\n                    form.placeholder ||\n                    form.schema.placeholder ||\n                    (\'placeholders.select\' | translate)}}\">\n                {{form.$$selectedObject.name||form.$$selectedObject.value}}&nbsp;\n                <small ng-if=\"form.$$selectedObject.isTag\">\n                    {{($select.taggingLabel)}}\n                </small>\n            </ui-select-match>\n\n            <ui-select-choices\n                group-by=\"form.options.groupBy\"\n                refresh=\"populateTitleMap(form, $select.search)\"\n                refresh-delay=\"form.options.refreshDelay\"\n                repeat=\"item in form.titleMap | propsFilter: {\n                    name: $select.search,\n                    description: (form.options.searchDescription===true ? $select.search : \'NOTSEARCHINGFORTHIS\'\n                    )\n                } track by $index\">\n\n                <!-- Newly created element (tag) -->\n                <div ng-if=\"item.isTag\"\n                    ng-bind-html=\"\n                        \'<div>\' +\n                            (item.name | highlight: $select.search) +\n                            \' \' + form.options.taggingLabel +\n                        \'</div>\' +\n                        \'<div class=&quot;divider&quot;></div>\' \">\n                        <!-- Show a separator between the new item and the standard one -->\n                </div>\n\n                <div ng-if=\"!item.isTag\"\n                    ng-bind-html=\"item.name + item.isTag| highlight: $select.search\">\n                </div>\n\n                <div ng-if=\"item.description\">\n                    <span ng-bind-html=\"\n                        \'<small>\' +\n                            (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) +\n                       \'</small>\'\">\n                    </span>\n                </div>\n\n            </ui-select-choices>\n        </ui-select>\n\n        <input\n            type=\"hidden\"\n            name=\"{{form.key.slice(-1)[0]}}\"\n            toggle-single-model\n                ng-model=\"$$value$$\"\n                form=\"form\"\n            sf-changed=\"form\"\n            schema-validate=\"form\"/>\n\n        <span\n            ng-if=\"form.feedback !== false\"\n            ng-class=\"evalInScope(form.feedback) || {\n                \'glyphicon\': true,\n                \'glyphicon-ok\': hasSuccess(),\n                \'glyphicon-remove\': hasError()\n            }\"\n            class=\"form-control-feedback\"\n            id=\"{{form.key.slice(-1)[0] + \'Status\'}}\">\n        </span>\n\n        <div class=\"help-block\" sf-message=\"form.description\"></div>\n\n    </div>\n</div>\n");
+$templateCache.put("directives/decorators/bootstrap/uiselect/uiselectmultiple.html","<div\n    ng-controller=\"dynamicSelectController\"\n    ng-class=\"{\n        \'has-error\': hasError(),\n        \'has-success\': hasSuccess(),\n        \'has-feedback\': form.feedback !== false\n    }\"\n    class=\"form-group\">\n\n    <label class=\"control-label\" ng-show=\"showTitle()\">{{form.title}}</label>\n\n    <div class=\"form-group\">\n        <ui-select\n            multiple\n            sortable-options=\"{{form.sortableOptions}}\"\n            ng-model=\"form.$$selectedObjects\"\n            theme=\"bootstrap\"\n            on-select=\"form.$$selectedValues.push($item.value)\"\n            on-remove=\"form.$$selectedValues.splice(form.$$selectedValues.indexOf($item.value), 1)\"\n            class=\"{{form.options.uiClass}}\">\n\n            <ui-select-match\n                placeholder=\"{{\n                    form.placeholder ||\n                    form.schema.placeholder ||\n                    (\'placeholders.select\' | translate)}}\n                \">\n                {{$item.name}}\n            </ui-select-match>\n\n            <ui-select-choices\n                refresh=\"populateTitleMap(form, $select.search)\"\n                refresh-delay=\"form.options.refreshDelay\"\n                group-by=\"form.options.groupBy\"\n                repeat=\"item in form.titleMap | propsFilter: {\n                    name: $select.search,\n                    description: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')\n                } track by $index\">\n\n                <div ng-bind-html=\"item.name | highlight: $select.search\"></div>\n\n                <div ng-if=\"item.description\">\n                    <span ng-bind-html=\"\n                        \'<small>\' +\n                            (\'\'+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : \'NOTSEARCHINGFORTHIS\')) +\n                        \'</small>\'\">\n                    </span>\n                </div>\n            </ui-select-choices>\n        </ui-select>\n\n        <input\n            type=\"hidden\"\n            name=\"{{form.key.slice(-1)[0]}}\"\n            toggle-multiple-model\n                ng-model=\"$$value$$\"\n                form=\"form\"\n            sf-changed=\"form\"\n            schema-validate=\"form\"/>\n\n        <span\n            ng-if=\"form.feedback !== false\"\n            ng-class=\"evalInScope(form.feedback) || {\n                \'glyphicon\': true,\n                \'glyphicon-ok\': hasSuccess(),\n                \'glyphicon-remove\': hasError()\n            }\"\n            class=\"form-control-feedback\">\n        </span>\n\n        <div class=\"help-block\" sf-message=\"form.description\"></div>\n    </div>\n</div>\n");}]);
+//  ===========
+//  = Helpers =
+//  ===========
+function find_in_titleMap(value, titleMap) {
+  for (i = 0; i < titleMap.length; i++) {
+      if (titleMap[i].value == value) {
+          // Return the original object or we get this bug: https://github.com/angular-ui/ui-select/issues/1414
+          return titleMap[i];
+          // Don't do this
+          // return {"value": titleMap[i].value, "name": titleMap[i].name}
+      }
+  }
+};
+
+
 angular.module('schemaForm').config(
     ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
         function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
@@ -64,20 +79,22 @@ angular.module('schemaForm').config(
       link: function(scope, element, attrs, ngModelCtrl)  {
 
         var initOnce = scope.$watch('ngModel', function(value) {
-            if (value) {
-                scope.form.$$selectedValue = value;
-                initOnce()
+          if (value) {
+            scope.form.$$selectedValue = value;
+            if (scope.form.titleMap) {
+              scope.form.$$selectedObject = find_in_titleMap(value, scope.form.titleMap);
             }
+            // or leave it to the async fns otherwise
+            initOnce();
+          }
         });
 
-
         scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
-            if (newValue != oldValue) {
-                scope.ngModel = newValue ? newValue.value : '';
-                scope.form.$$selectedValue = scope.ngModel; // mirror scope var
-                ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
-            }
-
+          if (newValue != oldValue) {
+            scope.ngModel = newValue ? newValue.value : '';
+            scope.form.$$selectedValue = scope.ngModel; // mirror scope var
+            ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
+          }
         }, true);
 
 
@@ -85,48 +102,88 @@ angular.module('schemaForm').config(
     };
   })
 
-  .directive('multipleOn', function() {
+  .directive("toggleMultipleModel", function() {
     return {
-    link: function($scope, $element, $attrs) {
-        $scope.$watch(
-            function () { return $element.attr('multiple-on'); },
-            function (newVal) {
+      require: 'ngModel',
+      restrict: 'A',
+      scope: {
+        ngModel: '=',
+        form : '='
+      },
+      link: function(scope, element, attrs, ngModelCtrl)  {
 
-                if(newVal == "true") {
-                    var select_scope = angular.element($element).scope().$$childTail;
-                    select_scope.$isMultiple = true;
-                    select_scope.options.multiple = true;
-                    select_scope.$select.$element.addClass('select-multiple');
-                }
-                else {
-                    angular.element($element).scope().$$childTail.$isMultiple = false;
-                }
+        var initOnce = scope.$watch('ngModel', function(values) {
+          if (values) {
+            scope.form.$$selectedValues = values;
+            if (scope.form.titleMap) {
+              values.forEach(function(value){
+                scope.form.$$selectedObjects.push(find_in_titleMap(value, scope.form.titleMap));
+              })
             }
-        );
+            // or leave it to the async fns otherwise
+            initOnce();
+          }
+          else {
+            scope.form.$$selectedValues = [];
+            scope.form.$$selectedObjects = [];
+          }
+        });
+
+        scope.$watch('form.$$selectedValues', function(newValues, oldValues, scope) {
+          if (newValues != oldValues) {
+            scope.ngModel = newValues ? newValues : [];
+            scope.form.$$selectedValues = scope.ngModel; // mirror scope var
+            ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
+          }
+        }, true);
       }
     };
   })
-  .filter('whereMulti', function() {
-    return function(items, key, values) {
-      var out = [];
 
-      if (angular.isArray(values) && items !== undefined) {
-          values.forEach(function (value) {
-              for (var i = 0; i < items.length; i++) {
-                  if (value == items[i][key]) {
-                      out.push(items[i]);
-                      break;
-                  }
-              }
-          });
-      } else {
-        // Let the output be the input untouched
-        out = items;
-      }
+  // TODO: remove this. It's never used, old directive for strapselect
+  // .directive('multipleOn', function() {
+  //   return {
+  //   link: function($scope, $element, $attrs) {
+  //       $scope.$watch(
+  //           function () { return $element.attr('multiple-on'); },
+  //           function (newVal) {
 
-      return out;
-    };
-  })
+  //               if(newVal == "true") {
+  //                   var select_scope = angular.element($element).scope().$$childTail;
+  //                   select_scope.$isMultiple = true;
+  //                   select_scope.options.multiple = true;
+  //                   select_scope.$select.$element.addClass('select-multiple');
+  //               }
+  //               else {
+  //                   angular.element($element).scope().$$childTail.$isMultiple = false;
+  //               }
+  //           }
+  //       );
+  //     }
+  //   };
+  // })
+  // TODO: Remove this. Never used, it was old directive for ui-multiple.
+  // .filter('whereMulti', function() {
+  //   return function(items, key, values) {
+  //     var out = [];
+
+  //     if (angular.isArray(values) && items !== undefined) {
+  //         values.forEach(function (value) {
+  //             for (var i = 0; i < items.length; i++) {
+  //                 if (value == items[i][key]) {
+  //                     out.push(items[i]);
+  //                     break;
+  //                 }
+  //             }
+  //         });
+  //     } else {
+  //       // Let the output be the input untouched
+  //       out = items;
+  //     }
+
+  //     return out;
+  //   };
+  // })
   .filter('propsFilter', function() {
         return function (items, props) {
             var out = [];
@@ -169,9 +226,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     }
 
     console.log("Setting options." + $scope.form.options.toString());
-    // WHY???
-    // $scope.form.options.scope = $scope;
 
+    // TODO: remove this. WHY???
+    // $scope.form.options.scope = $scope;
 
     $scope.getTaggingFn = function(taggingOption) {
         // TODO: single and multiple togehter
@@ -182,8 +239,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         return typeof taggingOption=== 'function' ? taggingOption : $scope.defaultSingleTaggingFn;
     }
 
+    // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
     $scope.defaultSingleTaggingFn = function(el){
-        // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
+
         var newElement = {
             name: el.name || el,
             value: el.value || el,
@@ -206,6 +264,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         return newElement;
     }
 
+    // TODO: remove from scope -> helper
     $scope.triggerTitleMap = function () {
         console.log("listener triggered");
         // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
@@ -214,11 +273,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
     };
 
+    // TODO: why??
     $scope.initFiltering = function (localModel) {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
                 $scope.$parent.$watch(trigger, $scope.triggerTitleMap)
-
             });
         }
         // This is set here, as the model value may become unitialized and typeless if validation fails.
@@ -258,22 +317,33 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
         else {
             data.forEach(function (item) {
-                    if ("text" in item) {
-                        item.name = item.text
-                    }
-                }
-            );
+              if ("text" in item) {
+                  item.name = item.text
+              }
+            });
             form.titleMap = data;
         }
 
+        // TODO: adapt for multiple
+        // Case Single
         if ($scope.form.$$selectedValue && $scope.form.$$selectedObject === undefined) {
-          $scope.form.$$selectedObject = $scope.find_in_titleMap($scope.form.$$selectedValue);
+          $scope.form.$$selectedObject = find_in_titleMap($scope.form.$$selectedValue, form.titleMap);
         }
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
-        if ($scope.internalModel) {
-            console.log("Call uiMultiSelectInitInternalModel");
-            $scope.uiMultiSelectInitInternalModel($scope.externalModel);
+        // TOFIX: remove this BS
+        // if ($scope.internalModel) {
+        //     console.log("Call uiMultiSelectInitInternalModel");
+        //     $scope.uiMultiSelectInitInternalModel($scope.externalModel);
+        // }
+
+        // Case Multiple
+        // TODO: test this
+        if ($scope.form.$$selectedValues.length !==0 && ($scope.form.$$selectedObjects == undefined || $scope.form.$$selectedObjects.length === 0)) {
+                    $scope.form.$$selectedObjects = [];
+            $scope.form.$$selectedValues.forEach(function(value){
+                $scope.form.$$selectedObjects.push(find_in_titleMap(value, form.titleMap));
+            });
         }
     };
 
@@ -392,18 +462,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
 
-    $scope.find_in_titleMap = function (value) {
-        for (i = 0; i < $scope.form.titleMap.length; i++) {
-            if ($scope.form.titleMap[i].value == value) {
-                return {"value": $scope.form.titleMap[i].value, "name": $scope.form.titleMap[i].name}
-            }
-        }
-
-    };
-
-    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
-    {
-
+    // TODO: Remove me plz!:
+    $scope.uiMultiSelectInitInternalModel = function(supplied_model) {
 
         console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
         $scope.externalModel = supplied_model;

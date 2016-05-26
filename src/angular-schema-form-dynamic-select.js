@@ -1,3 +1,18 @@
+//  ===========
+//  = Helpers =
+//  ===========
+function find_in_titleMap(value, titleMap) {
+  for (i = 0; i < titleMap.length; i++) {
+      if (titleMap[i].value == value) {
+          // Return the original object or we get this bug: https://github.com/angular-ui/ui-select/issues/1414
+          return titleMap[i];
+          // Don't do this
+          // return {"value": titleMap[i].value, "name": titleMap[i].name}
+      }
+  }
+};
+
+
 angular.module('schemaForm').config(
     ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
         function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
@@ -51,20 +66,22 @@ angular.module('schemaForm').config(
       link: function(scope, element, attrs, ngModelCtrl)  {
 
         var initOnce = scope.$watch('ngModel', function(value) {
-            if (value) {
-                scope.form.$$selectedValue = value;
-                initOnce()
+          if (value) {
+            scope.form.$$selectedValue = value;
+            if (scope.form.titleMap) {
+              scope.form.$$selectedObject = find_in_titleMap(value, scope.form.titleMap);
             }
+            // or leave it to the async fns otherwise
+            initOnce();
+          }
         });
 
-
         scope.$watch('form.$$selectedObject', function(newValue, oldValue, scope) {
-            if (newValue != oldValue) {
-                scope.ngModel = newValue ? newValue.value : '';
-                scope.form.$$selectedValue = scope.ngModel; // mirror scope var
-                ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
-            }
-
+          if (newValue != oldValue) {
+            scope.ngModel = newValue ? newValue.value : '';
+            scope.form.$$selectedValue = scope.ngModel; // mirror scope var
+            ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
+          }
         }, true);
 
 
@@ -72,48 +89,88 @@ angular.module('schemaForm').config(
     };
   })
 
-  .directive('multipleOn', function() {
+  .directive("toggleMultipleModel", function() {
     return {
-    link: function($scope, $element, $attrs) {
-        $scope.$watch(
-            function () { return $element.attr('multiple-on'); },
-            function (newVal) {
+      require: 'ngModel',
+      restrict: 'A',
+      scope: {
+        ngModel: '=',
+        form : '='
+      },
+      link: function(scope, element, attrs, ngModelCtrl)  {
 
-                if(newVal == "true") {
-                    var select_scope = angular.element($element).scope().$$childTail;
-                    select_scope.$isMultiple = true;
-                    select_scope.options.multiple = true;
-                    select_scope.$select.$element.addClass('select-multiple');
-                }
-                else {
-                    angular.element($element).scope().$$childTail.$isMultiple = false;
-                }
+        var initOnce = scope.$watch('ngModel', function(values) {
+          if (values) {
+            scope.form.$$selectedValues = values;
+            if (scope.form.titleMap) {
+              values.forEach(function(value){
+                scope.form.$$selectedObjects.push(find_in_titleMap(value, scope.form.titleMap));
+              })
             }
-        );
+            // or leave it to the async fns otherwise
+            initOnce();
+          }
+          else {
+            scope.form.$$selectedValues = [];
+            scope.form.$$selectedObjects = [];
+          }
+        });
+
+        scope.$watch('form.$$selectedValues', function(newValues, oldValues, scope) {
+          if (newValues != oldValues) {
+            scope.ngModel = newValues ? newValues : [];
+            scope.form.$$selectedValues = scope.ngModel; // mirror scope var
+            ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
+          }
+        }, true);
       }
     };
   })
-  .filter('whereMulti', function() {
-    return function(items, key, values) {
-      var out = [];
 
-      if (angular.isArray(values) && items !== undefined) {
-          values.forEach(function (value) {
-              for (var i = 0; i < items.length; i++) {
-                  if (value == items[i][key]) {
-                      out.push(items[i]);
-                      break;
-                  }
-              }
-          });
-      } else {
-        // Let the output be the input untouched
-        out = items;
-      }
+  // TODO: remove this. It's never used, old directive for strapselect
+  // .directive('multipleOn', function() {
+  //   return {
+  //   link: function($scope, $element, $attrs) {
+  //       $scope.$watch(
+  //           function () { return $element.attr('multiple-on'); },
+  //           function (newVal) {
 
-      return out;
-    };
-  })
+  //               if(newVal == "true") {
+  //                   var select_scope = angular.element($element).scope().$$childTail;
+  //                   select_scope.$isMultiple = true;
+  //                   select_scope.options.multiple = true;
+  //                   select_scope.$select.$element.addClass('select-multiple');
+  //               }
+  //               else {
+  //                   angular.element($element).scope().$$childTail.$isMultiple = false;
+  //               }
+  //           }
+  //       );
+  //     }
+  //   };
+  // })
+  // TODO: Remove this. Never used, it was old directive for ui-multiple.
+  // .filter('whereMulti', function() {
+  //   return function(items, key, values) {
+  //     var out = [];
+
+  //     if (angular.isArray(values) && items !== undefined) {
+  //         values.forEach(function (value) {
+  //             for (var i = 0; i < items.length; i++) {
+  //                 if (value == items[i][key]) {
+  //                     out.push(items[i]);
+  //                     break;
+  //                 }
+  //             }
+  //         });
+  //     } else {
+  //       // Let the output be the input untouched
+  //       out = items;
+  //     }
+
+  //     return out;
+  //   };
+  // })
   .filter('propsFilter', function() {
         return function (items, props) {
             var out = [];
@@ -156,9 +213,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     }
 
     console.log("Setting options." + $scope.form.options.toString());
-    // WHY???
-    // $scope.form.options.scope = $scope;
 
+    // TODO: remove this. WHY???
+    // $scope.form.options.scope = $scope;
 
     $scope.getTaggingFn = function(taggingOption) {
         // TODO: single and multiple togehter
@@ -169,8 +226,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         return typeof taggingOption=== 'function' ? taggingOption : $scope.defaultSingleTaggingFn;
     }
 
+    // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
     $scope.defaultSingleTaggingFn = function(el){
-        // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
+
         var newElement = {
             name: el.name || el,
             value: el.value || el,
@@ -193,6 +251,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         return newElement;
     }
 
+    // TODO: remove from scope -> helper
     $scope.triggerTitleMap = function () {
         console.log("listener triggered");
         // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
@@ -201,11 +260,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
     };
 
+    // TODO: why??
     $scope.initFiltering = function (localModel) {
         if ($scope.form.options.filterTriggers) {
             $scope.form.options.filterTriggers.forEach(function (trigger) {
                 $scope.$parent.$watch(trigger, $scope.triggerTitleMap)
-
             });
         }
         // This is set here, as the model value may become unitialized and typeless if validation fails.
@@ -245,22 +304,33 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
         else {
             data.forEach(function (item) {
-                    if ("text" in item) {
-                        item.name = item.text
-                    }
-                }
-            );
+              if ("text" in item) {
+                  item.name = item.text
+              }
+            });
             form.titleMap = data;
         }
 
+        // TODO: adapt for multiple
+        // Case Single
         if ($scope.form.$$selectedValue && $scope.form.$$selectedObject === undefined) {
-          $scope.form.$$selectedObject = $scope.find_in_titleMap($scope.form.$$selectedValue);
+          $scope.form.$$selectedObject = find_in_titleMap($scope.form.$$selectedValue, form.titleMap);
         }
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
-        if ($scope.internalModel) {
-            console.log("Call uiMultiSelectInitInternalModel");
-            $scope.uiMultiSelectInitInternalModel($scope.externalModel);
+        // TOFIX: remove this BS
+        // if ($scope.internalModel) {
+        //     console.log("Call uiMultiSelectInitInternalModel");
+        //     $scope.uiMultiSelectInitInternalModel($scope.externalModel);
+        // }
+
+        // Case Multiple
+        // TODO: test this
+        if ($scope.form.$$selectedValues.length !==0 && ($scope.form.$$selectedObjects == undefined || $scope.form.$$selectedObjects.length === 0)) {
+                    $scope.form.$$selectedObjects = [];
+            $scope.form.$$selectedValues.forEach(function(value){
+                $scope.form.$$selectedObjects.push(find_in_titleMap(value, form.titleMap));
+            });
         }
     };
 
@@ -379,18 +449,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     };
 
 
-    $scope.find_in_titleMap = function (value) {
-        for (i = 0; i < $scope.form.titleMap.length; i++) {
-            if ($scope.form.titleMap[i].value == value) {
-                return {"value": $scope.form.titleMap[i].value, "name": $scope.form.titleMap[i].name}
-            }
-        }
-
-    };
-
-    $scope.uiMultiSelectInitInternalModel = function(supplied_model)
-    {
-
+    // TODO: Remove me plz!:
+    $scope.uiMultiSelectInitInternalModel = function(supplied_model) {
 
         console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
         $scope.externalModel = supplied_model;

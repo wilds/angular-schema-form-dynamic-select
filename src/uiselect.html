@@ -9,7 +9,6 @@
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group">
-
         <!-- 1. NO Tagging -->
         <!-- NOTE: ng-if creates a new scope, so any change made in the child will obscure any parent scope var unless "dot rule" -->
         <ui-select
@@ -31,19 +30,17 @@
                 group-by="form.options.groupBy"
                 repeat="item in form.titleMap | propsFilter: {
                     name: $select.search,
-                    description: (form.options.searchDescriptions===true ? $select.search :
-                        'NOTSEARCHINGFORTHIS'
-                    )
+                    description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')
                 } track by $index">
 
                 <div ng-bind-html="item.name | highlight: $select.search"></div>
 
                 <div ng-if="item.description">
-                   <span ng-bind-html="
-                       '<small>' +
-                           (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
-                       '</small>'">
-                   </span>
+                    <span ng-bind-html="
+                        '<small>' +
+                            (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
+                        '</small>'">
+                    </span>
                 </div>
             </ui-select-choices>
         </ui-select>
