@@ -13,47 +13,46 @@ function find_in_titleMap(value, titleMap) {
 };
 
 
-angular.module('schemaForm').config(
-    ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
-        function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
+angular.module('schemaForm').config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
+  function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
 
-            var select = function (name, schema, options) {
-                if ((schema.type === 'string') && ("enum" in schema)) {
-                    var f = schemaFormProvider.stdFormObj(name, schema, options);
-                    f.key = options.path;
-                    f.type = 'strapselect';
-                    options.lookup[sfPathProvider.stringify(options.path)] = f;
-                    return f;
-                }
-            };
+    var select = function (name, schema, options) {
+        if ((schema.type === 'string') && ("enum" in schema)) {
+            var f = schemaFormProvider.stdFormObj(name, schema, options);
+            f.key = options.path;
+            f.type = 'strapselect';
+            options.lookup[sfPathProvider.stringify(options.path)] = f;
+            return f;
+        }
+    };
 
-            schemaFormProvider.defaults.string.unshift(select);
+    schemaFormProvider.defaults.string.unshift(select);
 
-            //Add to the bootstrap directive
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
-                'directives/decorators/bootstrap/strap/strapselect.html');
+    //Add to the bootstrap directive
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselect',
+        'directives/decorators/bootstrap/strap/strapselect.html');
 
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselect',
-                'directives/decorators/bootstrap/strap/strapmultiselect.html');
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselect',
+        'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
-                'directives/decorators/bootstrap/strap/strapselect.html');
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapselectdynamic',
+        'directives/decorators/bootstrap/strap/strapselect.html');
 
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
-                'directives/decorators/bootstrap/strap/strapmultiselect.html');
-
-
-            // UI SELECT
-            //Add to the bootstrap directive
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselect',
-                'directives/decorators/bootstrap/uiselect/uiselect.html');
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'strapmultiselectdynamic',
+        'directives/decorators/bootstrap/strap/strapmultiselect.html');
 
 
-            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselectmultiple',
-                'directives/decorators/bootstrap/uiselect/uiselectmultiple.html');
+    // UI SELECT
+    //Add to the bootstrap directive
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselect',
+        'directives/decorators/bootstrap/uiselect/uiselect.html');
 
 
-        }])
+    schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', 'uiselectmultiple',
+        'directives/decorators/bootstrap/uiselect/uiselectmultiple.html');
+
+
+  }])
   .directive("toggleSingleModel", function() {
     // some how we get this to work ...
     return {
@@ -84,11 +83,9 @@ angular.module('schemaForm').config(
           }
         }, true);
 
-
       }
     };
   })
-
   .directive("toggleMultipleModel", function() {
     return {
       require: 'ngModel',
@@ -107,7 +104,7 @@ angular.module('schemaForm').config(
                 scope.form.$$selectedObjects.push(find_in_titleMap(value, scope.form.titleMap));
               })
             }
-            // or leave it to the async fns otherwise
+            // leave it to the async fns otherwise (TODO)
             initOnce();
           }
           else {
@@ -172,42 +169,43 @@ angular.module('schemaForm').config(
   //   };
   // })
   .filter('propsFilter', function() {
-        return function (items, props) {
-            var out = [];
+    return function (items, props) {
+      var out = [];
 
-            if (angular.isArray(items)) {
-                items.forEach(function (item) {
-                    var itemMatches = false;
+      if (angular.isArray(items)) {
+        items.forEach(function (item) {
+          var itemMatches = false;
 
-                    var keys = Object.keys(props);
-                    for (var i = 0; i < keys.length; i++) {
-                        var prop = keys[i];
-                        if (item.hasOwnProperty(prop)) {
-                            //only match if this property is actually in the item to avoid
-                            var text = props[prop].toLowerCase();
-                            //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
-                            if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
-                                itemMatches = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (itemMatches) {
-                        out.push(item);
-                    }
-                });
-            } else {
-                // Let the output be the input untouched
-                out = items;
+          var keys = Object.keys(props);
+          for (var i = 0; i < keys.length; i++) {
+            var prop = keys[i];
+            if (item.hasOwnProperty(prop)) {
+              //only match if this property is actually in the item to avoid
+              var text = props[prop].toLowerCase();
+              //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
+              if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
+                  itemMatches = true;
+                  break;
+              }
             }
+          }
 
-            return out;
-        };
-    });
+          if (itemMatches) {
+            out.push(item);
+          }
+        });
+      }
+      else {
+        // Let the output be the input untouched
+        out = items;
+      }
 
-angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+      return out;
+    };
+  });
 
+angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout',
+  function ($scope, $http, $timeout) {
     if (!$scope.form.options) {
         $scope.form.options = {};
     }
@@ -218,37 +216,37 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     // $scope.form.options.scope = $scope;
 
     $scope.getTaggingFn = function(taggingOption) {
-        // TODO: single and multiple togehter
-        // if (scope.form.schema.) {}
-        if (!taggingOption) {
-            return false;
-        }
-        return typeof taggingOption=== 'function' ? taggingOption : $scope.defaultSingleTaggingFn;
+      // TODO: single and multiple togehter
+      // if (scope.form.schema.) {}
+      if (!taggingOption) {
+        return false;
+      }
+      return typeof taggingOption === 'function' || typeof taggingOption === 'string' ? taggingOption : $scope.defaultSingleTaggingFn;
     }
 
-    // TOFIX: (Bug) If used together with async Async will override titleMap, erasing the new element from the dropdown
+    // TOFIX: (Bug) If used together with async -> Async will override titleMap, erasing the new element from the dropdown
     $scope.defaultSingleTaggingFn = function(el){
 
-        var newElement = {
-            name: el.name || el,
-            value: el.value || el,
-            isTag: true
-        };
+      var newElement = {
+        name: el.name || el,
+        value: el.value || el,
+        isTag: true
+      };
 
-        var found = false;
-        for (i = 0; i < $scope.form.titleMap.length; i++) {
-            // substitute with old tag
-            if ($scope.form.titleMap[i].isTag == true) {
-                $scope.form.titleMap[i] = newElement;
-                found = true;
-                break;
-            }
+      var found = false;
+      for (i = 0; i < $scope.form.titleMap.length; i++) {
+        // substitute with old tag
+        if ($scope.form.titleMap[i].isTag == true) {
+          $scope.form.titleMap[i] = newElement;
+          found = true;
+          break;
         }
-        if (!found) {
-            // Add as first item in titleMap
-            $scope.form.titleMap.unshift(newElement);
-        }
-        return newElement;
+      }
+      if (!found) {
+        // Add as first item in titleMap
+        $scope.form.titleMap.unshift(newElement);
+      }
+      return newElement;
     }
 
     // TODO: remove from scope -> helper
@@ -389,7 +387,6 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         form.titleMap.pop();
     };
 
-
     $scope.populateTitleMap = function (form, search) {
 
         if (form.schema && "enum" in form.schema) {
@@ -464,7 +461,6 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             }
         }
     };
-
 }]);
 
 angular.module('schemaForm').filter('selectFilter', [function ($filter) {
@@ -479,18 +475,15 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
             return inputArray;
         }
 
-
-
         console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
         console.log("Filter:" + controller.form.options.filter);
+
         if (!controller.filteringInitialized) {
             console.log("Initialize filter");
             controller.initFiltering(localModel);
         }
 
-
         var data = [];
-
 
         angular.forEach(inputArray, function (curr_item) {
             //console.log("Compare: curr_item: " + JSON.stringify(curr_item) +
