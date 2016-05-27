@@ -11,9 +11,9 @@
 
     <div class="form-group">
         <ui-select
-            multiple
-            sortable-options="{{form.sortableOptions}}"
+            multiple="true"
             ng-model="form.$$selectedObjects"
+            sortable="form.options.sortable||false"
             theme="bootstrap"
             on-select="form.$$selectedValues.push($item.value)"
             on-remove="form.$$selectedValues.splice(form.$$selectedValues.indexOf($item.value), 1)"
@@ -23,8 +23,8 @@
                 placeholder="{{
                     form.placeholder ||
                     form.schema.placeholder ||
-                    ('placeholders.select' | translate)}}
-                ">
+                    ('placeholders.select' | translate)
+                }}">
                 {{$item.name}}
             </ui-select-match>
 
