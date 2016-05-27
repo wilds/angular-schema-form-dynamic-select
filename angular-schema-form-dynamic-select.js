@@ -80,10 +80,9 @@ angular.module('schemaForm').config(['schemaFormProvider', 'schemaFormDecorators
         var initOnce = scope.$watch('ngModel', function(value) {
           if (value) {
             scope.form.$$selectedValue = value;
-            if (scope.form.titleMap) {
+            if (scope.form.titleMap) { // or leave it to the async fns otherwise
               scope.form.$$selectedObject = find_in_titleMap(value, scope.form.titleMap);
             }
-            // or leave it to the async fns otherwise
             initOnce();
           }
         });
@@ -95,7 +94,6 @@ angular.module('schemaForm').config(['schemaFormProvider', 'schemaFormDecorators
             ngModelCtrl.$setViewValue(scope.ngModel);   // trigger validation
           }
         }, true);
-
       }
     };
   })
@@ -112,12 +110,15 @@ angular.module('schemaForm').config(['schemaFormProvider', 'schemaFormDecorators
         var initOnce = scope.$watch('ngModel', function(values) {
           if (values) {
             scope.form.$$selectedValues = values;
-            if (scope.form.titleMap) {
+            if (!scope.form.$$selectedObjects) {
+              scope.form.$$selectedObjects = [];
+            }
+
+            if (scope.form.titleMap) { // leave it to the async fns otherwise (TODO)
               values.forEach(function(value){
                 scope.form.$$selectedObjects.push(find_in_titleMap(value, scope.form.titleMap));
               })
             }
-            // leave it to the async fns otherwise (TODO)
             initOnce();
           }
           else {
