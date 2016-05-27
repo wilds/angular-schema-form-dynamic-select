@@ -10,7 +10,10 @@
     <label class="control-label" ng-show="showTitle()">{{form.title}}</label>
 
     <div class="form-group">
+
+        <!-- 1. Multiple, not tagging -->
         <ui-select
+            ng-if="!(form.options.tagging||false)"
             multiple="true"
             ng-model="form.$$selectedObjects"
             sortable="form.options.sortable||false"
@@ -37,7 +40,8 @@
                     description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')
                 } track by $index">
 
-                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                <div ng-bind-html="item.name | highlight: $select.search">
+                </div>
 
                 <div ng-if="item.description">
                     <span ng-bind-html="
@@ -46,6 +50,65 @@
                         '</small>'">
                     </span>
                 </div>
+
+            </ui-select-choices>
+        </ui-select>
+
+        <!-- 2. Multiple, Tagging -->
+        <ui-select
+            ng-if="(form.options.tagging||false)"
+            multiple="true"
+            ng-model="form.$$selectedObjects"
+            sortable="form.options.sortable||false"
+            tagging="(getTaggingFn(form.options.tagging))"
+            tagging-label="{{form.options.taggingLabel||'(new)'}}"
+            tagging-tokens="{{form.options.taggingTokens}}||;|,"
+            theme="bootstrap"
+            on-select="form.$$selectedValues.push($item.value)"
+            on-remove="form.$$selectedValues.splice(form.$$selectedValues.indexOf($item.value), 1)"
+            class="{{form.options.uiClass}}">
+
+            <ui-select-match
+                placeholder="{{
+                    form.placeholder ||
+                    form.schema.placeholder ||
+                    ('placeholders.select' | translate)
+                }}">
+                {{$item.name}}
+            </ui-select-match>
+
+            <ui-select-choices
+                refresh="populateTitleMap(form, $select.search)"
+                refresh-delay="form.options.refreshDelay"
+                group-by="form.options.groupBy"
+                repeat="item in form.titleMap | propsFilter: {
+                    name: $select.search,
+                    description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')
+                } track by $index">
+
+                <!-- Newly created element (tag) -->
+                <div ng-if="item.isTag"
+                    ng-bind-html="
+                        '<div>' +
+                            (item.name | highlight: $select.search) +
+                            ' ' + form.options.taggingLabel +
+                        '</div>' +
+                        '<div class=&quot;divider&quot;></div>' ">
+                        <!-- Show a separator between the new item and the standard one -->
+                </div>
+
+                <div ng-if="!item.isTag"
+                    ng-bind-html="item.name | highlight: $select.search">
+                </div>
+
+                <div ng-if="item.description">
+                    <span ng-bind-html="
+                        '<small>' +
+                            (''+item.description | highlight: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS')) +
+                        '</small>'">
+                    </span>
+                </div>
+
             </ui-select-choices>
         </ui-select>
 

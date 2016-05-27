@@ -183,7 +183,7 @@ angular.module('schemaForm').config(['schemaFormProvider', 'schemaFormDecorators
             if (item.hasOwnProperty(prop)) {
               //only match if this property is actually in the item to avoid
               var text = props[prop].toLowerCase();
-              //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
+              //search for either a space before the text or the text at the start of the string so that the middle of words are not matched
               if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
                   itemMatches = true;
                   break;
@@ -217,16 +217,15 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     $scope.form.options.scope = $scope;
 
     $scope.getTaggingFn = function(taggingOption) {
-      // TODO: single and multiple togehter
-      // if (scope.form.schema.) {}
       if (!taggingOption) {
-        return false;
+        return undefined;
       }
-      return typeof taggingOption === 'function' || typeof taggingOption === 'string' ? taggingOption : $scope.defaultSingleTaggingFn;
+      // If string or function than use the supplied fn, otherwise use the default one
+      return typeof taggingOption === 'function' || typeof taggingOption === 'string' ? taggingOption : $scope.defaultTaggingFn;
     }
 
-    // TOFIX: (Bug) If used together with async -> Async will override titleMap, erasing the new element from the dropdown
-    $scope.defaultSingleTaggingFn = function(el){
+    // TOFIX: (Bug) If used together with async -> Async will override titleMap, erasing the new element from the dropdown (but not from the selection)
+    $scope.defaultTaggingFn = function(el){
 
       var newElement = {
         name: el.name || el,
