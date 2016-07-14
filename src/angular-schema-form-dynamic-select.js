@@ -206,7 +206,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         }
 
         if ($scope.insideModel && $scope.select_model.selected === undefined) {
-          $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel);
+            $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel).item;
         }
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
@@ -336,7 +336,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     $scope.find_in_titleMap = function (value) {
         for (i = 0; i < $scope.form.titleMap.length; i++) {
             if ($scope.form.titleMap[i].value == value) {
-                return {"value": $scope.form.titleMap[i].value, "name": $scope.form.titleMap[i].name}
+                return {"item": $scope.form.titleMap[i], "index": i};
             }
         }
 
@@ -352,7 +352,9 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         if ($scope.form.titleMap) {
             if (supplied_model !== undefined && angular.isArray(supplied_model)){
                 supplied_model.forEach(function (value) {
-                        $scope.internalModel.push($scope.find_in_titleMap(value));
+                        titleMap_item = $scope.find_in_titleMap(value);
+                        $scope.internalModel.push(titleMap_item.item);
+                        $scope.form.titleMap.splice(titleMap_item.index, 1);
                     }
                 )
             }
