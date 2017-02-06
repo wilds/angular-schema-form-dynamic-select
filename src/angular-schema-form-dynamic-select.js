@@ -280,7 +280,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
             var current_row = null,
             final = newOptions.map.nameProperty.length - 1,
             separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
-                data.forEach(function (current_row) {
+            data.forEach(function (current_row) {
                 current_row["value"] = current_row[newOptions .map.valueProperty];
                 //check if the value passed is a string or not
                 if(typeof newOptions.map.nameProperty != 'string'){

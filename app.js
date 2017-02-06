@@ -301,7 +301,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
         },
         {
             "key": "multiselectDynamicAsync",
-            "type": "strapselect",
+            "type": "uiselectmultiple",
             "onChange": function (modelValue, form) {
                 $scope.form.forEach(function (item) {
                     if (item.key == "multiselectDynamicHttpGet") {
@@ -366,6 +366,7 @@ testApp.controller("appController", ["$scope", "$http", function ($scope, $http)
     $scope.model.multiselect = ["value2", "value1"];
     $scope.model.uiselect = "value1";
     $scope.model.uiselectmultiple = ["value1", "value2"];
+    $scope.model.multiselectDynamicAsync = ["json-value1", "json-value2"];
 
 
     $scope.model.priorities = {

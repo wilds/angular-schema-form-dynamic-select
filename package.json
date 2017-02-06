@@ -23,8 +23,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "angular-schema-form": "~0",
-    "angular-schema-form-bootstrap": "~0",
+    "angular-schema-form": "~1",
+    "angular-schema-form-bootstrap": "~1",
     "angular-strap": "~2",
     "bootstrap": "~3",
     "angular-ui-select": "~0"
