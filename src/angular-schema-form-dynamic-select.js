@@ -333,7 +333,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     $scope.find_in_titleMap = function (value) {
         for (i = 0; i < $scope.form.titleMap.length; i++) {
             if ($scope.form.titleMap[i].value == value) {
-                return {"value": $scope.form.titleMap[i].value, "name": $scope.form.titleMap[i].name}
+                return $scope.form.titleMap[i];
             }
         }
 
@@ -348,8 +348,8 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         $scope.internalModel = [];
         if ($scope.form.titleMap) {
             if (supplied_model !== undefined && angular.isArray(supplied_model)){
-                supplied_model.forEach(function (value) {
-                        $scope.internalModel.push($scope.find_in_titleMap(value));
+                supplied_model.forEach(function (item) {
+                        $scope.internalModel.push($scope.find_in_titleMap(angular.isString(item) ? item : item.value));
                     }
                 )
             }
