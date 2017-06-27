@@ -15,11 +15,23 @@ angular.module('schemaForm').config(
     ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
         function (schemaFormProvider, schemaFormDecoratorsProvider, sfPathProvider) {
 
+		    //Creates an default titleMap list from an enum, i.e. a list of strings.
+            var enumToTitleMap = function(enm) {
+                var titleMap = []; //canonical titleMap format is a list.
+                enm.forEach(function(name) {
+                    titleMap.push({name: name, value: name});
+                });
+                return titleMap;
+            };
+
             var select = function (name, schema, options) {
                 if ((schema.type === 'string') && ("enum" in schema)) {
                     var f = schemaFormProvider.stdFormObj(name, schema, options);
                     f.key = options.path;
-                    f.type = 'strapselect';
+                    f.type = 'select';
+                    if (!f.titleMap) {
+                        f.titleMap = enumToTitleMap(schema['enum']);
+                    }
                     options.lookup[sfPathProvider.stringify(options.path)] = f;
                     return f;
                 }
