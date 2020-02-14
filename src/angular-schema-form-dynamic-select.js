@@ -118,31 +118,21 @@ angular.module('schemaForm').config(
             if (angular.isArray(items)) {
                 items.forEach(function (item) {
                     var itemMatches = false;
-
                     var keys = Object.keys(props);
                     for (var i = 0; i < keys.length; i++) {
                         var prop = keys[i];
-                        if (item.hasOwnProperty(prop)) {
-                            if (angular.isArray(item[prop])) {
-                                item[prop].forEach(function(e) {
-                                    //only match if this property is actually in the item to avoid
-                                    var text = props[prop].toLowerCase();
-                                    //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
-                                    if (e.toString().toLowerCase().indexOf(text) === 0 || ( e.toString()).toLowerCase().indexOf(' ' + text) !== -1) {
-                                        itemMatches = true;
-                                        return;
-                                    }
-                                });
-                                if (itemMatches)
-                                    break;
-                            } else {
-                                //only match if this property is actually in the item to avoid
-                                var text = props[prop].toLowerCase();
-                                //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
-                                if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
-                                    itemMatches = true;
-                                    break;
-                                }
+                        var text = props[prop].toLowerCase();
+                        if (item && !item.hasOwnProperty(prop)) {
+                            itemMatches = true;
+                            break;
+                        }
+                        if (item && item.hasOwnProperty(prop)) {
+                            //only match if this property is actually in the item to avoid
+
+                            //search for either a space before the text or the textg at the start of the string so that the middle of words are not matched
+                            if (item[prop].toString().toLowerCase().indexOf(text) === 0 || ( item[prop].toString()).toLowerCase().indexOf(' ' + text) !== -1) {
+                                itemMatches = true;
+                                break;
                             }
                         }
                     }
@@ -160,7 +150,7 @@ angular.module('schemaForm').config(
         };
     });
 
-angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$http', '$timeout', '$log', function ($scope, $http, $timeout, $log) {
 
     if (!$scope.form.options) {
         $scope.form.options = {};
@@ -168,11 +158,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
     $scope.select_model = {};
 
-    console.log("Setting options." + $scope.form.options.toString());
+    $log.debug("Setting options." + $scope.form.options.toString());
     $scope.form.options.scope = $scope;
 
     $scope.triggerTitleMap = function () {
-        console.log("listener triggered");
+        $log.debug("listener triggered");
         // Ugly workaround to trigger titleMap expression re-evaluation so that the selectFilter it reapplied.
         $scope.form.titleMap.push({"value": "345890u340598u3405u9", "name": "34095u3p4ouij"})
         $timeout(function () { $scope.form.titleMap.pop() })
@@ -196,26 +186,30 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
         // Remap the data
 
         form.titleMap = [];
-
-        if (newOptions && "map" in newOptions && newOptions .map) {
-            var current_row = null,
-            final = newOptions.map.nameProperty.length - 1,
-            separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
-                data.forEach(function (current_row) {
-                current_row["value"] = current_row[newOptions .map.valueProperty];
+        if (newOptions && "map" in newOptions && newOptions.map) {
+            var final = newOptions.map.nameProperty.length - 1;
+            var separator = newOptions.map.separatorValue ? newOptions.map.separatorValue : ' - ';
+            if (angular.isArray(form.schema.type) && form.schema.type.includes('null') || form.schema.type == 'null') {
+                let nullValue = {};
+                //nullValue[newOptions.map.valueProperty] = null;
+                //nullValue[newOptions.map.nameProperty] = '';
+                form.titleMap.push(nullValue);
+            }
+            data.forEach(function (current_row) {
+                current_row["value"] = current_row[newOptions.map.valueProperty];
                 //check if the value passed is a string or not
                 if(typeof newOptions.map.nameProperty != 'string'){
                     //loop through the object/array
                     var newName = "";
                     for (var i in newOptions.map.nameProperty) {
-                        newName += current_row[newOptions .map.nameProperty[i]];
-                        if(i != final){newName += separator};
+                        newName += current_row[newOptions.map.nameProperty[i]];
+                        if(i != final){newName += separator}
                     }
                     current_row["name"] = newName; //init the 'name' property
                 }
                 else{
                     //if it is a string
-                    current_row["name"] = current_row[newOptions .map.nameProperty];
+                    current_row["name"] = current_row[newOptions.map.nameProperty];
                 }
                 form.titleMap.push(current_row);
             });
@@ -237,7 +231,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
         // The ui-selects needs to be reinitialized (UI select sets the internalModel and externalModel.
         if ($scope.internalModel) {
-            console.log("Call uiMultiSelectInitInternalModel");
+            $log.debug("Call uiMultiSelectInitInternalModel");
             $scope.uiMultiSelectInitInternalModel($scope.externalModel);
         }
     };
@@ -281,11 +275,11 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
     $scope.getOptions = function (options, search) {
         // If defined, let the a callback function manipulate the options
         if (options.httpPost && options.httpPost.optionsCallback) {
-            newOptionInstance = $scope.clone(options);
+            let newOptionInstance = $scope.clone(options);
             return $scope.getCallback(options.httpPost.optionsCallback)(newOptionInstance, search);
         }
         if (options.httpGet && options.httpGet.optionsCallback) {
-            newOptionInstance = $scope.clone(options);
+            let newOptionInstance = $scope.clone(options);
             return $scope.getCallback(options.httpGet.optionsCallback)(newOptionInstance, search);
         }
         else {
@@ -310,13 +304,12 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
         }
         else if (!form.options) {
-
-            console.log("dynamicSelectController.populateTitleMap(key:" + form.key + ") : No options set, needed for dynamic selects");
+            $log.error("dynamicSelectController.populateTitleMap(key:" + form.key + ") : No options set, needed for dynamic selects");
         }
         else if (form.options.callback) {
             form.titleMap = $scope.getCallback(form.options.callback)(form.options, search);
             $scope.finalizeTitleMap(form,form.titleMap, form.options);
-            console.log("callback items: ", form.titleMap);
+            $log.debug("callback items: ", form.titleMap);
         }
         else if (form.options.asyncCallback) {
             return $scope.getCallback(form.options.asyncCallback)(form.options, search).then(
@@ -324,82 +317,73 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
                     // In order to work with both $http and generic promises
                     _data = _data.data || _data;
                     $scope.finalizeTitleMap(form, _data, form.options);
-                    console.log('asyncCallback items', form.titleMap);
+                    $log.debug('asyncCallback items', form.titleMap);
                 },
                 function (data, status) {
                     if (form.options.onPopulationError) {
                         $scope.getCallback(form.options.onPopulationError)(form, data, status);
-                    }
-                    else {
-                        alert("Loading select items failed(Options: '" + String(form.options) +
-                        "\nError: " + status);
+                    } else {
+                        $log.error("Loading select items failed(Options: '" + String(form.options) + "\nError: " + status);
                     }
                 });
         }
         else if (form.options.httpPost) {
-            var finalOptions = $scope.getOptions(form.options, search);
+            let finalOptions = $scope.getOptions(form.options, search);
 
             return $http.post(finalOptions.httpPost.url, finalOptions.httpPost.parameter).then(
                 function (_data) {
 
                     $scope.finalizeTitleMap(form, _data.data, finalOptions);
-                    console.log('httpPost items', form.titleMap);
+                    $log.debug('httpPost items', form.titleMap);
                 },
                 function (data, status) {
                     if (form.options.onPopulationError) {
                         $scope.getCallback(form.options.onPopulationError)(form, data, status);
-                    }
-                    else {
-                        alert("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
+                    } else {
+                        $log.error("Loading select items failed (URL: '" + String(finalOptions.httpPost.url) +
                         "' Parameter: " + String(finalOptions.httpPost.parameter) + "\nError: " + status);
                     }
                 });
         }
         else if (form.options.httpGet) {
-            var finalOptions = $scope.getOptions(form.options, search);
+            let finalOptions = $scope.getOptions(form.options, search);
             return $http.get(finalOptions.httpGet.url, finalOptions.httpGet.parameter).then(
                 function (data) {
                     $scope.finalizeTitleMap(form, data.data, finalOptions);
-                    console.log('httpGet items', form.titleMap);
+                    $log.debug('httpGet items', form.titleMap);
                 },
                 function (data, status) {
                     if (form.options.onPopulationError) {
                         $scope.getCallback(form.options.onPopulationError)(form, data, status);
-                    }
-                    else {
-                        alert("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
+                    } else {
+                        $log.error("Loading select items failed (URL: '" + String(finalOptions.httpGet.url) +
                         "\nError: " + status);
                     }
                 });
-        }
-        else {
-            if ($scope.insideModel && $scope.select_model.selected === undefined) {
-                $scope.select_model.selected = $scope.find_in_titleMap($scope.insideModel);
-            }
         }
     };
 
 
     $scope.find_in_titleMap = function (value) {
-        for (i = 0; i < $scope.form.titleMap.length; i++) {
+        for (let i = 0; i < $scope.form.titleMap.length; i++) {
             if ($scope.form.titleMap[i].value == value) {
-                return {"item": $scope.form.titleMap[i], "index": i};
+                return {
+                    "item": $scope.form.titleMap[i],
+                    "index": i
+                };
             }
         }
-
     };
 
     $scope.uiMultiSelectInitInternalModel = function(supplied_model)
     {
-
-
-        console.log("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
+        $log.debug("$scope.externalModel: Key: " +$scope.form.key.toString() + " Model: " + supplied_model.toString());
         $scope.externalModel = supplied_model;
         $scope.internalModel = [];
         if ($scope.form.titleMap) {
             if (supplied_model !== undefined && angular.isArray(supplied_model)){
                 supplied_model.forEach(function (value) {
-                        titleMap_item = $scope.find_in_titleMap(value);
+                        let titleMap_item = $scope.find_in_titleMap(value);
                         $scope.internalModel.push(titleMap_item.item);
                         $scope.form.titleMap.splice(titleMap_item.index, 1);
                     }
@@ -410,7 +394,7 @@ angular.module('schemaForm').controller('dynamicSelectController', ['$scope', '$
 
 }]);
 
-angular.module('schemaForm').filter('selectFilter', [function ($filter) {
+angular.module('schemaForm').filter('selectFilter', [function ($filter, $log) {
     return function (inputArray, controller, localModel, strLocalModel) {
         // As the controllers' .model is the global and its form is the local, we need to get the local model as well.
         // We also need tp be able to set it if is undefined after a validation failure,so for that we need
@@ -424,10 +408,10 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
 
 
 
-        console.log("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
-        console.log("Filter:" + controller.form.options.filter);
+        $log.debug("----- In filtering for " + controller.form.key + "(" + controller.form.title +"), model value: " + JSON.stringify( localModel) + "----");
+        $log.debug("Filter:" + controller.form.options.filter);
         if (!controller.filteringInitialized) {
-            console.log("Initialize filter");
+            $log.debug("Initialize filter");
             controller.initFiltering(localModel);
         }
 
@@ -436,7 +420,7 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
 
 
         angular.forEach(inputArray, function (curr_item) {
-            //console.log("Compare: curr_item: " + JSON.stringify(curr_item) +
+            //$log.debug("Compare: curr_item: " + JSON.stringify(curr_item) +
             //"with : " + JSON.stringify( controller.$eval(controller.form.options.filterTriggers[0])));
             if (controller.$eval(controller.form.options.filter, {item: curr_item})) {
                 data.push(curr_item);
@@ -448,7 +432,7 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
                     localModel.splice(localModel.indexOf(curr_item.value), 1);
                 }
                 else if (localModel == curr_item.value) {
-                    console.log("Setting model of type " + controller.localModelType  + "to null.");
+                    $log.debug("Setting model of type " + controller.localModelType  + "to null.");
                     localModel = null;
                 }
             }
@@ -456,16 +440,18 @@ angular.module('schemaForm').filter('selectFilter', [function ($filter) {
 
         if (controller.localModelType == "[object Array]" && !localModel) {
             // An undefined local model seems to mess up bootstrap select's indicators
-            console.log("Resetting model of type " + controller.localModelType  + " to [].");
+            $log.debug("Resetting model of type " + controller.localModelType  + " to [].");
 
             controller.$eval(strLocalModel + "=[]");
         }
 
-        //console.log("Input: " + JSON.stringify(inputArray));
-        //console.log("Output: " + JSON.stringify(data));
-        //console.log("Model value out : " + JSON.stringify(localModel));
-        console.log("----- Exiting filter for " + controller.form.title + "-----");
+        //$log.debug("Input: " + JSON.stringify(inputArray));
+        //$log.debug("Output: " + JSON.stringify(data));
+        //$log.debug("Model value out : " + JSON.stringify(localModel));
+        $log.debug("----- Exiting filter for " + controller.form.title + "-----");
 
         return data;
     };
 }]);
+
+}));
